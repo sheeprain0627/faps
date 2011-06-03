@@ -170,6 +170,7 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 void COpenGLControl::oglDrawScene(void)
 {
 	//fm.defineObject();
+	//define the data and render the screne
 	fm.display(fm.defineObject());
 	
 	
