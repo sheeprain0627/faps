@@ -63,3 +63,6 @@ typedef struct {
 
  char Load3DS (obj_type_ptr ogg, char *filename);
 void  display();
+int LoadBitmap(char *filename);
+
+extern int num_texture;
