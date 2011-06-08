@@ -4,7 +4,7 @@ class FaceModel
 public:
 		  // Our vertex type
 struct vertex_type {
-    float x,y,z;
+    double x,y,z;
 } ;
 
 // The polygon (triangle), 3 numbers that aim 3 vertices

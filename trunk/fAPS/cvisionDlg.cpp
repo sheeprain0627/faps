@@ -103,6 +103,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_STN_CLICKED(m_picture, &CcvisionDlg::OnStnClickedpicture)
 	ON_EN_CHANGE(IDC_EDIT1, &CcvisionDlg::OnEnChangeEdit1)
+	ON_BN_CLICKED(IDC_BUTTON3, &CcvisionDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -507,4 +508,10 @@ void CcvisionDlg::OnEnChangeEdit1()
 	// with the ENM_CHANGE flag ORed into the mask.
 
 	// TODO:  Add your control notification handler code here
+}
+
+
+void CcvisionDlg::OnBnClickedButton3()
+{
+	// TODO: Add your control notification handler code here
 }
