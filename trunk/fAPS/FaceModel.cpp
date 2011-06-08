@@ -14,7 +14,7 @@ using namespace std;
 #define MAX_VERTICES 4000 // Max number of vertices (for each object)
 #define MAX_POLYGONS 4000 // Max number of polygons (for each object)
 
-//polygon_type kk;
+//polygon_type kk;  
 
 //FaceModel::obj_type cube;
 
