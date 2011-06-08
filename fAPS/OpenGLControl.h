@@ -2,7 +2,7 @@
 #include "afxwin.h"
 #include <GL/GL.h>
 #include <GL/GLU.H>
-#include "FaceModel.h"
+//#include "FaceModel.h"
 #include "Tdsloader.h"
 //#include "MAIN.H"
 
@@ -12,8 +12,8 @@ class COpenGLControl :	public CWnd
 
 
 private :
-FaceModel fm;
-Tdsloader tds;
+//FaceModel fm;
+//Tdsloader tds;
 //MAIN fm2;
 
 
