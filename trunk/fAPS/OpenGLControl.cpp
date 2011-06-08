@@ -165,6 +165,8 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 
    // Model view
    glMatrixMode(GL_MODELVIEW);
+
+   init();
 }
 
 void COpenGLControl::oglDrawScene(void)
@@ -177,9 +179,8 @@ void COpenGLControl::oglDrawScene(void)
 	
 	
 	
-	
-
 	/*
+	
 
 	//FaceModel fm=new FaceModel();	fm.display();
 
@@ -222,7 +223,9 @@ void COpenGLControl::oglDrawScene(void)
       glVertex3f( 1.0f, -1.0f,  1.0f);
       glVertex3f( 1.0f, -1.0f, -1.0f);
       glVertex3f( 1.0f,  1.0f, -1.0f);
-   glEnd();  */
+   glEnd();  
+
+   */
 }
 
 

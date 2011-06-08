@@ -63,9 +63,6 @@
     <ClInclude Include="OpenGLControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FaceModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tdsloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OpenGLControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FaceModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tdsloader.cpp">

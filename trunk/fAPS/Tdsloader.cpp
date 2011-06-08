@@ -180,21 +180,26 @@ char Load3DS (obj_type_ptr p_object, char *p_filename)
 	return (1); // Returns ok
 }
 
-void display(){
-	glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
+
+void init(){
+glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	Load3DS (&object,"spaceship.3ds");
 
 	object.id_texture=LoadBitmap("face.bmp"); // The Function LoadBitmap() return the current texture ID
     
     
 	glBindTexture(GL_TEXTURE_2D, object.id_texture);
+
+}
+void display(){
+	
 	 int l_index;
-	glBegin(GL_TRIANGLES); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
+    glBegin(GL_TRIANGLES); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
     for (l_index=0;l_index<object.polygons_qty;l_index++)
     {
         //----------------- FIRST VERTEX -----------------
         // Texture coordinates of the first vertex
-       glTexCoord2f( object.mapcoord[ object.polygon[l_index].a ].u,                      object.mapcoord[ object.polygon[l_index].a ].v);
+      glTexCoord2f( object.mapcoord[ object.polygon[l_index].a ].u,                      object.mapcoord[ object.polygon[l_index].a ].v);
         // Coordinates of the first vertex
         glVertex3f( object.vertex[ object.polygon[l_index].a ].x,
                     object.vertex[ object.polygon[l_index].a ].y,
