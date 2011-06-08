@@ -166,6 +166,7 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
    // Model view
    glMatrixMode(GL_MODELVIEW);
 
+   //read the 3ds and phoda data and load it into memory
    init();
 }
 

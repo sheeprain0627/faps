@@ -62,5 +62,7 @@ public:
 private :
 	COpenGLControl m_oglWindow;
 
+public:
+	afx_msg void OnBnClickedButton3();
 };
 #endif
