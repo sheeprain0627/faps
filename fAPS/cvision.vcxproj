@@ -106,6 +106,7 @@
     <None Include="C:\Users\reka\Desktop\default-BMP.bmp" />
     <None Include="C:\Users\reka\Desktop\images-BMP.bmp" />
     <None Include="C:\Users\reka\Desktop\images.bmp" />
+    <None Include="C:\Users\reka\Desktop\Static-Image.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />
@@ -116,6 +117,10 @@
   <ItemGroup>
     <ClInclude Include="cvision.h" />
     <ClInclude Include="cvisionDlg.h" />
+    <ClInclude Include="MyFTabCtrl.h" />
+    <ClInclude Include="MyTabOne.h" />
+    <ClInclude Include="MyTabThree.h" />
+    <ClInclude Include="MyTabTwo.h" />
     <ClInclude Include="OpenGLControl.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -125,6 +130,10 @@
   <ItemGroup>
     <ClCompile Include="cvision.cpp" />
     <ClCompile Include="cvisionDlg.cpp" />
+    <ClCompile Include="MyFTabCtrl.cpp" />
+    <ClCompile Include="MyTabOne.cpp" />
+    <ClCompile Include="MyTabThree.cpp" />
+    <ClCompile Include="MyTabTwo.cpp" />
     <ClCompile Include="OpenGLControl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
