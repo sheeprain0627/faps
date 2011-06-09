@@ -71,7 +71,8 @@ void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, m_picture, m_PicCtrl);
 	DDX_Control(pDX, IDC_BUTTON1, m_Button1);
 	DDX_Control(pDX, IDC_EDIT1, m_textbox);
-	
+
+	DDX_Control(pDX, IDC_TAB1, m_TabCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
@@ -142,6 +143,38 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	// TODO: Add extra initialization here
 
 	SetDlgItemTextA(IDC_EDIT1, "Critical points Selection");
+
+
+	CRect	rectPage;
+
+	//创建页面
+	m_pDlgPage1	= new MyTabOne;
+	m_pDlgPage1->Create(IDD_DIALOG1, &m_TabCtrl);
+
+	m_pDlgPage2	= new MyTabTwo;
+	m_pDlgPage2->Create(IDD_DIALOG2, &m_TabCtrl);
+
+	m_pDlgPage3	= new MyTabThree;
+	m_pDlgPage3->Create(IDD_DIALOG3, &m_TabCtrl);
+
+	//布置页面
+	m_TabCtrl.GetWindowRect(rectPage);
+	m_TabCtrl.ScreenToClient(rectPage);
+
+	rectPage.left	+= 2;
+	rectPage.top	+= 22;
+	rectPage.right	-= 4;
+	rectPage.bottom	-= 4;
+
+	m_pDlgPage1->MoveWindow(rectPage);
+	m_pDlgPage2->MoveWindow(rectPage);
+	m_pDlgPage3->MoveWindow(rectPage);
+
+	//添加页面
+	m_TabCtrl.AddPage(m_pDlgPage1, _T("Tab1"));
+	m_TabCtrl.AddPage(m_pDlgPage2, _T("Tab2"));
+	m_TabCtrl.AddPage(m_pDlgPage3, _T("Tab3"));
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

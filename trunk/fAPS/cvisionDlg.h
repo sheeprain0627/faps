@@ -18,7 +18,10 @@
 #include "afxwin.h"
 #include "afxcmn.h"
 #include "OpenGLControl.h"
-
+#include "MyTabOne.h"
+#include "MyTabThree.h"
+#include "MyTabTwo.h"
+#include "MyFTabCtrl.h"
 
 // CcvisionDlg dialog
 class CcvisionDlg : public CDialogEx
@@ -32,6 +35,9 @@ public:
 // Dialog Data
 	enum { IDD = IDD_CVISION_DIALOG };
 
+	MyTabOne*	m_pDlgPage1;
+	MyTabTwo*	m_pDlgPage2;
+	MyTabThree*	m_pDlgPage3;
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
@@ -64,5 +70,6 @@ private :
 
 public:
 	afx_msg void OnBnClickedButton3();
+	MyFTabCtrl m_TabCtrl;
 };
 #endif
