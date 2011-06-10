@@ -69,7 +69,7 @@ void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	//  DDX_Control(pDX, m_picture, m_PicCtrl);
-	DDX_Control(pDX, IDC_BUTTON1, m_Button1);
+	//DDX_Control(pDX, IDC_BUTTON1, m_Button1);
 	//  DDX_Control(pDX, IDC_EDIT1, m_textbox);
 
 	DDX_Control(pDX, IDC_TAB1, m_TabCtrl);
