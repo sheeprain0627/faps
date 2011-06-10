@@ -102,11 +102,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\images111.bmp" />
-    <None Include="C:\Users\reka\Desktop\default-BMP.bmp" />
-    <None Include="C:\Users\reka\Desktop\images-BMP.bmp" />
-    <None Include="C:\Users\reka\Desktop\images.bmp" />
-    <None Include="C:\Users\reka\Desktop\Static-Image.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />
