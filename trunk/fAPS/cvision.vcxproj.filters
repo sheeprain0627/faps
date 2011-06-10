@@ -46,6 +46,9 @@
     <None Include="C:\Users\reka\Desktop\Static-Image.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\Static-Image.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
