@@ -79,13 +79,14 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnOpen)
-	ON_BN_CLICKED(IDC_BUTTON2, &CcvisionDlg::OnBnClickedButton2)
-	ON_WM_LBUTTONDOWN(&CcvisionDlg::OnLButtonDown)
+	//ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnOpen)
+	//ON_BN_CLICKED(IDC_BUTTON2, &CcvisionDlg::OnBnClickedButton2)
+	//ON_WM_LBUTTONDOWN(&CcvisionDlg::OnLButtonDown)
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 //	ON_STN_CLICKED(m_picture, &CcvisionDlg::OnStnClickedpicture)
-	ON_EN_CHANGE(IDC_EDIT1, &CcvisionDlg::OnEnChangeEdit1)
-	ON_BN_CLICKED(IDC_BUTTON3, &CcvisionDlg::OnBnClickedButton3)
+	//ON_EN_CHANGE(IDC_EDIT1, &CcvisionDlg::OnEnChangeEdit1)
+	//ON_BN_CLICKED(IDC_BUTTON3, &CcvisionDlg::OnBnClickedButton3)
+	//ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -233,12 +234,6 @@ HCURSOR CcvisionDlg::OnQueryDragIcon()
 }
 
 
-void switch_callback_h( int position ){
-	//highInt = position;
-}
-void switch_callback_l( int position ){
-	//lowInt = position;
-}
 
 
 /*void mouseHandler(int event, int x, int y, int flags, void* param)
@@ -291,34 +286,34 @@ void switch_callback_l( int position ){
 }*/
 
 
-void CcvisionDlg::OnOpen()
-{
-	
-	
-		  
- }
+//void CcvisionDlg::OnOpen()
+//{
+//	
+//	
+//		  
+// }
 
-void CcvisionDlg::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	
-	
-		
-	
-
-}
-
-
+//void CcvisionDlg::OnLButtonDown(UINT nFlags, CPoint point)
+//{
+//	
+//	
+//		
+//	
+//
+//}
 
 
-void CcvisionDlg::swap(int a, int b) {
 
-	int temp;
 
-	temp = a;
-	a = b;
-	b = temp;
-
-}
+//void CcvisionDlg::swap(int a, int b) {
+//
+//	int temp;
+//
+//	temp = a;
+//	a = b;
+//	b = temp;
+//
+//}
 
 /*IplImage* Concat(IplImage * src,IplImage *dest){
 	IplImage * temp;
@@ -352,11 +347,11 @@ void CcvisionDlg::swap(int a, int b) {
 
 
 
-void CcvisionDlg::OnBnClickedButton2()
-{
-	
-
-}
+//void CcvisionDlg::OnBnClickedButton2()
+//{
+//	
+//
+//}
 
 
 void CcvisionDlg::OnBnClickedOk()
@@ -372,18 +367,24 @@ void CcvisionDlg::OnBnClickedOk()
 //}
 
 
-void CcvisionDlg::OnEnChangeEdit1()
-{
-	// TODO:  If this is a RICHEDIT control, the control will not
-	// send this notification unless you override the CDialogEx::OnInitDialog()
-	// function and call CRichEditCtrl().SetEventMask()
-	// with the ENM_CHANGE flag ORed into the mask.
+//void CcvisionDlg::OnEnChangeEdit1()
+//{
+//	// TODO:  If this is a RICHEDIT control, the control will not
+//	// send this notification unless you override the CDialogEx::OnInitDialog()
+//	// function and call CRichEditCtrl().SetEventMask()
+//	// with the ENM_CHANGE flag ORed into the mask.
+//
+//	// TODO:  Add your control notification handler code here
+//}
 
-	// TODO:  Add your control notification handler code here
-}
+
+//void CcvisionDlg::OnBnClickedButton3()
+//{
+//	// TODO: Add your control notification handler code here
+//}
 
 
-void CcvisionDlg::OnBnClickedButton3()
-{
-	// TODO: Add your control notification handler code here
-}
+//void CcvisionDlg::OnBnClickedButton1()
+//{
+//	// TODO: Add your control notification handler code here
+//}

@@ -53,15 +53,15 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnOpen();
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+//	afx_msg void OnOpen();
+//	afx_msg void OnBnClickedButton2();
+//	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 //	CStatic m_PicCtrl;
 	afx_msg void OnBnClickedOk();
 	CButton m_Button1;
 //	afx_msg void OnStnClickedpicture();
-	afx_msg void OnEnChangeEdit1();
-	void swap(int a, int b);
+//	afx_msg void OnEnChangeEdit1();
+//	void swap(int a, int b);
 //	CEdit m_textbox;
 	
 
@@ -69,7 +69,8 @@ private :
 	COpenGLControl m_oglWindow;
 
 public:
-	afx_msg void OnBnClickedButton3();
+//	afx_msg void OnBnClickedButton3();
 	MyFTabCtrl m_TabCtrl;
+//	afx_msg void OnBnClickedButton1();
 };
 #endif
