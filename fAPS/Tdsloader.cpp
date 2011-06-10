@@ -6,7 +6,7 @@
 #include <io.h>
 //#include <GL/GL.h>
 //#include <GL/GLU.H>
-#include <GL/glut.h>
+
 //#include "texture.h"
 
 
@@ -191,10 +191,10 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
 }
-void display(){
+void display(GLenum mode){
 	
 	 int l_index;
-    glBegin(GL_TRIANGLES); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
+    glBegin(mode); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
     for (l_index=0;l_index<object.polygons_qty;l_index++)
     {
         //----------------- FIRST VERTEX -----------------
