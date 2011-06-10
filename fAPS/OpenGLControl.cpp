@@ -175,7 +175,7 @@ void COpenGLControl::oglDrawScene(void)
 	//fm.defineObject();
 	//define the data and render the screne
 	//fm.display(fm.defineObject());
-	display();
+	display(GL_POINTS);
 	
 	
 	
@@ -233,6 +233,10 @@ void COpenGLControl::oglDrawScene(void)
 void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
+	display(GL_TRIANGLES);
+
+
+
 
 	int diffX = (int)(point.x - m_fLastX);
    int diffY = (int)(point.y - m_fLastY);
