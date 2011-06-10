@@ -25,25 +25,10 @@
     <None Include="res\bitmap2.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\..\..\Desktop\images111.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="C:\Users\reka\Desktop\images.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="C:\Users\reka\Desktop\images-BMP.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\bitmap1.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="C:\Users\reka\Desktop\default-BMP.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\default-BMP.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="C:\Users\reka\Desktop\Static-Image.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\Static-Image.bmp">
