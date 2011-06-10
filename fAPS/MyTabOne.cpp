@@ -73,7 +73,7 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X-280,Y-54);
+	pt = cvPoint(X-256,Y-57);
 	
 	
 	//poiX = X-poiX1;
@@ -86,7 +86,7 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	str2.Format("%d", Y);
 	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
 
-		MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
+		//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
 		countImage++;
 		//MessageBox(NULL,"X:" + str1 +"  Y:"+ str2 , "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 	
