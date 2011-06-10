@@ -68,9 +68,9 @@ CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, m_picture, m_PicCtrl);
+	//  DDX_Control(pDX, m_picture, m_PicCtrl);
 	DDX_Control(pDX, IDC_BUTTON1, m_Button1);
-	DDX_Control(pDX, IDC_EDIT1, m_textbox);
+	//  DDX_Control(pDX, IDC_EDIT1, m_textbox);
 
 	DDX_Control(pDX, IDC_TAB1, m_TabCtrl);
 }
@@ -83,7 +83,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CcvisionDlg::OnBnClickedButton2)
 	ON_WM_LBUTTONDOWN(&CcvisionDlg::OnLButtonDown)
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
-	ON_STN_CLICKED(m_picture, &CcvisionDlg::OnStnClickedpicture)
+//	ON_STN_CLICKED(m_picture, &CcvisionDlg::OnStnClickedpicture)
 	ON_EN_CHANGE(IDC_EDIT1, &CcvisionDlg::OnEnChangeEdit1)
 	ON_BN_CLICKED(IDC_BUTTON3, &CcvisionDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
@@ -366,10 +366,10 @@ void CcvisionDlg::OnBnClickedOk()
 }
 
 
-void CcvisionDlg::OnStnClickedpicture()
-{
-	// TODO: Add your control notification handler code here
-}
+//void CcvisionDlg::OnStnClickedpicture()
+//{
+//	// TODO: Add your control notification handler code here
+//}
 
 
 void CcvisionDlg::OnEnChangeEdit1()

@@ -56,13 +56,13 @@ public:
 	afx_msg void OnOpen();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	CStatic m_PicCtrl;
+//	CStatic m_PicCtrl;
 	afx_msg void OnBnClickedOk();
 	CButton m_Button1;
-	afx_msg void OnStnClickedpicture();
+//	afx_msg void OnStnClickedpicture();
 	afx_msg void OnEnChangeEdit1();
 	void swap(int a, int b);
-	CEdit m_textbox;
+//	CEdit m_textbox;
 	
 
 private :
