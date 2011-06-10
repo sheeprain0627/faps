@@ -1,4 +1,5 @@
 #pragma once
+#include <GL/glut.h>
 class Tdsloader
 {
 public:
@@ -62,7 +63,7 @@ typedef struct {
 } obj_type, *obj_type_ptr;
 
  char Load3DS (obj_type_ptr ogg, char *filename);
-void  display();
+void  display(GLenum mode);
 int LoadBitmap(char *filename);
 void init();
 
