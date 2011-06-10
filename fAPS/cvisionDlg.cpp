@@ -173,10 +173,10 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 
 	//ÃÌº”“≥√Ê
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("Tab1"));
-	m_TabCtrl.AddPage(m_pDlgPage2, _T("Tab2"));
+	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
 	m_TabCtrl.AddPage(m_pDlgPage3, _T("Tab3"));
 
-
+	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
