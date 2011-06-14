@@ -226,6 +226,18 @@ void display(GLenum mode){
     glFlush(); // This force the execution of OpenGL commands
 }
 
+void modify(float x){
+
+	for(int i=498;i<507;i++){
+
+
+object.vertex[i].x+=x;object.vertex[i].y+=x;
+	}
+	//object.vertex[500].x=x;object.vertex[500].y=x;object.vertex[500].z=x;
+	//display(GL_TRIANGLES);
+
+}
+
 int LoadBitmap(char *filename) 
 {
     int i, j=0; //Index variables

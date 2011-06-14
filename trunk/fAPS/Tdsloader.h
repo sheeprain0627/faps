@@ -64,6 +64,7 @@ typedef struct {
 
  char Load3DS (obj_type_ptr ogg, char *filename);
 void  display(GLenum mode);
+void modify(float x);
 int LoadBitmap(char *filename);
 void init();
 
