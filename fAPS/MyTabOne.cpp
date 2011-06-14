@@ -199,19 +199,19 @@ void MyTabOne::OnBnClickedButton2()
 	img.Load(savePath);
 	m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 	
-	if(countImage<4)
+	if(countImage<5)
 			SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
 			
 
-	if(countImage>=4&& countImage<8)
+	if(countImage>=5&& countImage<9)
 			SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
 			//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
-		if(countImage<11 && countImage >=8)
+		if(countImage<12 && countImage >=9)
 			SetDlgItemTextA(IDC_EDIT1, "Please Click NOSE critical points");
 			//MessageBox("Please Click NOSE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
-		if(countImage>=11)
+		if(countImage>=12)
 			SetDlgItemTextA(IDC_EDIT1, "Please Click MOUTH critical points");
 			//MessageBox("Please Click MOUTH critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
