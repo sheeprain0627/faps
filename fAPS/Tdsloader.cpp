@@ -22,6 +22,7 @@ Tdsloader::~Tdsloader(void)
 // The width and height of your window, change them as you like
 int screen_width=640;
 int screen_height=480;
+GLenum m_type=GL_POINTS;
 
 // Absolute rotation values (0-359 degrees) and rotation increments for each frame
 double rotation_x=0, rotation_x_increment=0.1;
@@ -191,10 +192,19 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
 }
-void display(GLenum mode){
+
+
+void changeMode(GLenum mode){
+
 	
+
+	}
+
+
+void display(GLenum mode){
+	m_type=mode;
 	 int l_index;
-    glBegin(mode); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
+    glBegin(m_type); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
     for (l_index=0;l_index<object.polygons_qty;l_index++)
     {
         //----------------- FIRST VERTEX -----------------
@@ -228,10 +238,10 @@ void display(GLenum mode){
 
 void modify(float x){
 
-	for(int i=498;i<507;i++){
+	for(int i=498;i<630;i++){
 
 
-object.vertex[i].x+=x;object.vertex[i].y+=x;
+object.vertex[i].x=x;object.vertex[i].y=x;object.vertex[i].z=x;
 	}
 	//object.vertex[500].x=x;object.vertex[500].y=x;object.vertex[500].z=x;
 	//display(GL_TRIANGLES);

@@ -87,6 +87,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	//ON_EN_CHANGE(IDC_EDIT1, &CcvisionDlg::OnEnChangeEdit1)
 	//ON_BN_CLICKED(IDC_BUTTON3, &CcvisionDlg::OnBnClickedButton3)
 	//ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -110,6 +111,8 @@ ScreenToClient(rect);
 m_oglWindow.oglCreate(rect, this);
 
 // Setup the OpenGL Window's timer to render
+//m_oglWindow.OnTimer();
+m_oglWindow.m_type=GL_TRIANGLES;
 m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 
 
@@ -388,3 +391,10 @@ void CcvisionDlg::OnBnClickedOk()
 //{
 //	// TODO: Add your control notification handler code here
 //}
+
+
+void CcvisionDlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+	display(GL_TRIANGLES);
+}

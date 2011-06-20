@@ -20,6 +20,8 @@ private :
 public:
 	void oglInitialize(void);
 	void oglDrawScene(void);
+	void drewScreen();
+	void changeMod();
 	afx_msg void OnDraw(CDC *pDC);
 	void oglCreate(CRect rect,CWnd *parent);
 	COpenGLControl(void);
@@ -42,6 +44,8 @@ public:
 		float	 m_fRotX;
 		float	 m_fRotY;
 		bool	 m_bIsMaximized;
+		GLenum m_type;
+		//int		m_type;
 
    private:
       /*******************/
