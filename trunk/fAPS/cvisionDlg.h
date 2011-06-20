@@ -72,5 +72,6 @@ public:
 //	afx_msg void OnBnClickedButton3();
 	MyFTabCtrl m_TabCtrl;
 //	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton1();
 };
 #endif

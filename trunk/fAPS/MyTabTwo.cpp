@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "MyTabTwo.h"
 #include "afxdialogex.h"
-#include "Tdsloader"
+//#include "Tdsloader"
 
 
 // MyTabTwo dialog
@@ -41,15 +41,17 @@ void MyTabTwo::OnBnClickedRadio1()
 {
 	//MessageBox("Points");
 	//modify();
-	//display(GL_POINTS);
+	//display(c);
+	
+changeMode(GL_POINTS);
 	// TODO: Add your control notification handler code here
 }
 
 
 void MyTabTwo::OnBnClickedRadio2()
 {
-	InvalidateRect(NULL,TRUE);
-display(GL_TRIANGLES);
+	
+changeMode(GL_TRIANGLES);
 
 	// TODO: Add your control notification handler code here
 }
@@ -57,7 +59,7 @@ display(GL_TRIANGLES);
 
 void MyTabTwo::OnBnClickedButton2()
 {
-	Tdsloader::
+	
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );

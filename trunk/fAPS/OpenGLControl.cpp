@@ -144,6 +144,21 @@ void COpenGLControl::OnTimer(UINT_PTR nIDEvent)
 	CWnd::OnTimer(nIDEvent);
 }
 
+void COpenGLControl::drewScreen(){
+
+
+	 // Clear color and depth buffer bits
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+         // Draw OpenGL scene
+		// fm.display();
+         oglDrawScene();
+
+         // Swap buffers
+         SwapBuffers(hdc);
+
+}
+
 
 void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 {
@@ -170,12 +185,20 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
    init();
 }
 
+
+void COpenGLControl::changeMod(){
+
+
+	m_type=
+
+}
+
 void COpenGLControl::oglDrawScene(void)
 {
 	//fm.defineObject();
 	//define the data and render the screne
 	//fm.display(fm.defineObject());
-	display(GL_TRIANGLES);
+	display(m_type);
 	
 	
 	

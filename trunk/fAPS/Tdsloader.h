@@ -1,5 +1,6 @@
 #pragma once
 #include <GL/glut.h>
+
 class Tdsloader
 {
 public:
@@ -34,6 +35,9 @@ public:
 #define MAX_VERTICES 8000 // Max number of vertices (for each object)
 #define MAX_POLYGONS 8000 // Max number of polygons (for each object)
 
+
+
+
 // Our vertex type
 typedef struct{
     float x,y,z;
@@ -62,10 +66,16 @@ typedef struct {
     int id_texture;
 } obj_type, *obj_type_ptr;
 
+
+
+
+
+
  char Load3DS (obj_type_ptr ogg, char *filename);
 void  display(GLenum mode);
 void modify(float x);
 int LoadBitmap(char *filename);
 void init();
+void changeMode(GLenum mode);
 
 extern int num_texture;
