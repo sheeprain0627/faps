@@ -21,7 +21,7 @@ public:
 	void oglInitialize(void);
 	void oglDrawScene(void);
 	void drewScreen();
-	void changeMod();
+	
 	afx_msg void OnDraw(CDC *pDC);
 	void oglCreate(CRect rect,CWnd *parent);
 	COpenGLControl(void);
@@ -44,7 +44,7 @@ public:
 		float	 m_fRotX;
 		float	 m_fRotY;
 		bool	 m_bIsMaximized;
-		GLenum m_type;
+		 
 		//int		m_type;
 
    private:
@@ -59,29 +59,8 @@ public:
       CRect   m_rect;
       CRect   m_oldWindow;
       CRect   m_originalRect;
-
-
-
-
-
-	  // Our vertex type
-typedef struct{
-    double x,y,z;
-}vertex_type;
-
-// The polygon (triangle), 3 numbers that aim 3 vertices
-typedef struct{
-    int a,b,c;
-}polygon_type;
-
-// The object type
-typedef struct { 
-    vertex_type vertex[1000]; 
-    polygon_type polygon[1000];
-} obj_type, *obj_type_ptr;
-
-obj_type cube;
 	  
+
 public:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();

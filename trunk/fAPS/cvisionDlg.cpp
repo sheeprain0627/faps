@@ -112,7 +112,7 @@ m_oglWindow.oglCreate(rect, this);
 
 // Setup the OpenGL Window's timer to render
 //m_oglWindow.OnTimer();
-m_oglWindow.m_type=GL_TRIANGLES;
+//m_oglWindow.m_type=GL_POINTS;
 m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 
 
@@ -396,5 +396,6 @@ void CcvisionDlg::OnBnClickedOk()
 void CcvisionDlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	display(GL_TRIANGLES);
+	//display(GL_TRIANGLES);
+//	m_oglWindow.m_type=GL_TRIANGLES;
 }
