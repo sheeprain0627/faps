@@ -186,10 +186,10 @@ void init(){
 glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	Load3DS (&object,"spaceship.3ds");
 
-	object.id_texture=LoadBitmap("face.bmp"); // The Function LoadBitmap() return the current texture ID
+	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face.bmp"); // The Function LoadBitmap() return the current texture ID
     
     
-	glBindTexture(GL_TEXTURE_2D, object.id_texture);
+	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
 }
 
@@ -248,7 +248,7 @@ object.vertex[i].x=x;object.vertex[i].y=x;object.vertex[i].z=x;
 
 }
 
-int LoadBitmap(char *filename) 
+int LoadBitmap(CString path) 
 {
     int i, j=0; //Index variables
     FILE *l_file; //File pointer
@@ -261,7 +261,7 @@ int LoadBitmap(char *filename)
 
     num_texture++; // The counter of the current texture is increased
 
-    if( (l_file = fopen(filename, "rb"))==NULL) return (-1); // Open the file for reading
+    if( (l_file = fopen(path, "rb"))==NULL) return (-1); // Open the file for reading
     
     fread(&fileheader, sizeof(fileheader), 1, l_file); // Read the fileheader
     
@@ -308,5 +308,10 @@ int LoadBitmap(char *filename)
     free(l_texture); // Free the memory we used to load the texture
 
     return (num_texture); // Returns the current texture OpenGL ID
+}
+
+void LoadImage(CString path){
+	object.id_texture=LoadBitmap(path); // The Function LoadBitmap() return the current texture ID
+    glBindTexture(GL_TEXTURE_2D, object.id_texture);
 }
 
