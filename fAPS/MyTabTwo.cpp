@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MyTabTwo.h"
 #include "afxdialogex.h"
+#include "OpenGLControl.h"
 //#include "Tdsloader"
 
 
@@ -42,7 +43,7 @@ void MyTabTwo::OnBnClickedRadio1()
 	//MessageBox("Points");
 	//modify();
 	//display(c);
-	
+	//COpenGLControl::m_type=GL_POINTS;
 changeMode(GL_POINTS);
 	// TODO: Add your control notification handler code here
 }
@@ -50,7 +51,7 @@ changeMode(GL_POINTS);
 
 void MyTabTwo::OnBnClickedRadio2()
 {
-	
+	//COpenGLControl::m_type=GL_TRIANGLES;
 changeMode(GL_TRIANGLES);
 
 	// TODO: Add your control notification handler code here

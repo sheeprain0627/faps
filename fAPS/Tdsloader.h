@@ -37,7 +37,7 @@ public:
 
 
 
-
+//GLenum m_type=GL_POINTS;
 // Our vertex type
 typedef struct{
     float x,y,z;
@@ -72,7 +72,7 @@ typedef struct {
 
 
  char Load3DS (obj_type_ptr ogg, char *filename);
-void  display(GLenum mode);
+void  display();
 void modify(float x);
 int LoadBitmap(char *filename);
 void init();

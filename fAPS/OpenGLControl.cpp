@@ -2,6 +2,7 @@
 #include "OpenGLControl.h"
 
 
+
 COpenGLControl::COpenGLControl(void)
 {
 	m_fPosX = 0.0f;    // X position of model in camera view
@@ -186,19 +187,14 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 }
 
 
-void COpenGLControl::changeMod(){
 
-
-	m_type=
-
-}
 
 void COpenGLControl::oglDrawScene(void)
 {
 	//fm.defineObject();
 	//define the data and render the screne
 	//fm.display(fm.defineObject());
-	display(m_type);
+	display();
 	
 	
 	
@@ -256,7 +252,7 @@ void COpenGLControl::oglDrawScene(void)
 void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-	display(GL_POINTS);
+	//display(GL_POINTS);
 
 	//modify();
 

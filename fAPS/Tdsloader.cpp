@@ -196,13 +196,13 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 void changeMode(GLenum mode){
 
-	
+	m_type=mode;
 
 	}
 
 
-void display(GLenum mode){
-	m_type=mode;
+void display(){
+	
 	 int l_index;
     glBegin(m_type); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
     for (l_index=0;l_index<object.polygons_qty;l_index++)
