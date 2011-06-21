@@ -12,9 +12,6 @@ class COpenGLControl :	public CWnd
 
 
 private :
-//FaceModel fm;
-//Tdsloader tds;
-//MAIN fm2;
 
 
 public:
