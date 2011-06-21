@@ -77,5 +77,6 @@ void modify(float x);
 int LoadBitmap(char *filename);
 void init();
 void changeMode(GLenum mode);
+void LoadImage(CString path);
 
 extern int num_texture;

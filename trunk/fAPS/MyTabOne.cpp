@@ -11,6 +11,7 @@
 #include "cvaux.h"
 #include <imgproc_c.h>
 #include <fstream>
+#include "Tdsloader.h"
 
 
 //#include "ximage.h"
@@ -159,7 +160,7 @@ void MyTabOne::OnBnClickedButton1()
 	if (dlg.DoModal() == IDOK) {
  
 		CString path= dlg.GetPathName();
-
+		LoadImage(path); //sent the pathe of image to opengl window
 		
 		countImage = 0;
 		img0[countImage] = cvLoadImage(path);             // load the image
