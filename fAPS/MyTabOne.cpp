@@ -27,6 +27,7 @@ ofstream myfile("res\\out.txt");
 const char* name = "img";
 const char* savePath = "res\\pil.bmp";
 int countImage;
+bool load = false;
 //count = 1;
 
 int xCoordinate[16];
@@ -87,46 +88,47 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	str2.Format("%d", Y);
 	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
 
-		//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
-		countImage++;
-		//MessageBox(NULL,"X:" + str1 +"  Y:"+ str2 , "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
+		if(load == true ) {
+			//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
+			countImage++;
+			//MessageBox(NULL,"X:" + str1 +"  Y:"+ str2 , "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 	
 		
 		
 		
-		img0[countImage] = cvCloneImage(img0[countImage-1]);
+			img0[countImage] = cvCloneImage(img0[countImage-1]);
 		
-		cvCircle(img0[countImage], pt, 1, CV_RGB(0,255,0), -1, 8,0);
-		//cvShowImage(name, img0[countImage]);
-		cvSaveImage(savePath,img0[countImage]);
+			cvCircle(img0[countImage], pt, 1, CV_RGB(0,255,0), -1, 8,0);
+			//cvShowImage(name, img0[countImage]);
+			cvSaveImage(savePath,img0[countImage]);
 
-		CImage img;
-		img.Load(savePath);
-		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
-		xCoordinate[countImage-1] = pt.x;
-		yCoordinate[countImage-1] = pt.y;
+			CImage img;
+			img.Load(savePath);
+			m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
+			xCoordinate[countImage-1] = pt.x;
+			yCoordinate[countImage-1] = pt.y;
 
-		if(countImage>=4&& countImage<8)
-			SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
-			//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
+			if(countImage>=4&& countImage<8)
+				SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
+				//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
-		if(countImage<11 && countImage >=8)
-			SetDlgItemTextA(IDC_EDIT1, "Please Click NOSE critical points");
-			//MessageBox("Please Click NOSE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
+			if(countImage<11 && countImage >=8)
+				SetDlgItemTextA(IDC_EDIT1, "Please Click NOSE critical points");
+				//MessageBox("Please Click NOSE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
-		if(countImage>=11)
-			SetDlgItemTextA(IDC_EDIT1, "Please Click MOUTH critical points");
-			//MessageBox("Please Click MOUTH critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
+			if(countImage>=11)
+				SetDlgItemTextA(IDC_EDIT1, "Please Click MOUTH critical points");
+				//MessageBox("Please Click MOUTH critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
 
 		
-		if(countImage == 16) {
+			if(countImage == 16) {
 
-			//insertionSort(xCoordinate, 15);
-			//insertionSort(yCoordinate, 15);
+				//insertionSort(xCoordinate, 15);
+				//insertionSort(yCoordinate, 15);
 		
 			}
 
-
+		}
 	}	
 
 	
@@ -162,6 +164,7 @@ void MyTabOne::OnBnClickedButton1()
 		CString path= dlg.GetPathName();
 		LoadImage(path); //sent the pathe of image to opengl window
 		
+		load = true;
 		countImage = 0;
 		img0[countImage] = cvLoadImage(path);             // load the image
 		
