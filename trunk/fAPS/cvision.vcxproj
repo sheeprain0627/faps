@@ -115,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="cvision.h" />
     <ClInclude Include="cvisionDlg.h" />
+    <ClInclude Include="feature.h" />
     <ClInclude Include="MyFTabCtrl.h" />
     <ClInclude Include="MyTabOne.h" />
     <ClInclude Include="MyTabThree.h" />
@@ -128,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="cvision.cpp" />
     <ClCompile Include="cvisionDlg.cpp" />
+    <ClCompile Include="feature.cpp" />
     <ClCompile Include="MyFTabCtrl.cpp" />
     <ClCompile Include="MyTabOne.cpp" />
     <ClCompile Include="MyTabThree.cpp" />

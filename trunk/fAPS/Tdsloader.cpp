@@ -7,9 +7,9 @@
 //#include <GL/GL.h>
 //#include <GL/GLU.H>
 
-//#include "texture.h"
+#include "feature.h"
 
-
+feature featureInstance;
 Tdsloader::Tdsloader(void)
 {
 }
@@ -237,12 +237,15 @@ void display(){
 }
 
 void modify(float x){
+	featureInstance.set3Dobject(&object);
+	featureInstance.changeNose(&object,x);
 
-	for(int i=498;i<630;i++){
+
+	//for(int i=498;i<630;i++){
 
 
-object.vertex[i].x=x;object.vertex[i].y=x;object.vertex[i].z=x;
-	}
+//object.vertex[i].x=x;object.vertex[i].y=x;object.vertex[i].z=x;
+	//}
 	//object.vertex[500].x=x;object.vertex[500].y=x;object.vertex[500].z=x;
 	//display(GL_TRIANGLES);
 
