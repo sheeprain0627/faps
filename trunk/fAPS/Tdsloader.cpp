@@ -186,8 +186,8 @@ void init(){
 glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	Load3DS (&object,"spaceship.3ds");
 
-	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face.bmp"); // The Function LoadBitmap() return the current texture ID
-    
+	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
+    LoadImage("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\facemu.bmp");
     
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
 

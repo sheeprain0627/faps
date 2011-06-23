@@ -162,14 +162,12 @@ void MyTabOne::OnBnClickedButton1()
 	if (dlg.DoModal() == IDOK) {
  
 		CString path= dlg.GetPathName();
-		LoadImage(path); //sent the pathe of image to opengl window
 		
-		load = true;
 		countImage = 0;
 		img0[countImage] = cvLoadImage(path);             // load the image
 		
 		cvSaveImage(savePath,img0[countImage]);
-
+		LoadImage(savePath); //sent the pathe of image to opengl window
 					
 		CImage img;
 		img.Load(path);
