@@ -75,6 +75,9 @@
     <ClInclude Include="MyFTabCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvision.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MyFTabCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
