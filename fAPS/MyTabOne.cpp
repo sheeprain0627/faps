@@ -75,7 +75,7 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X-256,Y-57);
+	pt = cvPoint(X-315,Y-66);
 	
 	
 	//poiX = X-poiX1;
