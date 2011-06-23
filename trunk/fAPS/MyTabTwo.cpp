@@ -7,7 +7,7 @@
 #include "OpenGLControl.h"
 //#include "Tdsloader"
 
-
+//hh
 // MyTabTwo dialog
 
 IMPLEMENT_DYNAMIC(MyTabTwo, CDialog)
