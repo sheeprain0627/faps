@@ -23,7 +23,7 @@ const int poiX1 = 25;
 const int poiY1 = 25;
 CvPoint pt;
 IplImage* img0[16];
-ofstream myfile("res\\out.txt");
+ofstream myfile("res\\out.txt");//, ofstream::binary);
 const char* name = "img";
 const char* savePath = "res\\pil.bmp";
 int countImage;
@@ -224,11 +224,27 @@ void MyTabOne::OnBnClickedButton2()
 
 void MyTabOne::OnBnClickedButton3()
 {
+	myfile << "X\t\t";
+	myfile << "\tY";
+	myfile << "\n";
+
+	for (int i=0; i < 15; i++) {
+
+		myfile << xCoordinate[i];
+		myfile << "\t\t\t";
+		myfile << yCoordinate[i];
+		myfile << "\n";
+
+	}
+	
+	myfile.close();
 	// TODO: Add your control notification handler code here
 }
 
 
 void MyTabOne::OnBnClickedButton4()
 {
+	
+	
 	// TODO: Add your control notification handler code here
 }
