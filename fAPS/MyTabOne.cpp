@@ -163,6 +163,7 @@ void MyTabOne::OnBnClickedButton1()
  
 		CString path= dlg.GetPathName();
 		
+		load = true;
 		countImage = 0;
 		img0[countImage] = cvLoadImage(path);             // load the image
 		
