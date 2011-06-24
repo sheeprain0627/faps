@@ -78,5 +78,12 @@ int LoadBitmap(char *filename);
 void init();
 void changeMode(GLenum mode);
 void LoadImage(CString path);
+void reset();
+void move(char dir);
+void scaleTex();
+void markVertex(int vertex);
+void makeLine();
+
+void test();
 
 extern int num_texture;

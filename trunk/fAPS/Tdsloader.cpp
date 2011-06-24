@@ -37,6 +37,7 @@ int filling=1; //0=OFF 1=ON
 
 //Now the object is generic, the cube has annoyed us a little bit, or not?
 obj_type object;
+obj_type ori_object;
 
 char Load3DS (obj_type_ptr p_object, char *p_filename)
 {
@@ -188,7 +189,7 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
     LoadImage("facemu.bmp");
-    
+    ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
 }
@@ -200,6 +201,77 @@ void changeMode(GLenum mode){
 
 	}
 
+void reset()
+{
+object=ori_object;
+}
+
+
+void makeLine(){
+
+	for(int i=1280;i<1303;i++){
+	
+		object.vertex[i].y+=0.5;
+		//object.mapcoord[i].v*=1.15;
+
+	}
+
+}
+
+void markVertex(int vertex){
+	glPointSize(2);
+	glColor3f (1.0, 1.0, 0.0); 	
+		//glColor4f(particles[z].colr, particles[z].colg, particles[z].colb, particles[z].life);
+		
+			glVertex3f(object.vertex[vertex].x,object.vertex[vertex].y, object.vertex[vertex].z);
+	
+}
+
+void test(){
+	for(int i=0;i<1683;i++){
+	
+	object.mapcoord[i].u*=1.15;
+		object.mapcoord[i].v*=1.15;
+
+	}
+}
+
+void scaleTex(){
+
+	glScalef(2,2,2);
+
+}
+
+
+void move(char dir){
+	switch(dir){
+	case 'l' :
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].u+=.05;
+	break;
+
+	case 'r' :
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].u-=.05;
+	break;
+
+	case 'u' :
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].v-=.05;
+	break;
+
+	case 'd' :
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].v+=.05;
+	break;
+
+	default : break;
+
+	}
+
+	
+
+}
 
 void display(){
 	
