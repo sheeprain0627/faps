@@ -180,9 +180,9 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	m_pDlgPage3->MoveWindow(rectPage1);
 
 	//ÃÌº”“≥√Ê
-	m_TabCtrl.AddPage(m_pDlgPage1, _T("Tab1"));
+	m_TabCtrl.AddPage(m_pDlgPage1, _T("Critical Points"));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
-	m_TabCtrl.AddPage(m_pDlgPage3, _T("Tab3"));
+	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));
 
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -310,19 +310,6 @@ HCURSOR CcvisionDlg::OnQueryDragIcon()
 //
 //}
 
-
-
-
-//void CcvisionDlg::swap(int a, int b) {
-//
-//	int temp;
-//
-//	temp = a;
-//	a = b;
-//	b = temp;
-//
-//}
-
 /*IplImage* Concat(IplImage * src,IplImage *dest){
 	IplImage * temp;
 
@@ -369,33 +356,7 @@ void CcvisionDlg::OnBnClickedOk()
 }
 
 
-//void CcvisionDlg::OnStnClickedpicture()
-//{
-//	// TODO: Add your control notification handler code here
-//}
 
-
-//void CcvisionDlg::OnEnChangeEdit1()
-//{
-//	// TODO:  If this is a RICHEDIT control, the control will not
-//	// send this notification unless you override the CDialogEx::OnInitDialog()
-//	// function and call CRichEditCtrl().SetEventMask()
-//	// with the ENM_CHANGE flag ORed into the mask.
-//
-//	// TODO:  Add your control notification handler code here
-//}
-
-
-//void CcvisionDlg::OnBnClickedButton3()
-//{
-//	// TODO: Add your control notification handler code here
-//}
-
-
-//void CcvisionDlg::OnBnClickedButton1()
-//{
-//	// TODO: Add your control notification handler code here
-//}
 
 
 void CcvisionDlg::OnBnClickedButton1()
