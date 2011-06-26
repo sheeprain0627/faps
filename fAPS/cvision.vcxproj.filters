@@ -40,6 +40,9 @@
     <None Include="res\newImage.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="C:\Users\reka\Desktop\faps.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
