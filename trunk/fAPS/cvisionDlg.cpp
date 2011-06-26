@@ -149,7 +149,7 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	SetDlgItemTextA(IDC_EDIT1, "Critical points Selection");
 
 
-	CRect	rectPage;
+	CRect	rectPage, rectPage1;
 
 	//创建页面
 	m_pDlgPage1	= new MyTabOne;
@@ -170,9 +170,14 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	rectPage.right	-= 4;
 	rectPage.bottom	-= 4;
 
+	rectPage1.left	+= 1;
+	rectPage1.top	+= 10;
+	rectPage1.right	-= 2;
+	rectPage1.bottom -= 2;
+
 	m_pDlgPage1->MoveWindow(rectPage);
 	m_pDlgPage2->MoveWindow(rectPage);
-	m_pDlgPage3->MoveWindow(rectPage);
+	m_pDlgPage3->MoveWindow(rectPage1);
 
 	//添加页面
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("Tab1"));
