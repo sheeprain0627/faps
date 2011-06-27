@@ -110,6 +110,7 @@
     <None Include="res\cvision.rc2" />
     <None Include="res\default-BMP.bmp" />
     <None Include="res\Default-Image.bmp" />
+    <None Include="res\faps-Img.bmp" />
     <None Include="res\newImage.bmp" />
     <None Include="res\Static-Image.bmp" />
   </ItemGroup>
