@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON7, &MyTabTwo::OnBnClickedButton7)
 	ON_EN_CHANGE(IDC_EDIT2, &MyTabTwo::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_BUTTON9, &MyTabTwo::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON10, &MyTabTwo::OnBnClickedButton10)
 END_MESSAGE_MAP()
 
 
@@ -136,5 +137,12 @@ void MyTabTwo::OnEnChangeEdit2()
 void MyTabTwo::OnBnClickedButton9()
 {
 makeLine();
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabTwo::OnBnClickedButton10()
+{
+	test();
 	// TODO: Add your control notification handler code here
 }

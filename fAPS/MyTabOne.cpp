@@ -32,6 +32,8 @@ bool load = false;
 
 int xCoordinate[100];
 int yCoordinate[100];
+int criticalPoints1[]={900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
+int criticalPoints2[]={913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
 
 // MyTabOne dialog
 
@@ -60,6 +62,7 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabOne::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabOne::OnBnClickedButton4)
 	ON_WM_LBUTTONDOWN(&TabOne::OnLButtonDown)
+	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -247,5 +250,12 @@ void MyTabOne::OnBnClickedButton4()
 {
 	
 	
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabOne::OnBnClickedButton5()
+{
+	changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	// TODO: Add your control notification handler code here
 }

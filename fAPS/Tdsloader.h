@@ -79,10 +79,11 @@ void init();
 void changeMode(GLenum mode);
 void LoadImage(CString path);
 void reset();
-void move(char dir);
+void move(char dir);	//move the texture 
 void scaleTex();
 void markVertex(int vertex);
 void makeLine();
+void changeVU(int x[],int y[],int cpoints[]);	// change the uv values from critical points selction
 
 void test();
 
