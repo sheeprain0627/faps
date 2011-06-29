@@ -26,4 +26,5 @@ public:
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton4();
 	CStatic m_PicCtrl;
+	afx_msg void OnBnClickedButton5();
 };

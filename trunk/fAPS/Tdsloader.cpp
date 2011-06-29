@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <io.h>
+#include<math.h>
+
 //#include <GL/GL.h>
 //#include <GL/GLU.H>
 
@@ -22,7 +24,7 @@ Tdsloader::~Tdsloader(void)
 // The width and height of your window, change them as you like
 int screen_width=640;
 int screen_height=480;
-GLenum m_type=GL_POINTS;
+GLenum m_type=GL_TRIANGLES;
 
 // Absolute rotation values (0-359 degrees) and rotation increments for each frame
 double rotation_x=0, rotation_x_increment=0.1;
@@ -219,24 +221,33 @@ void makeLine(){
 }
 
 void markVertex(int vertex){
+	//glBegin(GL_POINTS);
 	glPointSize(2);
 	glColor3f (1.0, 1.0, 0.0); 	
 		//glColor4f(particles[z].colr, particles[z].colg, particles[z].colb, particles[z].life);
 		
 			glVertex3f(object.vertex[vertex].x,object.vertex[vertex].y, object.vertex[vertex].z);
+		//	glEnd();
 	
 }
 
 void test(){
-	for(int i=0;i<1683;i++){
+	const double PI = 4.0*atan(1.0);
+	for(int i=0;i<object.vertices_qty;i++){
 	
-	object.mapcoord[i].u*=1.15;
-		object.mapcoord[i].v*=1.15;
+		if(object.mapcoord[i].v>1){
+			object.mapcoord[i].v-=1;
+
+		}
+
+		//object.mapcoord[i].u=atan((object.vertex[i].x/object.vertex[i].y)/PI+0.5);
+		//object.mapcoord[i].v=asin((object.vertex[i].x/PI)+0.5);
 
 	}
 }
 
 void scaleTex(){
+
 
 	glScalef(2,2,2);
 
@@ -281,7 +292,7 @@ void display(){
     {
         //----------------- FIRST VERTEX -----------------
         // Texture coordinates of the first vertex
-      glTexCoord2f( object.mapcoord[ object.polygon[l_index].a ].u,                      object.mapcoord[ object.polygon[l_index].a ].v);
+      glTexCoord2f( object.mapcoord[ object.polygon[l_index].a ].u, object.mapcoord[ object.polygon[l_index].a ].v);
         // Coordinates of the first vertex
         glVertex3f( object.vertex[ object.polygon[l_index].a ].x,
                     object.vertex[ object.polygon[l_index].a ].y,
@@ -323,6 +334,33 @@ void modify(float x){
 
 }
 
+
+void changeVU(int x[],int y[],int cpoints[]){
+
+	/*
+	for(int i=0;i<15;i++){
+	object.mapcoord[cpoints[i]].u=(x[0])/240.0;
+	object.mapcoord[cpoints[i]].v=(1+(320-y[0]+2)/320.0);
+	}
+
+	*/
+
+	
+
+	//select the fisrt point of left eye only thatn the remaining points will automatically moved by the new distance
+	float nc=(x[0])/240.0;			
+	float du=nc-object.mapcoord[cpoints[0]].u;
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].u+=du;
+	
+	float dv=(1+(320.0-y[0]+2)/320.0)-object.mapcoord[cpoints[0]].v;	//2 reduced for adjustment
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].v+=dv;
+
+	
+}
+
+
 int LoadBitmap(CString path) 
 {
     int i, j=0; //Index variables
@@ -358,7 +396,7 @@ int LoadBitmap(CString path)
             l_texture[j+0] = rgb.rgbtRed; // Red component
             l_texture[j+1] = rgb.rgbtGreen; // Green component
             l_texture[j+2] = rgb.rgbtBlue; // Blue component
-            l_texture[j+3] = 255; // Alpha value
+            l_texture[j+3] = 25; // Alpha value
             j += 4; // Go to the next position
     }
 
