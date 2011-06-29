@@ -22,7 +22,7 @@ using namespace cv;
 const int poiX1 = 25;
 const int poiY1 = 25;
 CvPoint pt;
-IplImage* img0[16];
+IplImage* img0[100];
 ofstream myfile("res\\out.txt");//, ofstream::binary);
 const char* name = "img";
 const char* savePath = "res\\pil.bmp";
@@ -30,8 +30,8 @@ int countImage;
 bool load = false;
 //count = 1;
 
-int xCoordinate[16];
-int yCoordinate[16];
+int xCoordinate[100];
+int yCoordinate[100];
 
 // MyTabOne dialog
 
