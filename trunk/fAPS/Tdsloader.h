@@ -63,7 +63,7 @@ typedef struct {
     vertex_type vertex[MAX_VERTICES]; 
     polygon_type polygon[MAX_POLYGONS];
     mapcoord_type mapcoord[MAX_VERTICES];
-    int id_texture;
+    int id_texture,id_texture2;
 } obj_type, *obj_type_ptr;
 
 
@@ -73,11 +73,12 @@ typedef struct {
 
  char Load3DS (obj_type_ptr ogg, char *filename);
 void  display();
+void  sdisplay();
 void modify(float x);
-int LoadBitmap(char *filename);
+int LoadBitmap(CString path,int tlevel,int blevel);
 void init();
 void changeMode(GLenum mode);
-void LoadImage(CString path);
+void LoadImage(CString path,int tlevel,int blevel);
 void reset();
 void move(char dir);	//move the texture 
 void scaleTex();
