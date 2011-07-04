@@ -164,25 +164,33 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	//布置页面
 	m_TabCtrl.GetWindowRect(rectPage);
 	m_TabCtrl.ScreenToClient(rectPage);
+	//m_TabCtrl.set
 
 	rectPage.left	+= 2;
 	rectPage.top	+= 22;
 	rectPage.right	-= 4;
 	rectPage.bottom	-= 4;
 
-	rectPage1.left	+= 1;
-	rectPage1.top	+= 10;
-	rectPage1.right	-= 2;
-	rectPage1.bottom -= 2;
+	
 
 	m_pDlgPage1->MoveWindow(rectPage);
 	m_pDlgPage2->MoveWindow(rectPage);
-	m_pDlgPage3->MoveWindow(rectPage1);
+	
 
 	//添加页面
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("Critical Points"));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
+	
+	rectPage.left	+= 500;
+	rectPage.top	+= 150;
+	rectPage.right	+= 470;
+	rectPage.bottom += 130;
+
+	m_pDlgPage3->MoveWindow(rectPage);
+	//m_pDlgPage4->MoveWindow(rectPage);
+
 	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));
+	//m_TabCtrl.AddPage(m_pDlgPage4, _T("Age Progression"));
 
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control

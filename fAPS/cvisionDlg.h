@@ -38,6 +38,7 @@ public:
 	MyTabOne*	m_pDlgPage1;
 	MyTabTwo*	m_pDlgPage2;
 	MyTabThree*	m_pDlgPage3;
+	
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
