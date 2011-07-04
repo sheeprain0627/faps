@@ -200,8 +200,9 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
-	object.id_texture=LoadBitmap("facemu.bmp",255,0);
-	object.id_texture2=LoadBitmap("res//black.bmp",100,0);
+
+	object.id_texture=LoadBitmap("res//c20.bmp",255,0,.2);		//adjust the conrst level for age progress : 0-1
+	object.id_texture2=LoadBitmap("res//c30.bmp",255,0,1);
     
     ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
@@ -422,7 +423,7 @@ void changeVU(int x[],int y[],int cpoints[]){
 }
 
 
-int LoadBitmap(CString path,int tlevel,int blevel) 
+int LoadBitmap(CString path,int tlevel,int blevel,float clevel) 
 {
     int i, j=0; //Index variables
     FILE *l_file; //File pointer
@@ -454,9 +455,9 @@ int LoadBitmap(CString path,int tlevel,int blevel)
             fread(&rgb, sizeof(rgb), 1, l_file); 
 
             // And store it
-            l_texture[j+0] = rgb.rgbtRed-blevel; // Red component
-            l_texture[j+1] = rgb.rgbtGreen-blevel; // Green component
-            l_texture[j+2] = rgb.rgbtBlue-blevel; // Blue component
+            l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
+            l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
+            l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component
             l_texture[j+3] = tlevel; // Alpha value
             j += 4; // Go to the next position
     }
@@ -484,11 +485,11 @@ int LoadBitmap(CString path,int tlevel,int blevel)
     return (num_texture); // Returns the current texture OpenGL ID
 }
 
-void LoadImage(CString path,int tlevel,int blevel){
+void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
-	//object.id_texture=LoadBitmap(path); // The Function LoadBitmap() return the current texture ID
+	object.id_texture=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
-    glBindTexture(GL_TEXTURE_2D, LoadBitmap(path,tlevel,blevel));
+    glBindTexture(GL_TEXTURE_2D, object.id_texture);
 	
 	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
 }//
