@@ -187,10 +187,22 @@ char Load3DS (obj_type_ptr p_object, char *p_filename)
 
 void init(){
 glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
+
+
+//this enable the trasparence on texture
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+	//read and load 3ds data to memeory
 	Load3DS (&object,"spaceship.3ds");
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
-    LoadImage("facemu.bmp");
+
+	object.id_texture=LoadBitmap("facemu.bmp",255,0);
+	object.id_texture2=LoadBitmap("res//black.bmp",100,0);
+    
     ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
@@ -284,7 +296,8 @@ void move(char dir){
 
 }
 
-void display(){
+void sdisplay(){
+	
 	
 	 int l_index;
     glBegin(m_type); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
@@ -315,6 +328,54 @@ void display(){
                     object.vertex[ object.polygon[l_index].c ].z);
     }
     glEnd();
+
+}
+
+void display(){	
+	
+	glBindTexture(GL_TEXTURE_2D, object.id_texture);
+	
+	sdisplay();		//call the normal frawing function in opengl
+
+	 glDepthFunc(GL_LEQUAL);
+
+	 glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+// set the blending mode
+//glEnable(GL_BLEND);
+glBlendFunc(GL_ONE,GL_ONE);
+
+// set second texture
+//(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//CString path2="res//pil.bmp";
+
+
+
+glBindTexture(GL_TEXTURE_2D, object.id_texture2);
+
+sdisplay();
+
+glDepthFunc(GL_LESS);   // return to normal depth mode
+//glDisable(GL_BLEND);    // don't need blending any more
+
+
+	
+	/*
+	glBegin(GL_POINTS);
+	glPointSize(20);
+	glTexCoord2f( object.mapcoord[ object.polygon[50].a ].u, object.mapcoord[ object.polygon[50].a ].v);
+        // Coordinates of the first vertex
+        glVertex3f( object.vertex[ object.polygon[50].a ].x,
+                    object.vertex[ object.polygon[50].a ].y,
+                    object.vertex[ object.polygon[50].a ].z); //Vertex definition
+	glEnd();
+
+	*/
+
 
     glFlush(); // This force the execution of OpenGL commands
 }
@@ -361,7 +422,7 @@ void changeVU(int x[],int y[],int cpoints[]){
 }
 
 
-int LoadBitmap(CString path) 
+int LoadBitmap(CString path,int tlevel,int blevel) 
 {
     int i, j=0; //Index variables
     FILE *l_file; //File pointer
@@ -393,10 +454,10 @@ int LoadBitmap(CString path)
             fread(&rgb, sizeof(rgb), 1, l_file); 
 
             // And store it
-            l_texture[j+0] = rgb.rgbtRed; // Red component
-            l_texture[j+1] = rgb.rgbtGreen; // Green component
-            l_texture[j+2] = rgb.rgbtBlue; // Blue component
-            l_texture[j+3] = 25; // Alpha value
+            l_texture[j+0] = rgb.rgbtRed-blevel; // Red component
+            l_texture[j+1] = rgb.rgbtGreen-blevel; // Green component
+            l_texture[j+2] = rgb.rgbtBlue-blevel; // Blue component
+            l_texture[j+3] = tlevel; // Alpha value
             j += 4; // Go to the next position
     }
 
@@ -423,8 +484,12 @@ int LoadBitmap(CString path)
     return (num_texture); // Returns the current texture OpenGL ID
 }
 
-void LoadImage(CString path){
-	object.id_texture=LoadBitmap(path); // The Function LoadBitmap() return the current texture ID
-    glBindTexture(GL_TEXTURE_2D, object.id_texture);
-}
+void LoadImage(CString path,int tlevel,int blevel){
+	//CString path2="res//ww.bmp";
+	//object.id_texture=LoadBitmap(path); // The Function LoadBitmap() return the current texture ID
+
+    glBindTexture(GL_TEXTURE_2D, LoadBitmap(path,tlevel,blevel));
+	
+	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
+}//
 

@@ -111,8 +111,8 @@ void COpenGLControl::OnDraw(CDC *pDC)
 	glLoadIdentity();
 glTranslatef(0.0f, 0.0f, -m_fZoom);
 glTranslatef(m_fPosX, m_fPosY, 0.0f);
-glRotatef(m_fRotX, 1.0f, 0.0f, 0.0f);
-glRotatef(m_fRotY, 0.0f, 1.0f, 0.0f);
+glRotatef(m_fRotX, 0.0f, 1.0f, 0.0f);
+glRotatef(m_fRotY, 1.0f, 0.0f, 0.0f);
 
    // TODO: Camera controls.
 }
@@ -177,7 +177,7 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
    glLoadIdentity();
 
    // Set our current view perspective
-   gluPerspective(35.0f, (float)cx / (float)cy, 0.01f, 2000.0f);
+   gluPerspective(30.0f, (float)cx / (float)cy, 0.01f, 2000.0f);
 
    // Model view
    glMatrixMode(GL_MODELVIEW);
@@ -265,14 +265,14 @@ void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
    // Left mouse button
    if (nFlags & MK_LBUTTON)
    {
-      m_fRotX += (float)0.5f * diffY;
+      m_fRotX += (float)0.5f * diffX;
 
       if ((m_fRotX > 360.0f) || (m_fRotX < -360.0f))
       {
          m_fRotX = 0.0f;
       }
 
-      m_fRotY += (float)0.5f * diffX;
+      m_fRotY += (float)0.5f * diffY;
 
       if ((m_fRotY > 360.0f) || (m_fRotY < -360.0f))
       {
