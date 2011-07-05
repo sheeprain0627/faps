@@ -41,6 +41,10 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_EN_CHANGE(IDC_EDIT2, &MyTabTwo::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_BUTTON9, &MyTabTwo::OnBnClickedButton9)
 	ON_BN_CLICKED(IDC_BUTTON10, &MyTabTwo::OnBnClickedButton10)
+	ON_BN_CLICKED(IDC_LoadTexture, &MyTabTwo::OnBnClickedLoadtexture)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeProgress, &MyTabTwo::OnNMCustomdrawAgeprogress)
+	ON_EN_CHANGE(IDC_EDIT3, &MyTabTwo::OnEnChangeEdit3)
+	//ON_EN_CHANGE(IDC_EDIT1, &MyTabTwo::OnEnChangeEdit1)
 END_MESSAGE_MAP()
 
 
@@ -146,3 +150,45 @@ void MyTabTwo::OnBnClickedButton10()
 	test();
 	// TODO: Add your control notification handler code here
 }
+
+
+void MyTabTwo::OnBnClickedLoadtexture()
+{
+	this->DragAcceptFiles(true);
+	CFileDialog dlg(TRUE, _T("*.bmp"), NULL,
+	OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY,
+	_T("image files (*.bmp; *.jpg) |*.bmp;*.jpg|All Files (*.*)|*.*||"),NULL);
+ 
+	dlg.m_ofn.lpstrTitle= _T("Open Image");
+ 
+	if (dlg.DoModal() == IDOK) {
+ 
+		CString path= dlg.GetPathName();
+		//setTexture(path);
+		LoadImage2(path,255,0,1);
+		//display();
+	}
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabTwo::OnNMCustomdrawAgeprogress(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+}
+
+
+void MyTabTwo::OnEnChangeEdit3()
+{
+
+	CString s;
+	GetDlgItemText(IDC_EDIT3, s);
+	float x = atof( s );
+	changeContrast(x);
+	
+}
+
+
+

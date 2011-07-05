@@ -40,6 +40,7 @@ int filling=1; //0=OFF 1=ON
 //Now the object is generic, the cube has annoyed us a little bit, or not?
 obj_type object;
 obj_type ori_object;
+CString opath,tpath;
 
 char Load3DS (obj_type_ptr p_object, char *p_filename)
 {
@@ -201,8 +202,8 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
 
-	object.id_texture=LoadBitmap("res//c20.bmp",255,0,.2);		//adjust the conrst level for age progress : 0-1
-	object.id_texture2=LoadBitmap("res//c30.bmp",255,0,1);
+	object.id_texture=LoadBitmap("res//c20.bmp",255,0,1);		//adjust the conrst level for age progress : 0-1
+	object.id_texture2=LoadBitmap("res//black.bmp",255,0,1);
     
     ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
@@ -219,6 +220,13 @@ void changeMode(GLenum mode){
 void reset()
 {
 object=ori_object;
+}
+
+
+
+void setTexture(CString path)
+{
+	object.id_texture2=LoadBitmap(path,255,0,1);
 }
 
 
@@ -487,10 +495,33 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 
 void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
+	opath=path;
 	object.id_texture=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture);
 	
 	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
 }//
+
+void LoadImage2(CString path,int tlevel,int blevel,float clevel){
+	//CString path2="res//ww.bmp";
+	tpath=path;
+	object.id_texture2=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
+
+    glBindTexture(GL_TEXTURE_2D, object.id_texture2);
+	
+	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
+}//
+
+
+void changeContrast(float clevel){
+	object.id_texture=LoadBitmap(opath,255,0,clevel); // The Function LoadBitmap() return the current texture ID
+
+    glBindTexture(GL_TEXTURE_2D, object.id_texture);
+
+	object.id_texture2=LoadBitmap(tpath,255,0,1.0-clevel); // The Function LoadBitmap() return the current texture ID
+
+    glBindTexture(GL_TEXTURE_2D, object.id_texture2);
+
+}
 
