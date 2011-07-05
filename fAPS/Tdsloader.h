@@ -76,9 +76,12 @@ void  display();
 void  sdisplay();
 void modify(float x);
 int LoadBitmap(CString path,int tlevel,int blevel,float clevel);
+void setTexture(CString path);
 void init();
 void changeMode(GLenum mode);
 void LoadImage(CString path,int tlevel,int blevel,float clevel);
+void LoadImage2(CString path,int tlevel,int blevel,float clevel);
+void changeContrast(float clevel);
 void reset();
 void move(char dir);	//move the texture 
 void scaleTex();

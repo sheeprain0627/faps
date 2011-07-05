@@ -32,4 +32,8 @@ public:
 	afx_msg void OnEnChangeEdit2();
 	afx_msg void OnBnClickedButton9();
 	afx_msg void OnBnClickedButton10();
+	afx_msg void OnBnClickedLoadtexture();
+	afx_msg void OnNMCustomdrawAgeprogress(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnEnChangeEdit3();
+	afx_msg void OnEnChangeEdit1();
 };
