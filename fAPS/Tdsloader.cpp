@@ -202,7 +202,7 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
 
-	object.id_texture=LoadBitmap("res//c20.bmp",255,0,1);		//adjust the conrst level for age progress : 0-1
+	object.id_texture=LoadBitmap("res//pil111.bmp",255,0,1);		//adjust the conrst level for age progress : 0-1
 	object.id_texture2=LoadBitmap("res//black.bmp",255,0,1);
     
     ori_object=object;
@@ -389,9 +389,33 @@ glDepthFunc(GL_LESS);   // return to normal depth mode
     glFlush(); // This force the execution of OpenGL commands
 }
 
-void modify(float x){
+void modify(float x, CString selctVal){
 	featureInstance.set3Dobject(&object);
-	featureInstance.changeNose(&object,x);
+	//int aa;
+	//featureInstance.changeNose(&object,x);
+	
+	if(selctVal == "Nose")
+	{
+		 featureInstance.changeNose(&object,x);
+	}
+	else if(selctVal == "Mouth")
+	{
+		featureInstance.changeMouth(&object,x);
+	}
+	if(selctVal == "LeftEye")
+	{
+		featureInstance.changeLeftEye(&object,x);
+	}
+	if(selctVal == "RightEye")
+	{
+		featureInstance.changeRightEye(&object,x);
+	}
+	
+	else
+	{
+		//do nothing
+	}
+		//
 
 
 	//for(int i=498;i<630;i++){
