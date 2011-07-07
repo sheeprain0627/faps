@@ -5,11 +5,23 @@
 #include <conio.h>
 #include <io.h>
 #include<math.h>
+#include <fstream>
 
-//#include <GL/GL.h>
-//#include <GL/GLU.H>
+#include <cxcore.h>
+#include "cv.h"
+#include "highgui.h"
+#include "cvaux.h"
+#include <imgproc_c.h>
 
 #include "feature.h"
+
+using namespace std;
+
+ofstream textureFile("res\\texture.txt");
+ifstream readFile25("res\\texture_new.txt");
+ifstream readFile50("res\\texture_old.txt");
+ofstream textureDif("res\\texture_dif.txt");
+
 
 feature featureInstance;
 Tdsloader::Tdsloader(void)
@@ -479,20 +491,122 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
     l_texture = (byte *) malloc(infoheader.biWidth * infoheader.biHeight * 4);
     // And fill it with zeros
     memset(l_texture, 0, infoheader.biWidth * infoheader.biHeight * 4);
- 
-    // At this point we can read every pixel of the image
-    for (i=0; i < infoheader.biWidth*infoheader.biHeight; i++)
-    {            
-            // We load an RGB value from the file
-            fread(&rgb, sizeof(rgb), 1, l_file); 
 
-            // And store it
-            l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
-            l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
-            l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component
-            l_texture[j+3] = tlevel; // Alpha value
-            j += 4; // Go to the next position
-    }
+
+
+	int w,x,u;
+	w=0;
+	x=0;
+	u=0;
+	
+	
+	int l_text_25[9696];
+	int l_text_50[9696];
+	int text_dif[9696];
+	int new_text[9696];
+	
+	unsigned char* l_text;				
+
+		l_text = (byte *) malloc(9696);
+		memset(l_text, 0, 9696);
+			
+		while(x<9696) {
+		readFile25 >> l_text_25[x+0];
+		readFile50 >> l_text_50[x+0];
+		text_dif[x+0] = l_text_50[x+0] - l_text_25[x+0];
+		l_text[x+2] = (unsigned char)text_dif[x+0];
+
+		readFile25 >> l_text_25[x+1];
+		readFile50 >> l_text_50[x+1];
+		text_dif[x+1] = l_text_50[x+1] - l_text_25[x+1];
+		l_text[x+2] = (unsigned char)text_dif[x+1];
+
+		readFile25 >> l_text_25[x+2];
+		readFile50 >> l_text_50[x+2];			
+		text_dif[x+2] = l_text_50[x+2] - l_text_25[x+2];
+		l_text[x+0] = (unsigned char)text_dif[x+2];
+
+		x +=3;
+		}
+
+		
+		//cvReleaseImage(&img11);
+		// At this point we can read every pixel of the image
+		for (i=0; i < infoheader.biWidth*infoheader.biHeight; i++)
+		{            
+			// We load an RGB value from the file
+			fread(&rgb, sizeof(rgb), 1, l_file); 				
+
+
+			if(((i>(230*240)+58+u && i<(230*240)+160+u)) && (i<(230*240)+58+32*240)) {
+				
+			//if(text_dif[w+0]>8 || text_dif[w+0] <-8 ) 	
+			l_text[w+2] = 0.5*(rgb.rgbtRed + text_dif[w+0]); // Red component
+
+			//else if( text_dif[w+1]>8 || text_dif[w+1]<-8)
+            l_text[w+1] = 0.5*(rgb.rgbtGreen + text_dif[w+1]); // Green component
+
+			//else if( text_dif[w+2]>8 || text_dif[w+2]<-8)
+            l_text[w+0] = 0.5*(rgb.rgbtBlue + text_dif[w+2]); // Blue component
+
+			/*else {
+
+				l_text[w+2] = rgb.rgbtRed;
+				l_text[w+1] = rgb.rgbtGreen;
+				l_text[w+0] = rgb.rgbtBlue;
+			}*/
+		
+			l_texture[j+0] = 0.88*(rgb.rgbtRed + text_dif[w+0]); // Red component
+			l_texture[j+1] = 0.88*(rgb.rgbtGreen + text_dif[w+1]); // Green component
+			l_texture[j+2] =  0.88*(rgb.rgbtBlue + text_dif[w+2]); // Blue component
+			
+			/*l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
+			l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
+			l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component*/
+			l_texture[j+3] = tlevel; // Alpha value
+			j += 4; // Go to the next position
+
+			w +=3;
+			if(i==(230*240)+159+u)
+				u += 240;
+			
+			}
+
+
+			else {
+
+				// And store it
+				l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
+				l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
+				l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component
+				l_texture[j+3] = tlevel; // Alpha value
+				j += 4; // Go to the next position
+			}
+		}
+
+
+		
+		/*IplImage* img11;
+		IplImage* img_new;
+		
+		img_new = cvLoadImage("K:\\FAPS-Images\\3Dsloader-640-480\\FACEM.bmp");
+		cvNamedWindow("Lap",1);
+		img11 = cvCreateImage(cvSize(101,32),8 , 3);
+		
+		cvSetData(img11,l_text ,303);
+		cvShowImage("Lap", img11);	
+		
+		cvWaitKey();*/
+
+		  
+		//img_new = cvCreateImage(cvSize(101,32), IPL_DEPTH_8U, 3);
+		//cvSmooth( img11, img_new, CV_GAUSSIAN, 7, 7 );
+		//cvSmooth( img11, img_new, CV_MEDIAN, 7, 7 );
+		
+		//cvResize(img11,img_new,1);
+		//cvLaplace(img11, img_new, 3);
+		//cvShowImage("smooth", img_new);
+
 
     fclose(l_file); // Closes the file stream
      
@@ -516,6 +630,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 
     return (num_texture); // Returns the current texture OpenGL ID
 }
+
 
 void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
