@@ -8,12 +8,12 @@ public:
 	~feature(void);
 	void set3Dobject(obj_type_ptr pObject);
 
- void changeNose(obj_type_ptr pObject, float aggesmntVa);
+ void changeNose(obj_type_ptr pObject, float aggesmntVal);
 
- void changeMouth(obj_type_ptr pObject);
+ void changeMouth(obj_type_ptr pObject,float aggesmntVal);
 
- void changeLeftEye(obj_type_ptr pObject);
-void changeRightEye(obj_type_ptr pObject);
+ void changeLeftEye(obj_type_ptr pObject,float aggesmntVal);
+void changeRightEye(obj_type_ptr pObject,float aggesmntVal);
 
 
 float calculateGradiant(float y, float x, float change);

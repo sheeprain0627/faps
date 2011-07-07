@@ -25,6 +25,7 @@ MyTabTwo::~MyTabTwo()
 void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO1, myCombo);
 }
 
 
@@ -45,6 +46,8 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeProgress, &MyTabTwo::OnNMCustomdrawAgeprogress)
 	ON_EN_CHANGE(IDC_EDIT3, &MyTabTwo::OnEnChangeEdit3)
 	//ON_EN_CHANGE(IDC_EDIT1, &MyTabTwo::OnEnChangeEdit1)
+	//ON_BN_CLICKED(IDC_SPLIT1, &MyTabTwo::OnBnClickedSplit1)
+	//ON_CBN_SELCHANGE(IDC_COMBO1, &MyTabTwo::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 
@@ -73,11 +76,25 @@ changeMode(GL_TRIANGLES);
 
 void MyTabTwo::OnBnClickedButton2()
 {
-	
+	//IDC_EDIT1 aa;
+	//MyTabTwo bb;
+
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
-	modify(x);
+
+	//int nIndex = IDC_COMBO1.GetCurSel();
+   CString selectedString;
+  // string strText;
+  // int  cmbBoxindex=myCombo.GetItemData(IDC_COMBO1);
+   int cmbindex=myCombo.GetCurSel();
+   myCombo.GetLBText(cmbindex,selectedString);
+   //myCombo.getlb
+//m_cmbBox.GetLBText(m_cmbBox.GetCurSel() ,strCBText);
+  // GetLBText(IDC_COMBO1,s);
+   // m_cbExample.GetLBText( nIndex, strCBText);
+	
+	modify(x,selectedString);
 		
 	// TODO: Add your control notification handler code here
 }
@@ -140,6 +157,7 @@ void MyTabTwo::OnEnChangeEdit2()
 
 void MyTabTwo::OnBnClickedButton9()
 {
+
 makeLine();
 	// TODO: Add your control notification handler code here
 }
@@ -192,3 +210,22 @@ void MyTabTwo::OnEnChangeEdit3()
 
 
 
+
+
+void MyTabTwo::OnBnClickedSplit1()
+{
+	// TODO: Add your control notification handler code here
+}
+
+/*
+void MyTabTwo::OnCbnSelchangeCombo1()
+{
+	//  CComboBox  m_cbExample;
+
+	  //int nIndex = m_cbExample.GetCurSel();
+   // CString strCBText;
+   // m_cbExample.GetLBText( nIndex, strCBText);
+	
+	// TODO: Add your control notification handler code here
+}
+*/

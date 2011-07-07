@@ -3,6 +3,7 @@
 
 // MyTabTwo dialog
 #include "resource.h"
+#include "afxwin.h"
 
 class MyTabTwo : public CDialog
 {
@@ -36,4 +37,7 @@ public:
 	afx_msg void OnNMCustomdrawAgeprogress(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnEnChangeEdit3();
 	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnBnClickedSplit1();
+	afx_msg void OnCbnSelchangeCombo1();
+	CComboBox myCombo;
 };

@@ -117,7 +117,7 @@ void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
 
 
 //change mouth coordinates
-void feature::changeMouth(obj_type_ptr pObject){
+void feature::changeMouth(obj_type_ptr pObject,float aggesmntVal){
 	int highVal[12]={197,228,259,289,318,350}; // first lover lip points then upper lip points
 	int lowVal[12]=	{190,218,247,276,307,337};
 	int highMid[12]={194,283,254,223,313,344};
@@ -125,9 +125,9 @@ void feature::changeMouth(obj_type_ptr pObject){
 
 
 
-	float aggesmntVal;
-	printf("pls enter the mouth changing value\t");
-	scanf("%f",&aggesmntVal);
+	//float aggesmntVal;
+	//printf("pls enter the mouth changing value\t");
+	//scanf("%f",&aggesmntVal);
 
 	//aggesmntVal=0.05;
 
@@ -166,16 +166,16 @@ void feature::changeMouth(obj_type_ptr pObject){
 }
 
 // change left eye coordinates
-void feature::changeLeftEye(obj_type_ptr pObject){
+void feature::changeLeftEye(obj_type_ptr pObject, float aggesmntVal){
 	int highVal[5]={860,900,946,987,1030}; // 
 	int lowVal[5]=	{863,902,950,997,1041};
 
 	//pObject->vertex[1041].y=pObject->vertex[860].y+0.5;
 	//pObject->vertex[1030].y=pObject->vertex[867].y+0.5;
 
-	float aggesmntVal;
-	printf("pls enter the left eye changing value\t");
-	scanf("%f",&aggesmntVal);
+	//float aggesmntVal;
+	//printf("pls enter the left eye changing value\t");
+	//scanf("%f",&aggesmntVal);
 	for(int i=0;i<5;i++){
 	
 
@@ -196,16 +196,16 @@ void feature::changeLeftEye(obj_type_ptr pObject){
 
 
 //change right eye coordinates
-void feature::changeRightEye(obj_type_ptr pObject){
+void feature::changeRightEye(obj_type_ptr pObject, float aggesmntVal){
 	int highVal[5]={881,920,967,1012,1056}; // 
 	int lowVal[5]=	{879,918,965,1003,1046};
 
 	//pObject->vertex[1046].y=pObject->vertex[860].y+0.5;
 	//pObject->vertex[1056].y=pObject->vertex[867].y+0.5;
 
-	float aggesmntVal;
-	printf("pls enter the right eye changing value\t");
-	scanf("%f",&aggesmntVal);
+	//float aggesmntVal;
+	//printf("pls enter the right eye changing value\t");
+	//scanf("%f",&aggesmntVal);
 	for(int i=0;i<5;i++){
 	
 

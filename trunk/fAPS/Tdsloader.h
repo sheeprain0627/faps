@@ -74,7 +74,7 @@ typedef struct {
  char Load3DS (obj_type_ptr ogg, char *filename);
 void  display();
 void  sdisplay();
-void modify(float x);
+void modify(float x, CString selectedString);
 int LoadBitmap(CString path,int tlevel,int blevel,float clevel);
 void setTexture(CString path);
 void init();
