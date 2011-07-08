@@ -34,6 +34,10 @@ Tdsloader::~Tdsloader(void)
 {
 }
 
+float eyeChangeVal; // eye val of (new texture val /Original texture val)
+float noseChangeVal; // eye val of (new texture val /Original texture val)
+
+
 // The width and height of your window, change them as you like
 int screen_width=640;
 int screen_height=480;
@@ -410,7 +414,7 @@ void modify(float x, CString selctVal){
 	
 	if(selctVal == "Nose")
 	{
-		 featureInstance.changeNose(&object,x);
+		 featureInstance.changeNose(&object,noseChangeVal);
 	}
 	else if(selctVal == "Mouth")
 	{
@@ -465,12 +469,16 @@ void changeVU(int x[],int y[],int cpoints[]){
 	for(int i=0;i<1683;i++)	
 	object.mapcoord[i].v+=dv;
 
+
+	
+	
+
 	
 }
 
-
+//values for the 3d model
 void changeXYZ(int x[],int y[],int cpoints[]){
-
+noseChangeVal= (x[9]/240.0)/object.mapcoord[cpoints[9]].u;
 
 
 
