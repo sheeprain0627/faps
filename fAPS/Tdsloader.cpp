@@ -214,9 +214,9 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
 
-	object.id_texture=LoadBitmap("res//pil111.bmp",255,0,1);		//adjust the conrst level for age progress : 0-1
-	object.id_texture2=LoadBitmap("res//black.bmp",255,0,1);
-    
+object.id_texture=LoadBitmap("res//pil111.bmp",255,0,.6);		//adjust the conrst level for age progress : 0-1
+	object.id_texture2=LoadBitmap("res//white.bmp",255,0,.4);
+
     ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
@@ -467,6 +467,12 @@ void changeVU(int x[],int y[],int cpoints[]){
 }
 
 
+void changeXYZ(int x[],int y[],int cpoints[]){
+
+
+}
+
+
 int LoadBitmap(CString path,int tlevel,int blevel,float clevel) 
 {
     int i, j=0; //Index variables
@@ -661,6 +667,37 @@ void changeContrast(float clevel){
 	object.id_texture2=LoadBitmap(tpath,255,0,1.0-clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture2);
+
+}
+
+
+void drawBox(){
+	 glBegin(GL_TRIANGLES);
+     for (int l_index=100;l_index<300;l_index++)
+    {
+        //----------------- FIRST VERTEX -----------------
+        // Texture coordinates of the first vertex
+      glColor3f(1.0,0.0,0.0);
+        glVertex3f( object.vertex[ object.polygon[l_index].a ].x,
+                    object.vertex[ object.polygon[l_index].a ].y,
+                    object.vertex[ object.polygon[l_index].a ].z); //Vertex definition
+		glColor3f(0.0,1.0,0.0);
+        //----------------- SECOND VERTEX -----------------
+        // Texture coordinates of the second vertex
+       
+        glVertex3f( object.vertex[ object.polygon[l_index].b ].x,
+                    object.vertex[ object.polygon[l_index].b ].y,
+                    object.vertex[ object.polygon[l_index].b ].z);
+        
+        glColor3f(0.0,0.0,1.0);
+        glVertex3f( object.vertex[ object.polygon[l_index].c ].x,
+                    object.vertex[ object.polygon[l_index].c ].y,
+                    object.vertex[ object.polygon[l_index].c ].z);
+    }
+   glEnd();  
+
+
+glFlush();
 
 }
 

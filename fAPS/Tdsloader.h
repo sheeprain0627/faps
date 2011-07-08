@@ -88,6 +88,8 @@ void scaleTex();
 void markVertex(int vertex);
 void makeLine();
 void changeVU(int x[],int y[],int cpoints[]);	// change the uv values from critical points selction
+void changeXYZ(int x[],int y[],int cpoints[]);
+void drawBox();
 
 void test();
 
