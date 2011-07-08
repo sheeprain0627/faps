@@ -12,6 +12,7 @@
 #include "highgui.h"
 #include "cvaux.h"
 #include <imgproc_c.h>
+#include <windows.h>
 
 #include "feature.h"
 
@@ -255,13 +256,14 @@ void makeLine(){
 
 void markVertex(int vertex){
 	//glBegin(GL_POINTS);
-	glPointSize(2);
-	glColor3f (1.0, 1.0, 0.0); 	
+	//glPointSize(2);
+	//glColor3f (1.0, 1.0, 0.0); 	
 		//glColor4f(particles[z].colr, particles[z].colg, particles[z].colb, particles[z].life);
 		
-			glVertex3f(object.vertex[vertex].x,object.vertex[vertex].y, object.vertex[vertex].z);
+			//glVertex3f(object.vertex[vertex].x,object.vertex[vertex].y, object.vertex[vertex].z);
 		//	glEnd();
 	
+	object.mapcoord[vertex].u=0;object.mapcoord[vertex].v=0;
 }
 
 void test(){
@@ -381,7 +383,7 @@ glBindTexture(GL_TEXTURE_2D, object.id_texture2);
 sdisplay();
 
 glDepthFunc(GL_LESS);   // return to normal depth mode
-//glDisable(GL_BLEND);    // don't need blending any more
+glDisable(GL_BLEND);    // don't need blending any more
 
 
 	
@@ -468,6 +470,8 @@ void changeVU(int x[],int y[],int cpoints[]){
 
 
 void changeXYZ(int x[],int y[],int cpoints[]){
+
+
 
 
 }
@@ -672,7 +676,9 @@ void changeContrast(float clevel){
 
 
 void drawBox(){
-	 glBegin(GL_TRIANGLES);
+
+	//MessageBox(0, "Join us at Inferno Dev!", "DLL Message", MB_OK | MB_ICONINFORMATION);
+	glBegin(GL_TRIANGLES);
      for (int l_index=100;l_index<300;l_index++)
     {
         //----------------- FIRST VERTEX -----------------
