@@ -5,6 +5,7 @@
 #include "MyTabTwo.h"
 #include "afxdialogex.h"
 #include "OpenGLControl.h"
+#include <sstream>
 //#include "Tdsloader"
 
 //hh
@@ -25,7 +26,8 @@ MyTabTwo::~MyTabTwo()
 void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_COMBO1, myCombo);
+	DDX_Control(pDX, IDC_COMBO1, myCombo);	
+	DDX_Control(pDX, IDC_EDIT3, contrat);
 }
 
 
@@ -34,20 +36,19 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_RADIO2, &MyTabTwo::OnBnClickedRadio2)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabTwo::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabTwo::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON1, &MyTabTwo::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON6, &MyTabTwo::OnBnClickedButton6)
-	ON_BN_CLICKED(IDC_BUTTON4, &MyTabTwo::OnBnClickedButton4)
-	ON_BN_CLICKED(IDC_BUTTON5, &MyTabTwo::OnBnClickedButton5)
-	ON_BN_CLICKED(IDC_BUTTON7, &MyTabTwo::OnBnClickedButton7)
-	ON_EN_CHANGE(IDC_EDIT2, &MyTabTwo::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_BUTTON9, &MyTabTwo::OnBnClickedButton9)
 	ON_BN_CLICKED(IDC_BUTTON10, &MyTabTwo::OnBnClickedButton10)
-	ON_BN_CLICKED(IDC_LoadTexture, &MyTabTwo::OnBnClickedLoadtexture)
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeProgress, &MyTabTwo::OnNMCustomdrawAgeprogress)
 	ON_EN_CHANGE(IDC_EDIT3, &MyTabTwo::OnEnChangeEdit3)
 	//ON_EN_CHANGE(IDC_EDIT1, &MyTabTwo::OnEnChangeEdit1)
 	//ON_BN_CLICKED(IDC_SPLIT1, &MyTabTwo::OnBnClickedSplit1)
 	//ON_CBN_SELCHANGE(IDC_COMBO1, &MyTabTwo::OnCbnSelchangeCombo1)
+	ON_BN_CLICKED(IDC_BUTTON8, &MyTabTwo::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_UP, &MyTabTwo::OnBnClickedUp)
+	ON_BN_CLICKED(IDC_MoveUp, &MyTabTwo::OnBnClickedMoveup)
+	ON_BN_CLICKED(IDC_MoveLeft, &MyTabTwo::OnBnClickedMoveleft)
+	ON_BN_CLICKED(IDC_MoveRight, &MyTabTwo::OnBnClickedMoveright)
+	ON_BN_CLICKED(IDC_MoveDown, &MyTabTwo::OnBnClickedMovedown)
+	ON_BN_CLICKED(IDC_Zoom, &MyTabTwo::OnBnClickedZoom)
 END_MESSAGE_MAP()
 
 
@@ -105,56 +106,6 @@ void MyTabTwo::OnBnClickedButton3()
 	reset();// TODO: Add your control notification handler code here
 }
 
-
-void MyTabTwo::OnBnClickedButton1()
-{
-	move('l');
-	// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnBnClickedButton6()
-{
-	move('r');
-	// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnBnClickedButton4()
-{
-	move('u');// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnBnClickedButton5()
-{
-	move('d');
-	// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnBnClickedButton7()
-{
-	scaleTex();
-	// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnEnChangeEdit2()
-{
-	CString s;
-	GetDlgItemText(IDC_EDIT1, s);
-	int x = atoi( s );
-	markVertex(x);
-	// TODO:  If this is a RICHEDIT control, the control will not
-	// send this notification unless you override the CDialog::OnInitDialog()
-	// function and call CRichEditCtrl().SetEventMask()
-	// with the ENM_CHANGE flag ORed into the mask.
-
-	// TODO:  Add your control notification handler code here
-}
-
-
 void MyTabTwo::OnBnClickedButton9()
 {
 
@@ -170,32 +121,6 @@ void MyTabTwo::OnBnClickedButton10()
 }
 
 
-void MyTabTwo::OnBnClickedLoadtexture()
-{
-	this->DragAcceptFiles(true);
-	CFileDialog dlg(TRUE, _T("*.bmp"), NULL,
-	OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY,
-	_T("image files (*.bmp; *.jpg) |*.bmp;*.jpg|All Files (*.*)|*.*||"),NULL);
- 
-	dlg.m_ofn.lpstrTitle= _T("Open Image");
- 
-	if (dlg.DoModal() == IDOK) {
- 
-		CString path= dlg.GetPathName();
-		//setTexture(path);
-		LoadImage2(path,255,0,1);
-		//display();
-	}
-	// TODO: Add your control notification handler code here
-}
-
-
-void MyTabTwo::OnNMCustomdrawAgeprogress(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	// TODO: Add your control notification handler code here
-	*pResult = 0;
-}
 
 
 void MyTabTwo::OnEnChangeEdit3()
@@ -204,6 +129,7 @@ void MyTabTwo::OnEnChangeEdit3()
 	CString s;
 	GetDlgItemText(IDC_EDIT3, s);
 	float x = atof( s );
+	
 	changeContrast(x);
 	
 }
@@ -229,3 +155,49 @@ void MyTabTwo::OnCbnSelchangeCombo1()
 	// TODO: Add your control notification handler code here
 }
 */
+
+
+void MyTabTwo::OnBnClickedButton8()
+{
+	CString s;
+	GetDlgItemText(IDC_EDIT2, s);
+	int x = atoi( s );
+	markVertex(x);
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabTwo::OnBnClickedUp()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabTwo::OnBnClickedMoveup()
+{
+	move('u');
+}
+
+
+void MyTabTwo::OnBnClickedMoveleft()
+{
+	move('l');
+}
+
+
+void MyTabTwo::OnBnClickedMoveright()
+{
+	move('r');
+}
+
+
+void MyTabTwo::OnBnClickedMovedown()
+{
+	move('d');
+}
+
+
+void MyTabTwo::OnBnClickedZoom()
+{
+	scaleTex();
+}

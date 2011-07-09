@@ -1,5 +1,6 @@
 #pragma once
 #include "resource.h"
+#include "afxcmn.h"
 
 // MyTabThree dialog
 
@@ -21,4 +22,7 @@ protected:
 public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedPick();
+	CSliderCtrl agebar;
+	afx_msg void OnBnClickedLoadtexture();
+	afx_msg void OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult);
 };

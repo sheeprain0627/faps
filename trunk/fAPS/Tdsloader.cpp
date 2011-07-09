@@ -218,9 +218,10 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
-
-object.id_texture=LoadBitmap("res//pil111.bmp",255,0,.6);		//adjust the conrst level for age progress : 0-1
-	object.id_texture2=LoadBitmap("res//white.bmp",255,0,.4);
+	opath="res//pil111.bmp";
+	tpath="res//black.bmp";
+object.id_texture=LoadBitmap(opath,255,0,1);		//adjust the conrst level for age progress : 0-1
+	object.id_texture2=LoadBitmap(tpath,255,0,0);
 
     ori_object=object;
 	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
@@ -297,22 +298,22 @@ void move(char dir){
 	switch(dir){
 	case 'l' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].u+=.05;
+	object.mapcoord[i].u+=.005;
 	break;
 
 	case 'r' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].u-=.05;
+	object.mapcoord[i].u-=.005;
 	break;
 
 	case 'u' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].v-=.05;
+	object.mapcoord[i].v-=.005;
 	break;
 
 	case 'd' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].v+=.05;
+	object.mapcoord[i].v+=.005;
 	break;
 
 	default : break;
@@ -672,11 +673,11 @@ void LoadImage2(CString path,int tlevel,int blevel,float clevel){
 
 
 void changeContrast(float clevel){
-	object.id_texture=LoadBitmap(opath,255,0,clevel); // The Function LoadBitmap() return the current texture ID
+	object.id_texture=LoadBitmap(opath,255,0,1.0-clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture);
 
-	object.id_texture2=LoadBitmap(tpath,255,0,1.0-clevel); // The Function LoadBitmap() return the current texture ID
+	object.id_texture2=LoadBitmap(tpath,255,0,clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture2);
 
