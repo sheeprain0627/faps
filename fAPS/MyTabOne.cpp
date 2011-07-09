@@ -171,7 +171,8 @@ void MyTabOne::OnBnClickedButton1()
 		img0[countImage] = cvLoadImage(path);             // load the image
 		
 		cvSaveImage(savePath,img0[countImage]);
-		LoadImage(savePath,255,0,.2); //sent the pathe of image to opengl window
+
+		LoadImage(savePath,255,0,1); //sent the pathe of image to opengl window
 					
 		CImage img;
 		img.Load(path);

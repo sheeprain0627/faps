@@ -186,11 +186,12 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	rectPage.right	+= 470;
 	rectPage.bottom += 130;
 
-	m_pDlgPage3->MoveWindow(rectPage);
-	//m_pDlgPage4->MoveWindow(rectPage);
 
-	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));
-	//m_TabCtrl.AddPage(m_pDlgPage4, _T("Age Progression"));
+	//tab 3 designs 
+	m_pDlgPage3->MoveWindow(rectPage);
+	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));	
+	m_pDlgPage3->agebar.SetRange(20,50);
+	m_pDlgPage3->agebar.SetTicFreq(5);
 
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
