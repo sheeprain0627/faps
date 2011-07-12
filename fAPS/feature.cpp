@@ -79,7 +79,7 @@ void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
 	
 
 	float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[highMid[i]].x, (aggesmntVal/(i+1)));
-	float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -((aggesmntVal+0.05)/(i+1)));
+	float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -((aggesmntVal)/(i+1)));
 	//y1y2=(pObject->vertex[472].x + 0.06 - pObject->vertex[469].x);
 	//x1x2=(pObject->vertex[472].x - pObject->vertex[469].x);
 	//c=pObject->vertex[469].x;

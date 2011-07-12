@@ -258,5 +258,6 @@ void MyTabOne::OnBnClickedButton4()
 void MyTabOne::OnBnClickedButton5()
 {
 	changeVU(xCoordinate,yCoordinate,criticalPoints1);
+	changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
 	// TODO: Add your control notification handler code here
 }

@@ -479,7 +479,13 @@ void changeVU(int x[],int y[],int cpoints[]){
 
 //values for the 3d model
 void changeXYZ(int x[],int y[],int cpoints[]){
-noseChangeVal= (x[9]/240.0)/object.mapcoord[cpoints[9]].u;
+float ratio= (x[10]/240.0)/object.mapcoord[cpoints[10]].u;  //ration between new u val/ old u val
+
+float newVertexVal=(object.vertex[cpoints[10]].x)*ratio;
+noseChangeVal=newVertexVal-object.vertex[cpoints[10]].x;
+
+
+
 
 
 
