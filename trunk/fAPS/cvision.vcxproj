@@ -115,6 +115,7 @@
     <None Include="res\Static-Image.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ageprogression.h" />
     <ClInclude Include="cvision.h" />
     <ClInclude Include="cvisionDlg.h" />
     <ClInclude Include="feature.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Tdsloader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ageprogression.cpp" />
     <ClCompile Include="cvision.cpp" />
     <ClCompile Include="cvisionDlg.cpp" />
     <ClCompile Include="feature.cpp" />
