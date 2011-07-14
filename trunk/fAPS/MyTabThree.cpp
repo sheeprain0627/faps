@@ -5,10 +5,11 @@
 #include "MyTabThree.h"
 #include "afxdialogex.h"
 #include "Tdsloader.h"
+#include "Ageprogression.h"
 
 
 // MyTabThree dialog
-
+Ageprogression age;
 IMPLEMENT_DYNAMIC(MyTabThree, CDialog)
 
 MyTabThree::MyTabThree(CWnd* pParent /*=NULL*/)
@@ -33,6 +34,7 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_BN_CLICKED(IDC_Pick, &MyTabThree::OnBnClickedPick)
 	ON_BN_CLICKED(IDC_LoadTexture, &MyTabThree::OnBnClickedLoadtexture)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeBar, &MyTabThree::OnNMCustomdrawAgebar)
+	ON_EN_CHANGE(IDC_EDIT1, &MyTabThree::OnEnChangeEdit1)
 END_MESSAGE_MAP()
 
 
@@ -41,7 +43,8 @@ END_MESSAGE_MAP()
 
 void MyTabThree::OnBnClickedButton1()
 {
-	// TODO: Add your control notification handler code here
+float p=age.getSigma();
+age.texureEnhancePrototype(p);
 }
 
 
@@ -79,4 +82,15 @@ void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
 	// TODO: Add your control notification handler code here
 	*pResult = 0;
+}
+
+
+void MyTabThree::OnEnChangeEdit1()
+{
+
+	CString s;
+	GetDlgItemText(IDC_EDIT3, s);
+	float p = atof( s );
+	age.setSigma(p);
+	
 }
