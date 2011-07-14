@@ -25,4 +25,5 @@ public:
 	CSliderCtrl agebar;
 	afx_msg void OnBnClickedLoadtexture();
 	afx_msg void OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnEnChangeEdit1();
 };
