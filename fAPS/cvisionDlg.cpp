@@ -181,10 +181,10 @@ m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("Critical Points"));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
 	
-	rectPage.left	+= 500;
-	rectPage.top	+= 150;
-	rectPage.right	+= 470;
-	rectPage.bottom += 130;
+	rectPage.left	+= 2;
+	rectPage.top	+= 22;
+	rectPage.right	-= 4;
+	rectPage.bottom -= 4;
 
 
 	//tab 3 designs 
