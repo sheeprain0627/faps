@@ -1,6 +1,7 @@
 #pragma once
 #include "resource.h"
 #include "afxcmn.h"
+#include "highgui.h"
 
 // MyTabThree dialog
 
@@ -26,4 +27,6 @@ public:
 	afx_msg void OnBnClickedLoadtexture();
 	afx_msg void OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnBnClickedButton2();
+	void show_histogram(char* window_title, IplImage* src, char* channel_name);
 };
