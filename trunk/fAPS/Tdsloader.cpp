@@ -34,8 +34,10 @@ Tdsloader::~Tdsloader(void)
 {
 }
 
-float eyeChangeVal; // eye val of (new texture val /Original texture val)
-float noseChangeVal; // eye val of (new texture val /Original texture val)
+float leftEyeChangeVal; // eye val of (new texture val /Original texture val)
+float rightEyeChangeVal; // eye val of (new texture val /Original texture val)
+float noseChangeVal; // nose val of (new texture val /Original texture val)
+float mouthChangeVal; // mouth val of (new texture val /Original texture val)
 
 
 // The width and height of your window, change them as you like
@@ -419,15 +421,15 @@ void modify(float x, CString selctVal){
 	}
 	else if(selctVal == "Mouth")
 	{
-		featureInstance.changeMouth(&object,x);
+		featureInstance.changeMouth(&object,mouthChangeVal);
 	}
 	if(selctVal == "LeftEye")
 	{
-		featureInstance.changeLeftEye(&object,x);
+		featureInstance.changeLeftEye(&object,leftEyeChangeVal);
 	}
 	if(selctVal == "RightEye")
 	{
-		featureInstance.changeRightEye(&object,x);
+		featureInstance.changeRightEye(&object,rightEyeChangeVal);
 	}
 	
 	else
@@ -479,16 +481,30 @@ void changeVU(int x[],int y[],int cpoints[]){
 
 //values for the 3d model
 void changeXYZ(int x[],int y[],int cpoints[]){
-float ratio= (x[10]/240.0)/object.mapcoord[cpoints[10]].u;  //ration between new u val/ old u val
 
-float newVertexVal=(object.vertex[cpoints[10]].x)*ratio;
-noseChangeVal=newVertexVal-object.vertex[cpoints[10]].x;
+//automacitc nose modification
+float noseRatio= (x[10]/240.0)/ori_object.mapcoord[cpoints[10]].u;  //ration between new u val/ old u val
+float newNoseVertexVal=(ori_object.vertex[cpoints[10]].x)*noseRatio;
+noseChangeVal=newNoseVertexVal-ori_object.vertex[cpoints[10]].x;
 
+//automatic mouth modification
 
+float mouthRatio= (x[14]/240.0)/ori_object.mapcoord[cpoints[14]].u;  //ration between new u val/ old u val
+float newMouthVertexVal=(ori_object.vertex[cpoints[14]].x)*mouthRatio;
+mouthChangeVal=newMouthVertexVal-ori_object.vertex[cpoints[14]].x;
 
+//automatic lefteye modification
+// problem ajith is putting the new value of poit 0 for texture mapping
+float leftEyeRatio= (x[0]/240.0)/ori_object.mapcoord[cpoints[0]].u;  //ration between new u val/ old u val
+//test
+//float leftEyeRatio1= (x[3]/240.0)/object.mapcoord[cpoints[3]].u;
+float newLEyeVertexVal=(ori_object.vertex[cpoints[0]].x)*leftEyeRatio;
+leftEyeChangeVal=newLEyeVertexVal-ori_object.vertex[cpoints[0]].x;
 
-
-
+//automatic righteye modification
+float rightEyeRatio= (x[7]/240.0)/ori_object.mapcoord[cpoints[7]].u;  //ration between new u val/ old u val
+float newREyeVertexVal=(ori_object.vertex[cpoints[7]].x)*rightEyeRatio;
+rightEyeChangeVal=newREyeVertexVal-ori_object.vertex[cpoints[7]].x;
 }
 
 
