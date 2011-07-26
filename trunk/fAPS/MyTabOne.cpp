@@ -24,6 +24,7 @@ const int poiY1 = 25;
 CvPoint pt;
 IplImage* img0[100];
 ofstream myfile("res\\out.txt");//, ofstream::binary);
+CString path;
 const char* name = "img";
 const char* savePath = "res\\pil.bmp";
 int countImage;
@@ -164,7 +165,7 @@ void MyTabOne::OnBnClickedButton1()
  
 	if (dlg.DoModal() == IDOK) {
  
-		CString path= dlg.GetPathName();
+		path= dlg.GetPathName();
 		
 		load = true;
 		countImage = 0;
@@ -257,7 +258,49 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	changeVU(xCoordinate,yCoordinate,criticalPoints1);
-	changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
+
+	resizePic();
+
+	//IplImage *source = cvLoadImage( path);	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+
+
+
+	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
+	//changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
+	
 	// TODO: Add your control notification handler code here
+}
+
+int MyTabOne::getfwidth(){
+	return (xCoordinate[1]-xCoordinate[0]);
+}
+
+
+int MyTabOne::getfHeight(){
+	return (yCoordinate[3]-yCoordinate[2]);
+}
+
+void MyTabOne::resizePic(){
+	// Create an IplImage object *image 
+IplImage *source = cvLoadImage( path);
+// Here we retrieve a percentage value to a integer
+int fwidth=getfwidth();
+int fheight=getfHeight();
+float xpercent = 165.0/fwidth;
+float ypercent=155.0/fheight;
+
+// declare a destination IplImage object with correct size, depth and channels
+      IplImage *destination = cvCreateImage
+( cvSize((int)(((source->width)*xpercent)) , (int)(((source->height)*ypercent)) ),
+                                     source->depth, source->nChannels );
+
+//use cvResize to resize source to a destination image
+cvResize(source, destination);
+
+// save image with a name supplied with a second argument
+      cvSaveImage( "res\\a.bmp", destination );
+
+
+
+
 }

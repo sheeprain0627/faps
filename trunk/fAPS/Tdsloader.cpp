@@ -452,18 +452,9 @@ void modify(float x, CString selctVal){
 
 void changeVU(int x[],int y[],int cpoints[]){
 
-	/*
-	for(int i=0;i<15;i++){
-	object.mapcoord[cpoints[i]].u=(x[0])/240.0;
-	object.mapcoord[cpoints[i]].v=(1+(320-y[0]+2)/320.0);
-	}
-
-	*/
-
 	
-
 	//select the fisrt point of left eye only thatn the remaining points will automatically moved by the new distance
-	float nc=(x[0])/240.0;			
+	float nc=(x[4])/240.0;			
 	float du=nc-object.mapcoord[cpoints[0]].u;
 	for(int i=0;i<1683;i++)	
 	object.mapcoord[i].u+=du;
@@ -471,12 +462,21 @@ void changeVU(int x[],int y[],int cpoints[]){
 	float dv=(1+(320.0-y[0]+2)/320.0)-object.mapcoord[cpoints[0]].v;	//2 reduced for adjustment
 	for(int i=0;i<1683;i++)	
 	object.mapcoord[i].v+=dv;
+	
+}
 
 
-	
-	
+void changeVU1(float u1,float  v1){
 
+	float du=u1-object.mapcoord[900].u;
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].u+=du;
 	
+	float dv=v1-object.mapcoord[900].v;	//2 reduced for adjustment
+	for(int i=0;i<1683;i++)	
+	object.mapcoord[i].v+=dv;
+
+
 }
 
 //values for the 3d model
@@ -676,7 +676,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
 	opath=path;
-	object.id_texture=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
+	ori_object.id_texture=object.id_texture=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture);
 	
@@ -686,7 +686,7 @@ void LoadImage(CString path,int tlevel,int blevel,float clevel){
 void LoadImage2(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
 	tpath=path;
-	object.id_texture2=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
+	ori_object.id_texture2=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
     glBindTexture(GL_TEXTURE_2D, object.id_texture2);
 	
@@ -704,6 +704,10 @@ void changeContrast(float clevel){
     glBindTexture(GL_TEXTURE_2D, object.id_texture2);
 
 }
+
+//deform the image according to the given face size
+
+
 
 
 void drawBox(){

@@ -116,6 +116,7 @@ makeLine();
 
 void MyTabTwo::OnBnClickedButton10()
 {
+	
 	test();
 	// TODO: Add your control notification handler code here
 }
