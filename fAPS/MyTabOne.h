@@ -27,4 +27,8 @@ public:
 	afx_msg void OnBnClickedButton4();
 	CStatic m_PicCtrl;
 	afx_msg void OnBnClickedButton5();
+	int getfwidth();
+	int getfHeight();
+	void resizePic();
+
 };
