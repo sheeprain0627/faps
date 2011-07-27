@@ -220,7 +220,7 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
-	opath="res//a.bmp";
+	opath="res//pil111.bmp";
 	tpath="res//black.bmp";
 object.id_texture=LoadBitmap(opath,255,0,1);		//adjust the conrst level for age progress : 0-1
 	object.id_texture2=LoadBitmap(tpath,255,0,0);
