@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeBar, &MyTabThree::OnNMCustomdrawAgebar)
 	ON_EN_CHANGE(IDC_EDIT1, &MyTabThree::OnEnChangeEdit1)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabThree::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &MyTabThree::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -105,7 +106,7 @@ void MyTabThree::OnBnClickedButton2()
 		IplImage* img11;
 		IplImage* img_new;
 		
-		img_new = cvLoadImage("K:\\FAPS-Images\\3Dsloader-640-480\\FACEM.bmp");
+		img_new = cvLoadImage("Ageprogression\\1.bmp");
 		cvNamedWindow("Lap",1);
 		//img11 = cvCreateImage(cvSize(101,32),8 , 3);
 		
@@ -179,3 +180,10 @@ void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel
   cvReleaseImage(&img);
 }
 
+
+
+void MyTabThree::OnBnClickedButton3()
+{
+	float p=age.getSigma();
+age.applyIbsdt(p);
+}
