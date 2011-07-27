@@ -45,10 +45,13 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON8, &MyTabTwo::OnBnClickedButton8)
 	ON_BN_CLICKED(IDC_UP, &MyTabTwo::OnBnClickedUp)
 	ON_BN_CLICKED(IDC_MoveUp, &MyTabTwo::OnBnClickedMoveup)
-	ON_BN_CLICKED(IDC_MoveLeft, &MyTabTwo::OnBnClickedMoveleft)
+	
 	ON_BN_CLICKED(IDC_MoveRight, &MyTabTwo::OnBnClickedMoveright)
 	ON_BN_CLICKED(IDC_MoveDown, &MyTabTwo::OnBnClickedMovedown)
 	ON_BN_CLICKED(IDC_Zoom, &MyTabTwo::OnBnClickedZoom)
+	
+	
+	ON_BN_CLICKED(IDC_BUTTON4, &MyTabTwo::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -180,10 +183,6 @@ void MyTabTwo::OnBnClickedMoveup()
 }
 
 
-void MyTabTwo::OnBnClickedMoveleft()
-{
-	move('l');
-}
 
 
 void MyTabTwo::OnBnClickedMoveright()
@@ -197,8 +196,21 @@ void MyTabTwo::OnBnClickedMovedown()
 	move('d');
 }
 
+void MyTabTwo::OnBnClickedButton4()
+{
+	move('l');// TODO: Add your control notification handler code here
+}
 
 void MyTabTwo::OnBnClickedZoom()
 {
 	scaleTex();
 }
+
+
+
+
+
+
+
+
+

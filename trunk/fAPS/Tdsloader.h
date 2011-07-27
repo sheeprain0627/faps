@@ -89,7 +89,8 @@ void markVertex(int vertex);
 void makeLine();
 void changeVU(int x[],int y[],int cpoints[]);	// change the uv values from critical points selction
 void changeXYZ(int x[],int y[],int cpoints[]);
-void changeVU1(float u1,float  v1);
+void changeVU1(float u1,float  v1);	//change uv by considering 1st point movement
+void changeVU2(float u1,float  v1);	//change uv by a linear equation
 void drawBox();
 
 void test();

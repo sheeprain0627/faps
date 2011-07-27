@@ -173,7 +173,8 @@ void MyTabOne::OnBnClickedButton1()
 		
 		cvSaveImage(savePath,img0[countImage]);
 
-		LoadImage(savePath,255,0,1); //sent the pathe of image to opengl window
+		//OnBnClickedButton5();
+		LoadImage(savePath,255,0,1); //sent the pathe of image to opengl window    //ajith
 					
 		CImage img;
 		img.Load(path);
@@ -260,10 +261,15 @@ void MyTabOne::OnBnClickedButton5()
 {
 
 	resizePic();
+	cropPic();
 
-	//IplImage *source = cvLoadImage( path);	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+	//float a=(source->width)*(0.821289-0.1818449)/(xCoordinate[1]-xCoordinate[0]);
+	//float b=(source->width)*(0.1818449*xCoordinate[1]-0.821289*xCoordinate[0])/(xCoordinate[1]-xCoordinate[0]);
 
-
+	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+	
+	LoadImage("res\\b.bmp",255,0,1);
+	
 
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	//changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
@@ -286,13 +292,23 @@ IplImage *source = cvLoadImage( path);
 // Here we retrieve a percentage value to a integer
 int fwidth=getfwidth();
 int fheight=getfHeight();
-float xpercent = 165.0/fwidth;
-float ypercent=155.0/fheight;
+double xpercent = 165.0/fwidth;
+double ypercent=155.0/fheight;
+int newwidth=(int)(((source->width)*xpercent));
+int newheight=(int)(((source->height)*ypercent));
+
+if(newwidth%2!=0){
+	newwidth+=1;
+}
+
+if(newheight%2!=0){
+	newheight+=1;
+}
 
 // declare a destination IplImage object with correct size, depth and channels
-      IplImage *destination = cvCreateImage
-( cvSize((int)(((source->width)*xpercent)) , (int)(((source->height)*ypercent)) ),
-                                     source->depth, source->nChannels );
+
+//( cvSize((int)(((source->width)*1.013)) , (int)(((source->height)*1.06)) ),
+      IplImage *destination = cvCreateImage( cvSize(newwidth,newheight),source->depth, source->nChannels );
 
 //use cvResize to resize source to a destination image
 cvResize(source, destination);
@@ -303,4 +319,31 @@ cvResize(source, destination);
 
 
 
+}
+
+void MyTabOne::cropPic(){
+
+	/* load image */
+IplImage *img1 = cvLoadImage("res\\a.bmp", 1);
+ 
+/* sets the Region of Interest
+   Note that the rectangle area has to be __INSIDE__ the image */
+
+int x0=xCoordinate[2]-115;
+int y0=yCoordinate[2]-100;
+	
+
+cvSetImageROI(img1, cvRect(x0, y0, x0+240, y0+320));
+ 
+/* create destination image
+   Note that cvGetSize will return the width and the height of ROI */
+IplImage *img2 = cvCreateImage(cvGetSize(img1), img1->depth,img1->nChannels);
+ 
+/* copy subimage */
+cvCopy(img1, img2, NULL);
+ 
+/* always reset the Region of Interest */
+cvResetImageROI(img1);
+
+cvSaveImage( "res\\b.bmp", img2 );
 }

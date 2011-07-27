@@ -220,7 +220,7 @@ glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
-	opath="res//pil111.bmp";
+	opath="res//a.bmp";
 	tpath="res//black.bmp";
 object.id_texture=LoadBitmap(opath,255,0,1);		//adjust the conrst level for age progress : 0-1
 	object.id_texture2=LoadBitmap(tpath,255,0,0);
@@ -300,22 +300,22 @@ void move(char dir){
 	switch(dir){
 	case 'l' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].u+=.005;
+	object.mapcoord[i].u+=.01;
 	break;
 
 	case 'r' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].u-=.005;
+	object.mapcoord[i].u-=.01;
 	break;
 
 	case 'u' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].v-=.005;
+	object.mapcoord[i].v-=.01;
 	break;
 
 	case 'd' :
 	for(int i=0;i<1683;i++)	
-	object.mapcoord[i].v+=.005;
+	object.mapcoord[i].v+=.01;
 	break;
 
 	default : break;
@@ -476,6 +476,15 @@ void changeVU1(float u1,float  v1){
 	for(int i=0;i<1683;i++)	
 	object.mapcoord[i].v+=dv;
 
+
+}
+
+
+//stucked here ajith
+void changeVU2(float a,float  b){
+
+	
+	
 
 }
 
