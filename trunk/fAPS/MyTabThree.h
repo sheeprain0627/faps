@@ -29,4 +29,5 @@ public:
 	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnBnClickedButton2();
 	void show_histogram(char* window_title, IplImage* src, char* channel_name);
+	afx_msg void OnBnClickedButton3();
 };
