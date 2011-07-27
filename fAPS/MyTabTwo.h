@@ -38,8 +38,11 @@ public:
 	CEdit contrat;
 	afx_msg void OnBnClickedUp();
 	afx_msg void OnBnClickedMoveup();
-	afx_msg void OnBnClickedMoveleft();
+	
 	afx_msg void OnBnClickedMoveright();
 	afx_msg void OnBnClickedMovedown();
 	afx_msg void OnBnClickedZoom();
+	
+	
+	afx_msg void OnBnClickedButton4();
 };

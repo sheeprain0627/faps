@@ -30,5 +30,6 @@ public:
 	int getfwidth();
 	int getfHeight();
 	void resizePic();
+	void cropPic();
 
 };
