@@ -9,7 +9,6 @@ Ageprogression::Ageprogression(void)
 {
 }
 
-
 Ageprogression::~Ageprogression(void)
 {
 }
@@ -131,6 +130,94 @@ void Ageprogression ::texureEnhancePrototype(float p){
     cvSaveImage("Ageprogression\\Texure-Enhanced-prototype.bmp",imgResultD);
 	cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	cvWaitKey(0);
+
+}
+
+void Ageprogression ::applyIbsdt(float q){
+
+
+   IplImage* img_murali = cvLoadImage("Ageprogression\\1_murali.bmp");
+   IplImage* imgRed_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
+   IplImage* imgGreen_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
+   IplImage* imgBlue_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
+  cvSplit(img_murali, imgRed_murali, imgGreen_murali, imgBlue_murali, NULL);
+  CvSize imgSize_murali = cvGetSize(img_murali);
+  cvReleaseImage(&img_murali);
+
+
+
+for(int i=0;i<2;i++)
+	{ 
+	char infilename_murali[30];
+	char outfilename_murali[50];
+    sprintf(infilename_murali, "Ageprogression\\%d_murali.bmp", (i+1));   
+	IplImage* img_murali = cvLoadImage(infilename_murali);
+	IplImage* out_murali = cvCreateImage( cvGetSize(img_murali), IPL_DEPTH_8U, 3 ); 
+    cvSmooth(img_murali, out_murali, CV_GAUSSIAN, 7, 7,q, 0);
+	sprintf(outfilename_murali, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
+	cvSaveImage(outfilename_murali, out_murali);
+	//cvNamedWindow("Gaussian Smooth", 1 );
+	//cvShowImage("Gaussian Smooth", out_murali);
+	//cvWaitKey(0);
+	} 
+
+    IplImage* imgRedSmooth_murali[2];
+    IplImage* imgGreenSmooth_murali[2];
+    IplImage* imgBlueSmooth_murali[2];
+	
+	for(int i=0;i<2;i++)
+	{
+	char otfilename_murali[50];
+    sprintf(otfilename_murali, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
+	IplImage* imgSmooth_murali = cvLoadImage(otfilename_murali);
+    imgRedSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
+    imgGreenSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
+    imgBlueSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
+    cvSplit(imgSmooth_murali, imgRedSmooth_murali[i], imgGreenSmooth_murali[i], imgBlueSmooth_murali[i], NULL);
+    cvReleaseImage(&imgSmooth_murali);
+	}
+
+
+	IplImage* imgResultRedTem_murali= cvCreateImage(imgSize_murali, 8, 1);
+    IplImage* imgResultGreenTem_murali = cvCreateImage(imgSize_murali, 8, 1);
+    IplImage* imgResultBlueTem_murali = cvCreateImage(imgSize_murali, 8, 1);
+    IplImage* imgResultD_murali = cvCreateImage(imgSize_murali, 8, 3);
+
+for(int y=0;y<imgSize_murali.height;y++)
+    {
+        for(int x=0;x<imgSize_murali.width;x++)
+        {
+                double theFinalRed_murali=cvGetReal2D(imgRedSmooth_murali[1], y, x);
+                double theFinalGreen_murali=cvGetReal2D(imgGreenSmooth_murali[1], y, x);
+                double theFinalBlue_murali=cvGetReal2D(imgBlueSmooth_murali[1], y, x);
+
+                double  theRealRed_murali=cvGetReal2D(imgRed_murali, y, x);
+                double  theRealGreen_murali=cvGetReal2D(imgGreen_murali, y, x);
+                double theRealBlue_murali=cvGetReal2D(imgBlue_murali, y, x);
+
+			    double	theSmoothRed_murali=cvGetReal2D(imgRedSmooth_murali[0], y, x);
+			    double	theSmoothGreen_murali=cvGetReal2D(imgGreenSmooth_murali[0], y, x);
+			    double	theSmoothBlue_murali=cvGetReal2D(imgBlueSmooth_murali[0], y, x);
+
+			    double	theTemFinalRed_murali=theFinalRed_murali*theRealRed_murali/theSmoothRed_murali;
+			    double	theTemFinalGreen_murali=theFinalGreen_murali*theRealGreen_murali/theSmoothGreen_murali;
+			    double	theTemFinalBlue_murali=theFinalBlue_murali*theRealBlue_murali/theSmoothBlue_murali;
+
+		  cvSetReal2D(imgResultRedTem_murali, y, x, theTemFinalRed_murali);
+          cvSetReal2D(imgResultGreenTem_murali, y, x, theTemFinalGreen_murali);
+          cvSetReal2D(imgResultBlueTem_murali, y, x, theTemFinalBlue_murali);
+          
+        }
+    }
+
+	cvMerge(imgResultRedTem_murali, imgResultGreenTem_murali, imgResultBlueTem_murali, NULL, imgResultD_murali);
+    cvNamedWindow("IBSDT");
+    cvShowImage("IBSDT", imgResultD_murali);
+    cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD_murali);
+	//cvWaitKey(0);
+	//;
+
+
 
 }
 float Ageprogression ::getSigma()const{
