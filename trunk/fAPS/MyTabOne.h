@@ -32,4 +32,5 @@ public:
 	void resizePic();
 	void cropPic();
 
+	afx_msg void OnBnClickedSetface();
 };

@@ -64,6 +64,7 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabOne::OnBnClickedButton4)
 	ON_WM_LBUTTONDOWN(&TabOne::OnLButtonDown)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_SetFace, &MyTabOne::OnBnClickedSetface)
 END_MESSAGE_MAP()
 
 
@@ -259,22 +260,8 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-
-	resizePic();
-	cropPic();
-
-	//float a=(source->width)*(0.821289-0.1818449)/(xCoordinate[1]-xCoordinate[0]);
-	//float b=(source->width)*(0.1818449*xCoordinate[1]-0.821289*xCoordinate[0])/(xCoordinate[1]-xCoordinate[0]);
-
-	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+	IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
 	
-	LoadImage("res\\b.bmp",255,0,1);
-	
-
-	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
-	//changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
-	
-	// TODO: Add your control notification handler code here
 }
 
 int MyTabOne::getfwidth(){
@@ -305,6 +292,12 @@ if(newheight%2!=0){
 	newheight+=1;
 }
 
+for(int i=0;i<5;i++){
+	xCoordinate[i]=(int)xCoordinate[i]*xpercent;
+	yCoordinate[i]=(int)yCoordinate[i]*ypercent;
+		
+}
+
 // declare a destination IplImage object with correct size, depth and channels
 
 //( cvSize((int)(((source->width)*1.013)) , (int)(((source->height)*1.06)) ),
@@ -330,10 +323,10 @@ IplImage *img1 = cvLoadImage("res\\a.bmp", 1);
    Note that the rectangle area has to be __INSIDE__ the image */
 
 int x0=xCoordinate[2]-115;
-int y0=yCoordinate[2]-100;
+int y0=yCoordinate[2]-90;
 	
 
-cvSetImageROI(img1, cvRect(x0, y0, x0+240, y0+320));
+cvSetImageROI(img1, cvRect(x0, y0, 240, 320));
  
 /* create destination image
    Note that cvGetSize will return the width and the height of ROI */
@@ -346,4 +339,25 @@ cvCopy(img1, img2, NULL);
 cvResetImageROI(img1);
 
 cvSaveImage( "res\\b.bmp", img2 );
+
+IplImage *source = cvLoadImage( "res\\b.bmp");
+float u1=((float)(xCoordinate[4])-x0/2)/(source->width);	float v1=(1+(float)((source->height-yCoordinate[4]+2+y0))/(source->height));	changeVU1(u1,v1);
+	
+}
+
+void MyTabOne::OnBnClickedSetface()
+{
+	resizePic();
+	cropPic();
+
+	//float a=(source->width)*(0.821289-0.1818449)/(xCoordinate[1]-xCoordinate[0]);
+	//float b=(source->width)*(0.1818449*xCoordinate[1]-0.821289*xCoordinate[0])/(xCoordinate[1]-xCoordinate[0]);
+
+	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+	
+	LoadImage("res\\b.bmp",255,0,1);
+	
+
+	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
+	//changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
 }
