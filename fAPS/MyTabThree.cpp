@@ -450,10 +450,10 @@ return dst;
 void MyTabThree::OnBnClickedButton3()
 {
 	
-	 IplImage* src = cvLoadImage("K:\\FAPS-Images\\wringle.bmp");
-  IplImage* dst = cvLoadImage("K:\\FAPS-Images\\FACEJ.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
-  IplImage* src1 = cvLoadImage("K:\\FAPS-Images\\FACEY.jpg");
-  IplImage* dst1 = cvLoadImage("K:\\FAPS-Images\\FACEY.jpg");
+	 IplImage* src = cvLoadImage("res\\wringle.bmp");
+  IplImage* dst = cvLoadImage("res\\FACEJ.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
+  IplImage* src1 = cvLoadImage("res\\FACEY.jpg");
+  IplImage* dst1 = cvLoadImage("res\\FACEY.jpg");
 
   IplImage* xx= histeq(src, dst, src1, dst1);
 
