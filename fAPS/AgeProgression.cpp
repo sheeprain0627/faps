@@ -186,15 +186,15 @@ for(int i=0;i<2;i++)
 for(int y=0;y<imgSize_murali.height;y++)
     {
         for(int x=0;x<imgSize_murali.width;x++)
-        {
+        {       //input iname
                 double theFinalRed_murali=cvGetReal2D(imgRedSmooth_murali[1], y, x);
                 double theFinalGreen_murali=cvGetReal2D(imgGreenSmooth_murali[1], y, x);
                 double theFinalBlue_murali=cvGetReal2D(imgBlueSmooth_murali[1], y, x);
-
+//enhanced image
                 double  theRealRed_murali=cvGetReal2D(imgRed_murali, y, x);
                 double  theRealGreen_murali=cvGetReal2D(imgGreen_murali, y, x);
                 double theRealBlue_murali=cvGetReal2D(imgBlue_murali, y, x);
-
+//enhanced image smoothing
 			    double	theSmoothRed_murali=cvGetReal2D(imgRedSmooth_murali[0], y, x);
 			    double	theSmoothGreen_murali=cvGetReal2D(imgGreenSmooth_murali[0], y, x);
 			    double	theSmoothBlue_murali=cvGetReal2D(imgBlueSmooth_murali[0], y, x);
