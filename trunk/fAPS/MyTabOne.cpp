@@ -339,6 +339,7 @@ cvCopy(img1, img2, NULL);
 cvResetImageROI(img1);
 
 cvSaveImage( "res\\b.bmp", img2 );
+cvSaveImage( "Ageprogression\\2_murali.bmp", img2 );
 
 for(int i=0;i<20;i++){
 	xCoordinate[i]=(int)(xCoordinate[i]-x0);

@@ -220,9 +220,7 @@ for(int y=0;y<imgSize_murali.height;y++)
 
 
 }
-float Ageprogression ::getSigma()const{
-	return sigma;
-}
+
 void Ageprogression ::setSigma(float q){
 	sigma=q;
 }
