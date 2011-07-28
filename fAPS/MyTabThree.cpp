@@ -452,8 +452,8 @@ void MyTabThree::OnBnClickedButton3()
 	
 	IplImage* src = cvLoadImage("res\\wringle.bmp");
 	IplImage* dst = cvLoadImage("res\\FACEJ.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
-	IplImage* src1 = cvLoadImage("res\\FACEY.jpg");
-	IplImage* dst1 = cvLoadImage("res\\FACEY.jpg");
+	IplImage* src1 = cvLoadImage("res\\FACEJ.jpg");
+	IplImage* dst1 = cvLoadImage("res\\FACEJ.jpg");
 
   IplImage* xx= histeq(src, dst, src1, dst1);
 
