@@ -115,7 +115,6 @@
     <None Include="res\newImage.bmp" />
     <None Include="res\pil111.bmp" />
     <None Include="res\Static-Image.bmp" />
-    <None Include="res\wringle.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ageprogression.h" />
