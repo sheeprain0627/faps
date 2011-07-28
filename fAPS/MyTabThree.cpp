@@ -50,8 +50,10 @@ END_MESSAGE_MAP()
 
 void MyTabThree::OnBnClickedButton1()
 {
-float p=age.getSigma();
-age.texureEnhancePrototype(p);
+	CString s;
+	GetDlgItemText(IDC_EDIT1, s);
+	float x = atof( s );
+age.texureEnhancePrototype(x);
 }
 
 
@@ -468,8 +470,10 @@ void MyTabThree::OnBnClickedButton3()
 
 void MyTabThree::OnBnClickedApplyage()
 {
-	float p=age.getSigma();
-	age.applyIbsdt(p);
+	CString s;
+	GetDlgItemText(IDC_EDIT1, s);
+	float x = atof( s );
+		age.applyIbsdt(x);
 
 
 	// TODO: Add your control notification handler code here
