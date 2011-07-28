@@ -397,7 +397,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
     cvCvtColor(hsv, src1, CV_HSV2BGR);
 	show_histogram("NewHist", src1, "gray");
 	cvShowImage("one",src1);
-
+	cvSaveImage("res//texture11.bmp", dst1);
 
 
 	cvMerge(h1, s1, v1, NULL, hsv1);
@@ -453,7 +453,7 @@ return dst;
 void MyTabThree::OnBnClickedButton3()
 {
 	
-	IplImage* src = cvLoadImage("res\\wringle.bmp");
+	IplImage* src = cvLoadImage("res\\Wtexture.bmp");
 	IplImage* dst = cvLoadImage("res\\FACEJ.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
 	IplImage* src1 = cvLoadImage("res\\FACEJ.jpg");
 	IplImage* dst1 = cvLoadImage("res\\FACEJ.jpg");
