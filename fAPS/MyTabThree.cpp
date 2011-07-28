@@ -41,6 +41,7 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_EN_CHANGE(IDC_EDIT1, &MyTabThree::OnEnChangeEdit1)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabThree::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabThree::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_ApplyAge, &MyTabThree::OnBnClickedApplyage)
 END_MESSAGE_MAP()
 
 
@@ -462,4 +463,14 @@ void MyTabThree::OnBnClickedButton3()
   cvWaitKey(0);
 
 
+}
+
+
+void MyTabThree::OnBnClickedApplyage()
+{
+	float p=age.getSigma();
+	age.applyIbsdt(p);
+
+
+	// TODO: Add your control notification handler code here
 }

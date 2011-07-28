@@ -31,4 +31,5 @@ public:
 	void show_histogram(char* window_title, IplImage* src, char* channel_name);
 	afx_msg void OnBnClickedButton3();
 	IplImage* histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1);
+	afx_msg void OnBnClickedApplyage();
 };
