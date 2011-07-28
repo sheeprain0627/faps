@@ -49,6 +49,9 @@
     <None Include="res\FACEJ.jpg">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\FACEE2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
