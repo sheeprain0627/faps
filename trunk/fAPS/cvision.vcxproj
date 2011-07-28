@@ -127,6 +127,7 @@
     <ClInclude Include="MyTabThree.h" />
     <ClInclude Include="MyTabTwo.h" />
     <ClInclude Include="OpenGLControl.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tdsloader.h" />
