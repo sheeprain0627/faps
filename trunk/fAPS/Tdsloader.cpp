@@ -480,14 +480,6 @@ void changeVU1(float u1,float  v1){
 }
 
 
-//stucked here ajith
-void changeVU2(float a,float  b){
-
-	
-	
-
-}
-
 //values for the 3d model
 void changeXYZ(int x[],int y[],int cpoints[]){
 

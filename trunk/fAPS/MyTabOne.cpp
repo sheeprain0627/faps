@@ -35,7 +35,7 @@ int xCoordinate[100];
 int yCoordinate[100];
 int criticalPoints1[]={900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
 int criticalPoints2[]={913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
-
+int a=15;
 // MyTabOne dialog
 
 IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
@@ -72,8 +72,6 @@ END_MESSAGE_MAP()
 
 void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	
-	
 		
 	int poiX, poiY;
 	int X, Y;
@@ -260,17 +258,19 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
+	LoadImage(savePath,255,0,1);
+
+	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[a+4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[a+4]+2)/(source->height));	changeVU1(u1,v1);
 	
 }
 
 int MyTabOne::getfwidth(){
-	return (xCoordinate[1]-xCoordinate[0]);
+	return (xCoordinate[a+1]-xCoordinate[a+0]);
 }
 
 
 int MyTabOne::getfHeight(){
-	return (yCoordinate[3]-yCoordinate[2]);
+	return (yCoordinate[a+3]-yCoordinate[a+2]);
 }
 
 void MyTabOne::resizePic(){
@@ -292,7 +292,7 @@ if(newheight%2!=0){
 	newheight+=1;
 }
 
-for(int i=0;i<5;i++){
+for(int i=0;i<20;i++){
 	xCoordinate[i]=(int)xCoordinate[i]*xpercent;
 	yCoordinate[i]=(int)yCoordinate[i]*ypercent;
 		
@@ -322,8 +322,8 @@ IplImage *img1 = cvLoadImage("res\\a.bmp", 1);
 /* sets the Region of Interest
    Note that the rectangle area has to be __INSIDE__ the image */
 
-int x0=xCoordinate[2]-115;
-int y0=yCoordinate[2]-90;
+int x0=xCoordinate[a+2]-115;
+int y0=yCoordinate[a+2]-90;
 	
 
 cvSetImageROI(img1, cvRect(x0, y0, 240, 320));
@@ -340,9 +340,17 @@ cvResetImageROI(img1);
 
 cvSaveImage( "res\\b.bmp", img2 );
 
+for(int i=0;i<20;i++){
+	xCoordinate[i]=(int)(xCoordinate[i]-x0);
+	yCoordinate[i]=(int)(yCoordinate[i]-y0);
+		
+}
+
+//adjust the texture
 IplImage *source = cvLoadImage( "res\\b.bmp");
-float u1=((float)(xCoordinate[4])-x0/2)/(source->width);	float v1=(1+(float)((source->height-yCoordinate[4]+2+y0))/(source->height));	changeVU1(u1,v1);
-	
+float u1=((float)(xCoordinate[0]+10))/(source->width);	float v1=(1+(float)((source->height-yCoordinate[0]+2))/(source->height));	changeVU1(u1,v1);
+
+changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
 }
 
 void MyTabOne::OnBnClickedSetface()
@@ -359,5 +367,5 @@ void MyTabOne::OnBnClickedSetface()
 	
 
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
-	//changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
+	
 }
