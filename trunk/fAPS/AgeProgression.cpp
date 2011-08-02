@@ -13,12 +13,16 @@ Ageprogression::~Ageprogression(void)
 {
 }
 
+
+//create the age prototype
 void Ageprogression ::texureEnhancePrototype(float p){
 	
 	IplImage* imgRed[3];
     IplImage* imgGreen[3];
     IplImage* imgBlue[3];
     float q=p;
+
+	//split the database images in to RGB segment
 	for(int i=0;i<3;i++)
     {
         IplImage* img;
@@ -38,6 +42,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
     IplImage* imgResultBlue = cvCreateImage(imgSize, 8, 1);
     IplImage* imgResult = cvCreateImage(imgSize, 8, 3);
 
+
+	//calculate the sum of RGD and find the average
 	for(int y=0;y<imgSize.height;y++)
     {
         for(int x=0;x<imgSize.width;x++)
@@ -62,6 +68,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
 	cvMerge(imgResultRed, imgResultGreen, imgResultBlue, NULL, imgResult);
     cvSaveImage("Ageprogression\\result.bmp",imgResult );
 
+
+	//smoothening the each database image
 	for(int i=0;i<3;i++)
 	{ 
 	    char infilename[30];
@@ -79,6 +87,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
     IplImage* imgGreenSmooth[3];
     IplImage* imgBlueSmooth[3];
 	
+
+	//split the smoothed database images in to RGB segment
 	for(int i=0;i<3;i++)
 	{
 	    char otfilename[30];
@@ -95,6 +105,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
     IplImage* imgResultGreenTem = cvCreateImage(imgSize, 8, 1);
     IplImage* imgResultBlueTem = cvCreateImage(imgSize, 8, 1);
     IplImage* imgResultD = cvCreateImage(imgSize, 8, 3);
+
+	//age prototype algo
 	for(int y=0;y<imgSize.height;y++)
     {
         for(int x=0;x<imgSize.width;x++)
@@ -105,14 +117,17 @@ void Ageprogression ::texureEnhancePrototype(float p){
 
             for(int i=0;i<3;i++)
             {
+				//avaraged database image
                 double  theRealRed=cvGetReal2D(imgRed[i], y, x);
                 double  theRealGreen=cvGetReal2D(imgGreen[i], y, x);
                 double theRealBlue=cvGetReal2D(imgBlue[i], y, x);
 
+				//smoothened avaraged database image
 			    double	theSmoothRed=cvGetReal2D(imgRedSmooth[i], y, x);
 			    double	theSmoothGreen=cvGetReal2D(imgGreenSmooth[i], y, x);
 			    double	theSmoothBlue=cvGetReal2D(imgBlueSmooth[i], y, x);
 
+				//algo
 			    double	theTemFinalRed=theRealRed/theSmoothRed;
 			    double	theTemFinalGreen=theRealGreen/theSmoothGreen;
 			    double	theTemFinalBlue=theRealBlue/theSmoothBlue;
@@ -133,87 +148,93 @@ void Ageprogression ::texureEnhancePrototype(float p){
 
 }
 
+//apply the age prototype with input image
 void Ageprogression ::applyIbsdt(float q){
 
 
-   IplImage* img_murali = cvLoadImage("Ageprogression\\1_murali.bmp");
-   IplImage* imgRed_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
-   IplImage* imgGreen_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
-   IplImage* imgBlue_murali = cvCreateImage(cvGetSize(img_murali), 8, 1);
-  cvSplit(img_murali, imgRed_murali, imgGreen_murali, imgBlue_murali, NULL);
-  CvSize imgSize_murali = cvGetSize(img_murali);
-  cvReleaseImage(&img_murali);
+   IplImage* AgePrototype = cvLoadImage("Ageprogression\\1_murali.bmp");
+   IplImage* imgRed_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
+   IplImage* imgGreen_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
+   IplImage* imgBlue_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
+  cvSplit(AgePrototype, imgRed_Prototype, imgGreen_Prototype, imgBlue_Prototype, NULL);
+  CvSize imgSize_Standard = cvGetSize(AgePrototype);
+  cvReleaseImage(&AgePrototype);
 
 
-
+  //smoothening the age prototype and input image
 for(int i=0;i<2;i++)
 	{ 
-	char infilename_murali[30];
-	char outfilename_murali[50];
-    sprintf(infilename_murali, "Ageprogression\\%d_murali.bmp", (i+1));   
-	IplImage* img_murali = cvLoadImage(infilename_murali);
-	IplImage* out_murali = cvCreateImage( cvGetSize(img_murali), IPL_DEPTH_8U, 3 ); 
-    cvSmooth(img_murali, out_murali, CV_GAUSSIAN, 7, 7,q, 0);
-	sprintf(outfilename_murali, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
-	cvSaveImage(outfilename_murali, out_murali);
+	char infilename_face[30];
+	char outfilename_face[50];
+    sprintf(infilename_face, "Ageprogression\\%d_murali.bmp", (i+1));   
+	IplImage* in_face = cvLoadImage(infilename_face);
+	IplImage* out_face = cvCreateImage( cvGetSize(in_face), IPL_DEPTH_8U, 3 ); 
+    cvSmooth(in_face, out_face, CV_GAUSSIAN, 7, 7,q, 0);
+	sprintf(outfilename_face, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
+	cvSaveImage(outfilename_face, out_face);
 	//cvNamedWindow("Gaussian Smooth", 1 );
 	//cvShowImage("Gaussian Smooth", out_murali);
 	//cvWaitKey(0);
 	} 
 
-    IplImage* imgRedSmooth_murali[2];
-    IplImage* imgGreenSmooth_murali[2];
-    IplImage* imgBlueSmooth_murali[2];
+    IplImage* imgRedSmoothed[2];
+    IplImage* imgGreenSmoothed[2];
+    IplImage* imgBlueSmoothed[2];
 	
+
+	//split of smoothened images into RGB segment
 	for(int i=0;i<2;i++)
 	{
 	char otfilename_murali[50];
     sprintf(otfilename_murali, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
-	IplImage* imgSmooth_murali = cvLoadImage(otfilename_murali);
-    imgRedSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
-    imgGreenSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
-    imgBlueSmooth_murali[i] = cvCreateImage(cvGetSize(imgSmooth_murali), 8, 1);
-    cvSplit(imgSmooth_murali, imgRedSmooth_murali[i], imgGreenSmooth_murali[i], imgBlueSmooth_murali[i], NULL);
-    cvReleaseImage(&imgSmooth_murali);
+	IplImage* imgSmoothed = cvLoadImage(otfilename_murali);
+    imgRedSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);
+    imgGreenSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);
+    imgBlueSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);
+    cvSplit(imgSmoothed, imgRedSmoothed[i], imgGreenSmoothed[i], imgBlueSmoothed[i], NULL);
+    cvReleaseImage(&imgSmoothed);
 	}
 
+	//the output age progressed image dae stored here
+	IplImage* imgResultRedTem= cvCreateImage(imgSize_Standard, 8, 1);
+    IplImage* imgResultGreenTem = cvCreateImage(imgSize_Standard, 8, 1);
+    IplImage* imgResultBlueTem= cvCreateImage(imgSize_Standard, 8, 1);
+    IplImage* imgResultD = cvCreateImage(imgSize_Standard, 8, 3);
 
-	IplImage* imgResultRedTem_murali= cvCreateImage(imgSize_murali, 8, 1);
-    IplImage* imgResultGreenTem_murali = cvCreateImage(imgSize_murali, 8, 1);
-    IplImage* imgResultBlueTem_murali = cvCreateImage(imgSize_murali, 8, 1);
-    IplImage* imgResultD_murali = cvCreateImage(imgSize_murali, 8, 3);
-
-for(int y=0;y<imgSize_murali.height;y++)
+for(int y=0;y<imgSize_Standard.height;y++)
     {
-        for(int x=0;x<imgSize_murali.width;x++)
-        {       //input iname
-                double theFinalRed_murali=cvGetReal2D(imgRedSmooth_murali[1], y, x);
-                double theFinalGreen_murali=cvGetReal2D(imgGreenSmooth_murali[1], y, x);
-                double theFinalBlue_murali=cvGetReal2D(imgBlueSmooth_murali[1], y, x);
-//enhanced image
-                double  theRealRed_murali=cvGetReal2D(imgRed_murali, y, x);
-                double  theRealGreen_murali=cvGetReal2D(imgGreen_murali, y, x);
-                double theRealBlue_murali=cvGetReal2D(imgBlue_murali, y, x);
-//enhanced image smoothing
-			    double	theSmoothRed_murali=cvGetReal2D(imgRedSmooth_murali[0], y, x);
-			    double	theSmoothGreen_murali=cvGetReal2D(imgGreenSmooth_murali[0], y, x);
-			    double	theSmoothBlue_murali=cvGetReal2D(imgBlueSmooth_murali[0], y, x);
+        for(int x=0;x<imgSize_Standard.width;x++)
+        {      
+		//Smoothed Input image
+                double theSoomthlRed_Input=cvGetReal2D(imgRedSmoothed[1], y, x);
+                double theSoomthFinalGreen_Input=cvGetReal2D(imgGreenSmoothed[1], y, x);
+                double theSoomthFinalBlue_Input=cvGetReal2D(imgBlueSmoothed[1], y, x);
 
-			    double	theTemFinalRed_murali=theFinalRed_murali*theRealRed_murali/theSmoothRed_murali;
-			    double	theTemFinalGreen_murali=theFinalGreen_murali*theRealGreen_murali/theSmoothGreen_murali;
-			    double	theTemFinalBlue_murali=theFinalBlue_murali*theRealBlue_murali/theSmoothBlue_murali;
+		//AgePrototype image 
+                double  theRealRed_Prototype=cvGetReal2D(imgRed_Prototype, y, x);
+                double  theRealGreen_Prototype=cvGetReal2D(imgGreen_Prototype, y, x);
+                double theRealBlue_Prototype=cvGetReal2D(imgBlue_Prototype, y, x);
+		//Smoothed AgePrototype image 
+			    double	theSmoothRed_Prototype=cvGetReal2D(imgRedSmoothed[0], y, x);
+			    double	theSmoothGreen_Prototype=cvGetReal2D(imgGreenSmoothed[0], y, x);
+			    double	theSmoothBlue_Prototype=cvGetReal2D(imgBlueSmoothed[0], y, x);
 
-		  cvSetReal2D(imgResultRedTem_murali, y, x, theTemFinalRed_murali);
-          cvSetReal2D(imgResultGreenTem_murali, y, x, theTemFinalGreen_murali);
-          cvSetReal2D(imgResultBlueTem_murali, y, x, theTemFinalBlue_murali);
+	//the algo function
+			    double	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
+			    double	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
+			    double	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;
+
+		  cvSetReal2D(imgResultRedTem, y, x, theTemFinalRed);
+          cvSetReal2D(imgResultGreenTem, y, x, theTemFinalGreen);
+          cvSetReal2D(imgResultBlueTem, y, x, theTemFinalBlue);
           
         }
     }
 
-	cvMerge(imgResultRedTem_murali, imgResultGreenTem_murali, imgResultBlueTem_murali, NULL, imgResultD_murali);
+	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
     cvNamedWindow("IBSDT");
-    cvShowImage("IBSDT", imgResultD_murali);
-    cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD_murali);
+    cvShowImage("IBSDT", imgResultD);
+    cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD);
 	//cvWaitKey(0);
 	//;
 
