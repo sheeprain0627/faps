@@ -42,6 +42,7 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabThree::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabThree::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_ApplyAge, &MyTabThree::OnBnClickedApplyage)
+	ON_BN_CLICKED(IDC_saveface, &MyTabThree::OnBnClickedsaveface)
 END_MESSAGE_MAP()
 
 
@@ -476,5 +477,12 @@ void MyTabThree::OnBnClickedApplyage()
 		age.applyIbsdt(x);
 
 
+	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabThree::OnBnClickedsaveface()
+{
+	captureImage();
 	// TODO: Add your control notification handler code here
 }

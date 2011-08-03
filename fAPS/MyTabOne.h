@@ -31,6 +31,10 @@ public:
 	int getfHeight();
 	void resizePic();
 	void cropPic();
+	void cropPic1();
+	void resizePic1();
+
+	void resizePicDB();
 
 	afx_msg void OnBnClickedSetface();
 };

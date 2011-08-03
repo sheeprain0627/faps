@@ -92,6 +92,9 @@ void changeXYZ(int x[],int y[],int cpoints[]);
 void changeVU1(float u1,float  v1);	//change uv by considering 1st point movement
 void drawBox();
 
+void captureImage();
+void WriteBmp(char* name,int W,int H,int Bpp,int* data);	 //writes the data into a .bmp image and saves it
+
 void test();
 
 extern int num_texture;

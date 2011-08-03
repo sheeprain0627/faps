@@ -743,3 +743,50 @@ glFlush();
 
 }
 
+
+//captures the current image and fill it in current data
+void captureImage() 
+{
+	int width=300;
+	int height=400;
+glReadBuffer(GL_FRONT);
+BYTE* currentData=(BYTE *)malloc(width*height*4);
+glPixelStorei(GL_PACK_ALIGNMENT, 4); 
+glReadPixels(0,0,width,height,GL_BGRA_EXT,GL_UNSIGNED_BYTE,currentData);
+WriteBmp("output//output.bmp",width,height,32,(int *)currentData);
+}
+
+//writes the data into a .bmp image and saves it
+void WriteBmp(char* name,int W,int H,int Bpp,int* data)	 
+{
+BITMAPINFO Bmi={0};
+Bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+Bmi.bmiHeader.biWidth = W;
+Bmi.bmiHeader.biHeight = H;
+Bmi.bmiHeader.biPlanes = 1;
+Bmi.bmiHeader.biBitCount = Bpp; 
+Bmi.bmiHeader.biCompression = BI_RGB;
+Bmi.bmiHeader.biSizeImage = W*H*Bpp/8; 
+
+
+FILE* image = fopen (name,"wb");
+if(image==0)
+return;
+int h = abs(Bmi.bmiHeader.biHeight);
+int w = abs(Bmi.bmiHeader.biWidth);
+Bmi.bmiHeader.biHeight=h;
+Bmi.bmiHeader.biWidth=w;
+int sz = Bmi.bmiHeader.biSizeImage;
+
+BITMAPFILEHEADER bfh;
+bfh.bfType=('M'<<8)+'B'; 
+bfh.bfOffBits=sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER); 
+bfh.bfSize=sz+bfh.bfOffBits; 
+bfh.bfReserved1=0; 
+bfh.bfReserved2=0; 
+
+fwrite(&bfh,sizeof(bfh),1,image);
+fwrite(&Bmi.bmiHeader,sizeof(BITMAPINFOHEADER),1,image);
+fwrite(data,sz,1,image);
+fclose(image);
+}
