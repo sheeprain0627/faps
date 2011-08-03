@@ -32,4 +32,5 @@ public:
 	afx_msg void OnBnClickedButton3();
 	IplImage* histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1);
 	afx_msg void OnBnClickedApplyage();
+	afx_msg void OnBnClickedsaveface();
 };

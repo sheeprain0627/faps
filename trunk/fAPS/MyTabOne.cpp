@@ -258,8 +258,11 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	LoadImage(savePath,255,0,1);
-
+	resizePicDB();
+	//resizePic1();
+	//cropPic1();
+	//LoadImage(savePath,255,0,1);
+	
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[a+4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[a+4]+2)/(source->height));	changeVU1(u1,v1);
 	
 }
@@ -309,9 +312,47 @@ cvResize(source, destination);
 // save image with a name supplied with a second argument
       cvSaveImage( "res\\a.bmp", destination );
 
+	  cvReleaseImage(&source);
 
 
+}
 
+
+void MyTabOne::resizePicDB(){
+	
+IplImage *source = cvLoadImage( path);
+
+int fwidth=xCoordinate[1]-xCoordinate[0];
+int fheight=yCoordinate[2]-yCoordinate[0];
+double xpercent = 78.0/fwidth;
+double ypercent=78.0/fheight;
+int newwidth=(int)(((source->width)*xpercent));
+int newheight=(int)(((source->height)*ypercent));
+
+IplImage *destination = cvCreateImage( cvSize(newwidth,newheight),source->depth, source->nChannels );
+cvResize(source, destination);
+
+for(int i=0;i<3;i++){
+	xCoordinate[i]=(int)xCoordinate[i]*xpercent;
+	yCoordinate[i]=(int)yCoordinate[i]*ypercent;
+		
+}
+
+int x0=xCoordinate[0]-45;
+int y0=yCoordinate[0]-75;
+	
+
+cvSetImageROI(destination, cvRect(x0, y0, 165, 210));
+ 
+IplImage *img2 = cvCreateImage(cvGetSize(destination), destination->depth,destination->nChannels);
+ 
+/* copy subimage */
+cvCopy(destination, img2, NULL);
+ 
+/* always reset the Region of Interest */
+cvResetImageROI(destination);
+cvSaveImage( "db\\b.bmp", img2 );
+cvReleaseImage(&source);
 }
 
 void MyTabOne::cropPic(){
@@ -339,18 +380,19 @@ cvCopy(img1, img2, NULL);
 cvResetImageROI(img1);
 
 cvSaveImage( "res\\b.bmp", img2 );
-cvSaveImage( "Ageprogression\\2_murali.bmp", img2 );
+//cvSaveImage( "Ageprogression\\2_murali.bmp", img2 );
 
 for(int i=0;i<20;i++){
 	xCoordinate[i]=(int)(xCoordinate[i]-x0);
 	yCoordinate[i]=(int)(yCoordinate[i]-y0);
 		
 }
+cvReleaseImage(&img1);
 
 //adjust the texture
 IplImage *source = cvLoadImage( "res\\b.bmp");
 float u1=((float)(xCoordinate[0]+10))/(source->width);	float v1=(1+(float)((source->height-yCoordinate[0]+2))/(source->height));	changeVU1(u1,v1);
-
+cvReleaseImage(&source);
 changeXYZ(xCoordinate,yCoordinate,criticalPoints1);
 }
 
@@ -370,3 +412,42 @@ void MyTabOne::OnBnClickedSetface()
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	
 }
+
+void MyTabOne::resizePic1(){
+	for (int i=0;i<3;i++){
+		char file[50];
+		sprintf(file, "db\\%d.png", (i+1));
+		IplImage* ipl = cvLoadImage(file); 
+		CvSize size = cvSize(240,320); 
+		IplImage* tmpsize=cvCreateImage(size,ipl->depth, ipl->nChannels );	
+
+		cvResize(ipl,tmpsize); 
+		sprintf(file, "Ageprogression\\%d.bmp", (i+1));
+		cvSaveImage( file, tmpsize );
+		cvReleaseImage( &ipl); 
+
+	}
+}
+
+void MyTabOne::cropPic1(){
+
+	int x0=xCoordinate[0];
+	int y0=yCoordinate[2];
+	
+	IplImage *img1 = cvLoadImage(savePath, 1);
+cvSetImageROI(img1, cvRect(x0, y0,xCoordinate[1]-x0, yCoordinate[3]-y0));
+ 
+/* create destination image
+   Note that cvGetSize will return the width and the height of ROI */
+IplImage *img2 = cvCreateImage(cvGetSize(img1), img1->depth,img1->nChannels);
+ 
+/* copy subimage */
+cvCopy(img1, img2, NULL);
+ 
+/* always reset the Region of Interest */
+cvResetImageROI(img1);
+
+cvSaveImage( "db\\1.bmp", img2 );
+cvReleaseImage(&img1);
+}
+
