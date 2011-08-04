@@ -97,8 +97,15 @@ void MyTabTwo::OnBnClickedButton2()
 //m_cmbBox.GetLBText(m_cmbBox.GetCurSel() ,strCBText);
   // GetLBText(IDC_COMBO1,s);
    // m_cbExample.GetLBText( nIndex, strCBText);
-	
+
+
+
+   ///////////////////////////////////////////////////////////////////////////////////
+	/*
 	modify(x,selectedString);
+
+	*/
+	/////////////////////////////////////////////////////////////////////////////////
 		
 	// TODO: Add your control notification handler code here
 }

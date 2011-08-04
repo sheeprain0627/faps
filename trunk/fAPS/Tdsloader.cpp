@@ -412,9 +412,12 @@ glDisable(GL_BLEND);    // don't need blending any more
 
 void modify(float x, CString selctVal){
 	featureInstance.set3Dobject(&object);
-	//int aa;
-	//featureInstance.changeNose(&object,x);
 	
+	featureInstance.changeNose(&object,noseChangeVal);
+	featureInstance.changeMouth(&object,mouthChangeVal);
+	featureInstance.changeLeftEye(&object,leftEyeChangeVal);
+	featureInstance.changeRightEye(&object,rightEyeChangeVal);
+/*
 	if(selctVal == "Nose")
 	{
 		 featureInstance.changeNose(&object,noseChangeVal);
@@ -437,7 +440,7 @@ void modify(float x, CString selctVal){
 		//do nothing
 	}
 		//
-
+*/
 
 	//for(int i=498;i<630;i++){
 

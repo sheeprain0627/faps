@@ -407,8 +407,9 @@ void MyTabOne::OnBnClickedSetface()
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
 	
 	LoadImage("res\\b.bmp",255,0,1);
-	
-
+	float x=8.6;
+	CString selectedString = "selctVal";
+	modify(x,selectedString);
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	
 }
