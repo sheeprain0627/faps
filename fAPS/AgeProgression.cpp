@@ -5,6 +5,7 @@
 #include "Ageprogression.h"
 
 
+
 Ageprogression::Ageprogression(void)
 {
 }
@@ -13,17 +14,20 @@ Ageprogression::~Ageprogression(void)
 {
 }
 
+//define number of images takein as database
+const int no_db=4;
+
 
 //create the age prototype
 void Ageprogression ::texureEnhancePrototype(float p){
 	
-	IplImage* imgRed[3];
-    IplImage* imgGreen[3];
-    IplImage* imgBlue[3];
+	IplImage* imgRed[no_db];
+    IplImage* imgGreen[no_db];
+    IplImage* imgBlue[no_db];
     float q=p;
 
 	//split the database images in to RGB segment
-	for(int i=0;i<3;i++)
+	for(int i=0;i<no_db;i++)
     {
         IplImage* img;
         char filename[30];
@@ -51,7 +55,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
             int theSumRed=0;
             int theSumGreen=0;
             int theSumBlue=0;
-            for(int i=0;i<3;i++)
+            for(int i=0;i<no_db;i++)
             {
                 theSumRed+=cvGetReal2D(imgRed[i], y, x);
                 theSumGreen+=cvGetReal2D(imgGreen[i], y, x);
@@ -70,7 +74,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
 
 
 	//smoothening the each database image
-	for(int i=0;i<3;i++)
+	for(int i=0;i<no_db;i++)
 	{ 
 	    char infilename[30];
 	    char outfilename[30];
@@ -83,13 +87,13 @@ void Ageprogression ::texureEnhancePrototype(float p){
 	}
 
 	/* apply Image based surface detils transfer */
-	IplImage* imgRedSmooth[3];
-    IplImage* imgGreenSmooth[3];
-    IplImage* imgBlueSmooth[3];
+	IplImage* imgRedSmooth[no_db];
+    IplImage* imgGreenSmooth[no_db];
+    IplImage* imgBlueSmooth[no_db];
 	
 
 	//split the smoothed database images in to RGB segment
-	for(int i=0;i<3;i++)
+	for(int i=0;i<no_db;i++)
 	{
 	    char otfilename[30];
         sprintf(otfilename, "Ageprogression\\%d_smooth.bmp", (i+1));
@@ -115,7 +119,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
                 double theFinalGreen=cvGetReal2D(imgResultGreen, y, x);
                 double theFinalBlue=cvGetReal2D(imgResultBlue, y, x);
 
-            for(int i=0;i<3;i++)
+            for(int i=0;i<no_db;i++)
             {
 				//avaraged database image
                 double  theRealRed=cvGetReal2D(imgRed[i], y, x);
