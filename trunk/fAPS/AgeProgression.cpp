@@ -142,7 +142,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
         }
     }
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
-    cvSaveImage("Ageprogression\\Texure-Enhanced-prototype.bmp",imgResultD);
+    cvSaveImage("Ageprogression\\1_murali.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
 	cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	cvWaitKey(0);
 

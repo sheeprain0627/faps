@@ -752,7 +752,7 @@ void captureImage()
 {
 	int width=300;
 	int height=400;
-glReadBuffer(GL_FRONT);
+glReadBuffer(GL_BACK);
 BYTE* currentData=(BYTE *)malloc(width*height*4);
 glPixelStorei(GL_PACK_ALIGNMENT, 4); 
 glReadPixels(0,0,width,height,GL_BGRA_EXT,GL_UNSIGNED_BYTE,currentData);
