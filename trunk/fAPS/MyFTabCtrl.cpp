@@ -11,7 +11,7 @@ IMPLEMENT_DYNAMIC(MyFTabCtrl, CTabCtrl)
 
 MyFTabCtrl::MyFTabCtrl()
 {
-	m_nPageCount	= 0;
+	m_nPageCount = 0;
 }
 
 MyFTabCtrl::~MyFTabCtrl()
@@ -23,12 +23,12 @@ void MyFTabCtrl::AddPage(CWnd *pPageWnd, LPTSTR lpTitle)
 {
 	TCITEM	itemPage;
 
-	itemPage.mask		= TCIF_TEXT|TCIF_PARAM;
-	itemPage.lParam		= LPARAM(pPageWnd);
-	itemPage.pszText	= lpTitle;
+	itemPage.mask = TCIF_TEXT|TCIF_PARAM;
+	itemPage.lParam	= LPARAM(pPageWnd);
+	itemPage.pszText = lpTitle;
 
 	InsertItem(m_nPageCount, &itemPage);
-	m_nPageCount==0?pPageWnd->ShowWindow(SW_SHOW):pPageWnd->ShowWindow(SW_HIDE);
+	m_nPageCount == 0?pPageWnd->ShowWindow(SW_SHOW) : pPageWnd->ShowWindow(SW_HIDE);
 	m_nPageCount++;
 }
 
