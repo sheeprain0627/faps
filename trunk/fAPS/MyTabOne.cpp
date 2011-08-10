@@ -28,7 +28,10 @@ CString path;
 const char* name = "img";
 const char* savePath = "res\\pil.bmp";
 int countImage;
+int countDb;
 bool load = false;
+
+IplImage* dbImage;
 //count = 1;
 
 int xCoordinate[100];
@@ -102,7 +105,11 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 			img0[countImage] = cvCloneImage(img0[countImage-1]);
 		
 			cvCircle(img0[countImage], pt, 1, CV_RGB(0,255,0), -1, 8,0);
+
+			
 			//cvShowImage(name, img0[countImage]);
+
+			
 			cvSaveImage(savePath,img0[countImage]);
 
 			CImage img;
@@ -151,7 +158,20 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 
 }
 
+void mouseHandler(int event, int x, int y, int flags, void *param) {
 
+	switch(event) {
+	
+	case CV_EVENT_LBUTTONDOWN:
+		pt = cvPoint(x, y);
+		cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), -1, 8,0);
+		cvShowImage("image", dbImage);
+		xCoordinate[countDb] = x;
+		yCoordinate[countDb] = y;
+		countDb++;
+		break;
+	}
+}
 
 void MyTabOne::OnBnClickedButton1()
 {
@@ -164,12 +184,20 @@ void MyTabOne::OnBnClickedButton1()
  
 	if (dlg.DoModal() == IDOK) {
  
+		
 		path= dlg.GetPathName();
 		
 		load = true;
 		countImage = 0;
+		countDb = 0;
 		img0[countImage] = cvLoadImage(path);             // load the image
+
 		
+		cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
+
+		cvSetMouseCallback( "image", mouseHandler, NULL );
+		dbImage = cvLoadImage(path);
+		cvShowImage("image", dbImage);
 		cvSaveImage(savePath,img0[countImage]);
 
 		//OnBnClickedButton5();
@@ -451,4 +479,5 @@ cvResetImageROI(img1);
 cvSaveImage( "db\\1.bmp", img2 );
 cvReleaseImage(&img1);
 }
+
 
