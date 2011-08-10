@@ -21,6 +21,7 @@ using namespace cv;
 
 const int poiX1 = 25;
 const int poiY1 = 25;
+int countfile=0;
 CvPoint pt;
 IplImage* img0[100];
 ofstream myfile("res\\out.txt");//, ofstream::binary);
@@ -164,8 +165,8 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 	
 	case CV_EVENT_LBUTTONDOWN:
 		pt = cvPoint(x, y);
-		cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), -1, 8,0);
-		cvShowImage("image", dbImage);
+		cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), 1, 8,0);
+		cvShowImage(name, dbImage);
 		xCoordinate[countDb] = x;
 		yCoordinate[countDb] = y;
 		countDb++;
@@ -193,11 +194,11 @@ void MyTabOne::OnBnClickedButton1()
 		img0[countImage] = cvLoadImage(path);             // load the image
 
 		
-		cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
+		cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
 
-		cvSetMouseCallback( "image", mouseHandler, NULL );
+		cvSetMouseCallback( name, mouseHandler, NULL );
 		dbImage = cvLoadImage(path);
-		cvShowImage("image", dbImage);
+		cvShowImage(name, dbImage);
 		cvSaveImage(savePath,img0[countImage]);
 
 		//OnBnClickedButton5();
@@ -365,12 +366,14 @@ for(int i=0;i<3;i++){
 	yCoordinate[i]=(int)yCoordinate[i]*ypercent;
 		
 }
+//165*210
+int x0=xCoordinate[0]-45;int y0=yCoordinate[0]-75;cvSetImageROI(destination, cvRect(x0, y0, 165, 210));
 
-int x0=xCoordinate[0]-45;
-int y0=yCoordinate[0]-75;
-	
 
-cvSetImageROI(destination, cvRect(x0, y0, 165, 210));
+//240*320
+//int x0=xCoordinate[0]-78;int y0=yCoordinate[0]-120;cvSetImageROI(destination, cvRect(x0, y0, 240, 320));
+
+
  
 IplImage *img2 = cvCreateImage(cvGetSize(destination), destination->depth,destination->nChannels);
  
@@ -379,7 +382,10 @@ cvCopy(destination, img2, NULL);
  
 /* always reset the Region of Interest */
 cvResetImageROI(destination);
-cvSaveImage( "db\\b.bmp", img2 );
+countfile++;
+stringstream  fname;
+fname << "Ageprogression\\" << countfile << ".bmp";
+cvSaveImage( fname.str().c_str(), img2 );
 cvReleaseImage(&source);
 }
 
