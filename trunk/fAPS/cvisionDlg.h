@@ -26,53 +26,42 @@
 // CcvisionDlg dialog
 class CcvisionDlg : public CDialogEx
 {
-// Construction
-public:
-	CcvisionDlg(CWnd* pParent = NULL);	// standard constructor
+	// Construction
+	public:
+		CcvisionDlg(CWnd* pParent = NULL);	// standard constructor
 	
 
 
-// Dialog Data
-	enum { IDD = IDD_CVISION_DIALOG };
+	// Dialog Data
+		enum { IDD = IDD_CVISION_DIALOG };
 
-	MyTabOne*	m_pDlgPage1;
-	MyTabTwo*	m_pDlgPage2;
-	MyTabThree*	m_pDlgPage3;
+		MyTabOne*	m_pDlgPage1;
+		MyTabTwo*	m_pDlgPage2;
+		MyTabThree*	m_pDlgPage3;
 	
+		protected:
+		virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+
+
+	// Implementation
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+		HICON m_hIcon;
 
-
-// Implementation
-protected:
-	HICON m_hIcon;
-
-	// Generated message map functions
-	virtual BOOL OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
-	DECLARE_MESSAGE_MAP()
-public:
-//	afx_msg void OnOpen();
-//	afx_msg void OnBnClickedButton2();
-//	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-//	CStatic m_PicCtrl;
-	afx_msg void OnBnClickedOk();
-	CButton m_Button1;
-//	afx_msg void OnStnClickedpicture();
-//	afx_msg void OnEnChangeEdit1();
-//	void swap(int a, int b);
-//	CEdit m_textbox;
+		// Generated message map functions
+		virtual BOOL OnInitDialog();
+		afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+		afx_msg void OnPaint();
+		afx_msg HCURSOR OnQueryDragIcon();
+		DECLARE_MESSAGE_MAP()
+	public:
+		afx_msg void OnBnClickedOk();
+		CButton m_Button1;
 	
+	private :
+		COpenGLControl m_oglWindow;
 
-private :
-	COpenGLControl m_oglWindow;
-
-public:
-//	afx_msg void OnBnClickedButton3();
-	MyFTabCtrl m_TabCtrl;
-//	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton1();
+	public:
+		MyFTabCtrl m_TabCtrl;
+		afx_msg void OnBnClickedButton1();
 };
 #endif
