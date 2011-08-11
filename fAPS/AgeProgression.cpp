@@ -3,6 +3,7 @@
 #include <cv.h>
 #include <highgui.h>
 #include "Ageprogression.h"
+#include "Tdsloader.h"
 
 
 
@@ -239,6 +240,13 @@ for(int y=0;y<imgSize_Standard.height;y++)
     cvNamedWindow("IBSDT");
     cvShowImage("IBSDT", imgResultD);
     cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD);
+
+	IplImage* black = cvLoadImage("Ageprogression\\black.bmp");
+	cvOverlayImage(black, imgResultD, cvPoint(35, 55), cvScalar(0.5,0.5,0.5,0.5), cvScalar(0.5,0.5,0.5,0.5));
+	//mergeImage(black,imgResultD,30,30);
+	cvSaveImage("Ageprogression\\newimage.bmp",black);
+	
+	LoadImage("Ageprogression\\newimage.bmp", 255, 0, 1);
 	//cvWaitKey(0);
 	//;
 
@@ -250,4 +258,35 @@ void Ageprogression ::setSigma(float q){
 	sigma=q;
 }
 
+void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int y) {
+    for (int ix=0; x<source->width; x++) {
+        for (int iy=0; y<source->height; y++) {
+            int r = cvGet2D(source, iy, ix).val[2];
+            int g = cvGet2D(source, iy, ix).val[1];
+            int b = cvGet2D(source, iy, ix).val[0];
+            CvScalar bgr = cvScalar(b, g, r);
+            cvSet2D(target, iy+y, ix+x, bgr);
+        }
+    }
+}
 
+
+void Ageprogression ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
+{
+ int x,y,i;
+
+  for(x=0;x < overlay->width -10;x++)
+    {
+        if(x+location.x>=src->width) continue;
+        for(y=0;y < overlay->height -10;y++)
+        {
+            if(y+location.y>=src->height) continue;
+            CvScalar source = cvGet2D(src, y+location.y, x+location.x);
+            CvScalar over = cvGet2D(overlay, y, x);
+            CvScalar merged;
+            for(i=0;i<4;i++)
+            merged.val[i] = (S.val[i]*source.val[i]+D.val[i]*over.val[i]);
+            cvSet2D(src, y+location.y, x+location.x, merged);
+        }
+    }
+}
