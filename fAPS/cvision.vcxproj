@@ -115,6 +115,7 @@
     <None Include="res\newImage.bmp" />
     <None Include="res\pil111.bmp" />
     <None Include="res\Static-Image.bmp" />
+    <None Include="res\static.bmp" />
     <None Include="res\wringle.bmp" />
     <None Include="res\Wtexture.bmp" />
   </ItemGroup>
