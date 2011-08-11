@@ -26,7 +26,7 @@ MyTabTwo::~MyTabTwo()
 void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_COMBO1, myCombo);	
+	//DDX_Control(pDX, IDC_COMBO1, myCombo);	
 	DDX_Control(pDX, IDC_EDIT3, contrat);
 }
 
