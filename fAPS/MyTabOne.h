@@ -14,6 +14,8 @@ class MyTabOne : public CDialog
 
 	// Dialog Data
 		enum { IDD = IDD_DIALOG1 };
+		int xCoordinate[100];
+		int yCoordinate[100];
 
 	protected:
 		virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

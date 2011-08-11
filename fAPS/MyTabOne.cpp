@@ -34,9 +34,8 @@ bool load = false;
 
 IplImage* dbImage;
 //count = 1;
-
-int xCoordinate[100];
-int yCoordinate[100];
+int globalCoordinateX[100];
+int globalCoordinateY[100];
 int criticalPoints1[] = {900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
 int criticalPoints2[] = {913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
 int a = 15;
@@ -110,6 +109,9 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 			xCoordinate[countImage - 1] = pt.x;
 			yCoordinate[countImage - 1] = pt.y;
 
+			globalCoordinateX[countImage - 1] = pt.x;
+			globalCoordinateY[countImage - 1] = pt.y;
+
 			if(countImage >= 4 && countImage < 8)
 				SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
 				//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
@@ -147,8 +149,8 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 		pt = cvPoint(x, y);
 		cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), 1, 8,0);
 		cvShowImage(name, dbImage);
-		xCoordinate[countDb] = x;
-		yCoordinate[countDb] = y;
+		globalCoordinateX[countDb] = x;
+		globalCoordinateY[countDb] = y;
 		countDb++;
 		break;
 	}
