@@ -58,6 +58,9 @@
     <None Include="res\Wtexture.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\static.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
