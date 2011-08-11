@@ -583,7 +583,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 			fread(&rgb, sizeof(rgb), 1, l_file); 				
 
 
-			if(((i>(230*240)+58+u && i<(230*240)+160+u)) && (i<(230*240)+58+32*240)) {
+			/*if(((i>(230*240)+58+u && i<(230*240)+160+u)) && (i<(230*240)+58+32*240)) {
 				
 			//if(text_dif[w+0]>8 || text_dif[w+0] <-8 ) 	
 			l_text[w+2] = 0.5*(rgb.rgbtRed + text_dif[w+0]); // Red component
@@ -601,14 +601,14 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 				l_text[w+0] = rgb.rgbtBlue;
 			}*/
 		
-			l_texture[j+0] = 0.88*(rgb.rgbtRed + text_dif[w+0]); // Red component
+			/*l_texture[j+0] = 0.88*(rgb.rgbtRed + text_dif[w+0]); // Red component
 			l_texture[j+1] = 0.88*(rgb.rgbtGreen + text_dif[w+1]); // Green component
 			l_texture[j+2] =  0.88*(rgb.rgbtBlue + text_dif[w+2]); // Blue component
 			
 			/*l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
 			l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
 			l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component*/
-			l_texture[j+3] = tlevel; // Alpha value
+			/*l_texture[j+3] = tlevel; // Alpha value
 			j += 4; // Go to the next position
 
 			w +=3;
@@ -618,7 +618,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 			}
 
 
-			else {
+			else {*/
 
 				// And store it
 				l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
@@ -626,7 +626,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 				l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component
 				l_texture[j+3] = tlevel; // Alpha value
 				j += 4; // Go to the next position
-			}
+			//}
 		}
 
 
