@@ -115,7 +115,7 @@ BOOL CcvisionDlg::OnInitDialog()
 
 	// Included tab initialization
 
-	SetDlgItemTextA(IDC_EDIT1, "Critical points Selection");
+	
 	CRect	rectPage, rectPage1;
 
 	m_pDlgPage1	= new MyTabOne;
@@ -152,6 +152,8 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_pDlgPage3->agebar.SetRange(20,50);
 	m_pDlgPage3->agebar.SetTicFreq(5);
 
+
+	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
