@@ -33,4 +33,6 @@ class MyTabThree : public CDialog
 		IplImage* histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1);
 		afx_msg void OnBnClickedApplyage();
 		afx_msg void OnBnClickedsaveface();
+		afx_msg void OnBnClickedButton4();
+		afx_msg void OnBnClickedNew();
 };

@@ -61,6 +61,12 @@
     <None Include="res\static.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="C:\Users\reka\Desktop\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="C:\Users\reka\Desktop\static.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">

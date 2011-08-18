@@ -4,6 +4,7 @@
 // MyTabOne dialog
 #include "resource.h"
 #include "afxwin.h"
+#include "highgui.h"
 class MyTabOne : public CDialog
 {
 	DECLARE_DYNAMIC(MyTabOne)
@@ -23,7 +24,9 @@ class MyTabOne : public CDialog
 		DECLARE_MESSAGE_MAP()
 
 	public:
-		afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+		//afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+		//afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+		//afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 		afx_msg void OnBnClickedButton1();
 		afx_msg void OnBnClickedButton2();
 		afx_msg void OnBnClickedButton3();
@@ -40,4 +43,10 @@ class MyTabOne : public CDialog
 		void resizePicDB();
 
 		afx_msg void OnBnClickedSetface();
+		IplImage* MyTabOne::findImg(int x,int y);
+		void MyTabOne::releaseImg(IplImage *a,int x,int y);
+		void MyTabOne::showImage();
+		afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+		afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+		afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
