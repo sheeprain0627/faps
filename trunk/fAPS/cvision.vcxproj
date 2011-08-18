@@ -102,8 +102,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="C:\Users\reka\Desktop\icon1.ico" />
-    <None Include="C:\Users\reka\Desktop\static.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />
@@ -114,6 +112,7 @@
     <None Include="res\FACEE2.bmp" />
     <None Include="res\FACEJ.jpg" />
     <None Include="res\faps-Img.bmp" />
+    <None Include="res\icon1.ico" />
     <None Include="res\newImage.bmp" />
     <None Include="res\pil111.bmp" />
     <None Include="res\Static-Image.bmp" />
