@@ -34,11 +34,20 @@ bool load = false;
 
 IplImage* dbImage;
 //count = 1;
-int globalCoordinateX[100];
-int globalCoordinateY[100];
+//int globalCoordinateX[100];
+//int globalCoordinateY[100];
 int criticalPoints1[] = {900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
 int criticalPoints2[] = {913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
 int a = 15;
+
+
+IplImage *selectedImg,*temp;
+void releaseImg(IplImage *a,int x,int y);
+IplImage* findImg(int x,int y);
+int globalCoordinateX[]={5,15,25,35,45};
+int globalCoordinateY[]={5,15,25,35,45};
+int point=1;
+
 // MyTabOne dialog
 
 IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
@@ -65,18 +74,39 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabOne::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabOne::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabOne::OnBnClickedButton4)
-	ON_WM_LBUTTONDOWN(&TabOne::OnLButtonDown)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_SetFace, &MyTabOne::OnBnClickedSetface)
+	ON_WM_MOUSEMOVE()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
-// MyTabOne message handlers
 
-void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
+/*void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 {
 		
-	int poiX, poiY;
+	int X, Y;
+	X = point.x;
+	Y = point.y;
+
+	pt = cvPoint(X - 315, Y - 66);
+
+	CString str1;
+	str1.Format("%d", X);
+
+	CString str2;
+	str2.Format("%d", Y);
+	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
+	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
+		MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
+	if(selectedImg!=NULL){
+				releaseImg(selectedImg,pt.x,pt.y);
+					selectedImg=NULL;
+			}
+	}
+	
+	/*int poiX, poiY;
 	int X, Y;
 	X = point.x;
 	Y = point.y;
@@ -140,21 +170,24 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	CWnd::OnLButtonDown(nFlags, point);
 
 }
+*/
 
 void mouseHandler(int event, int x, int y, int flags, void *param) {
 
-	switch(event) {
-	
-	case CV_EVENT_LBUTTONDOWN:
-		pt = cvPoint(x, y);
-		cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), 1, 8,0);
-		cvShowImage(name, dbImage);
-		globalCoordinateX[countDb] = x;
-		globalCoordinateY[countDb] = y;
-		countDb++;
-		break;
-	}
+        switch(event) {
+        
+        case CV_EVENT_LBUTTONDOWN:
+                pt = cvPoint(x, y);
+                cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), 1, 8,0);
+                cvShowImage(name, dbImage);
+                globalCoordinateX[countDb] = x;
+                globalCoordinateY[countDb] = y;
+                countDb++;
+                break;
+        }
 }
+
+
 
 void MyTabOne::OnBnClickedButton1()
 {
@@ -172,27 +205,25 @@ void MyTabOne::OnBnClickedButton1()
 		path = dlg.GetPathName();
 		
 		load = true;
-		countImage = 0;
-		countDb = 0;
-		img0[countImage] = cvLoadImage(path);             // load the image
+        countImage = 0;
+        countDb = 0;
+        img0[countImage] = cvLoadImage(path);             // load the image
 
+                
+        cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
+
+        cvSetMouseCallback( name, mouseHandler, NULL );
+        dbImage = cvLoadImage(path);
+        cvShowImage(name, dbImage);
+
+		cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
+	
+		cvShowImage("image", img0[countImage]);
+	
+		showImage();	//defined inside the class
 		
-		cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
-
-		cvSetMouseCallback( name, mouseHandler, NULL );
-		dbImage = cvLoadImage(path);
-		cvShowImage(name, dbImage);
-		cvSaveImage(savePath, img0[countImage]);
-
-		//OnBnClickedButton5();
 		LoadImage(savePath, 255, 0, 1); //sent the pathe of image to opengl window    //ajith
 					
-		CImage img;
-		img.Load(path);
-		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
-
-		SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
-
 	}
 		
 }
@@ -229,21 +260,8 @@ void MyTabOne::OnBnClickedButton2()
 
 void MyTabOne::OnBnClickedButton3()
 {
-	myfile << "X\t\t";
-	myfile << "\tY";
-	myfile << "\n";
-
-	for (int i=0; i < 15; i++) {
-
-		myfile << xCoordinate[i];
-		myfile << "\t\t\t";
-		myfile << yCoordinate[i];
-		myfile << "\n";
-
-	}
 	
-	myfile.close();
-	// TODO: Add your control notification handler code here
+	
 }
 
 
@@ -459,3 +477,158 @@ void MyTabOne::cropPic1(){
 }
 
 
+IplImage* MyTabOne::findImg(int x,int y){
+	IplImage *img = img0[countImage];
+	
+	for(int i=0;i<5;i++){
+		if((x>=(globalCoordinateX[i]-1)) && (x<=(globalCoordinateX[i]+1 ))&& (y<=(globalCoordinateY[i]+1 ))&& (y<=(globalCoordinateY[i]+1 ))){
+			point=i;
+			break;
+		}
+
+	}
+
+	for(int j=0;j<5;j++){
+		if(j!=point){
+		img = cvCloneImage(img);
+			cvRectangle(img, 
+						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
+						cvPoint(globalCoordinateX[j] + 1, globalCoordinateY[j] + 1), 
+						cvScalar(0, 0,  255, 0), 2, 8, 0);
+		}
+	}
+	return img;
+}
+
+void MyTabOne::releaseImg(IplImage *a,int x,int y){
+	IplImage *img1 = cvCloneImage(a);
+			cvRectangle(img1, 
+						cvPoint(x-1, y-1 ), 
+						cvPoint(x + 1, y + 1), 
+						cvScalar(0, 0, 255, 0), 2, 8, 0);
+
+		cvSaveImage(savePath, img1);
+		CImage img;
+		img.Load(savePath);
+		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
+
+		//cvShowImage("image", img1); 
+
+		globalCoordinateX[point]=x;
+		globalCoordinateY[point]=y;
+		cvReleaseImage(&img1);
+
+}
+
+
+void MyTabOne::showImage(){
+	IplImage *img2=img0[countImage];
+
+	for(int j=0;j<5;j++){		
+		img2 = cvCloneImage(img2);
+			cvRectangle(img2, 
+						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
+						cvPoint(globalCoordinateX[j] + 1, globalCoordinateY[j] + 1), 
+						cvScalar(0, 0, 255, 0), 2, 8, 0);
+		}
+
+		cvSaveImage(savePath, img2);
+
+		CImage img;
+		img.Load(savePath);
+		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
+
+		//SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
+	cvShowImage("image", img2);
+	cvReleaseImage(&img2);
+}
+
+
+
+void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+
+	int poiX, poiY;
+	int X, Y;
+	X = point.x;
+	Y = point.y;
+
+	pt = cvPoint(X - 315, Y - 66);
+
+	
+	if(load && (selectedImg != NULL)) {
+
+	temp = cvCloneImage(selectedImg);
+			cvRectangle(temp, 
+						cvPoint(pt.x - 1,pt.y - 1), 
+						cvPoint(pt.x + 1, pt.y + 1), 
+						cvScalar(0, 0,  255,0), 2, 8, 0);
+			cvShowImage("image", temp); 
+			cvSaveImage(savePath, temp);
+
+							
+		CImage img;
+		img.Load(savePath);
+		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
+	}
+	CDialog::OnMouseMove(nFlags, point);
+}
+
+
+void MyTabOne::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	int poiX, poiY;
+	int X, Y;
+	X = point.x;
+	Y = point.y;
+
+	pt = cvPoint(X - 315, Y - 66);
+
+	CString str1;
+	str1.Format("%d", X);
+
+	CString str2;
+	str2.Format("%d", Y);
+	
+	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
+
+
+	if(((nFlags & MK_RBUTTON) == MK_RBUTTON) && load) {
+		//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
+	
+	selectedImg=findImg( pt.x, pt.y);
+	}
+
+	CDialog::OnRButtonDown(nFlags, point);
+}
+
+
+void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	int X, Y;
+	X = point.x;
+	Y = point.y;
+
+	pt = cvPoint(X - 315, Y - 66);
+
+	CString str1;
+	str1.Format("%d", X);
+
+	CString str2;
+	str2.Format("%d", Y);
+
+	if(load) {
+	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
+	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
+		//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
+	if(selectedImg!=NULL){
+				releaseImg(selectedImg,pt.x,pt.y);
+					selectedImg=NULL;
+			}
+	}
+	}
+
+	CDialog::OnLButtonDown(nFlags, point);
+}

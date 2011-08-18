@@ -63,5 +63,6 @@ class CcvisionDlg : public CDialogEx
 	public:
 		MyFTabCtrl m_TabCtrl;
 		afx_msg void OnBnClickedButton1();
+		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 #endif

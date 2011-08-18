@@ -102,6 +102,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="C:\Users\reka\Desktop\icon1.ico" />
+    <None Include="C:\Users\reka\Desktop\static.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />

@@ -43,6 +43,8 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabThree::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_ApplyAge, &MyTabThree::OnBnClickedApplyage)
 	ON_BN_CLICKED(IDC_saveface, &MyTabThree::OnBnClickedsaveface)
+	ON_BN_CLICKED(IDC_BUTTON4, &MyTabThree::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &MyTabThree::OnBnClickedNew)
 END_MESSAGE_MAP()
 
 
@@ -217,6 +219,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		show_histogram("oldHistDST", dst, "gray");
 		cvShowImage("src", src);
 		cvShowImage("dst", dst);
+		//cvThreshHist
 
 		int grayLevel = 0, n = 0, grayLevel1 = 0, n1 = 0;
 		n = src->height * src->width;
@@ -226,8 +229,8 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 		double mean1 = 0.0, varToal1 = 0.0, variance1 = 0.0, stDeviation1;
 
-		double min1 = 0.0, min = 0.0, max = 0.0, max1 = 0, min2 = 0.0, max2 = 0.0;
-
+		//double min1 = 0.0, min = 0.0, max = 0.0, max1 = 0, min2 = 0.0, max2 = 0.0;
+		int min = 0, max = 0;
 		for (int j = 0; j < src->height; j++) {
 		
 			for(int x = 0; x < src->width; x++) {
@@ -265,14 +268,37 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 		stDeviation1 = sqrt(variance1);
 
-		for (int j = 0; j < src->height; j++){
+		//int min = 0, max = 0;
+
+		//fitted dynamic range into two segma
+		
+		/*for (int j = 0; j < src->height; j++){
 		
 			for(int x = 0; x<src->width; x++){
 			
 				grayLevel = cvGetReal2D(v, j, x);
 				grayLevel1 = cvGetReal2D(v1, j, x);
 
-				newhist = (grayLevel - mean) / (stDeviation);
+				min = (int)mean - (int)(stDeviation*0.3);
+				max = (int)mean + (int)(stDeviation*0.3);
+
+				if(grayLevel > min || grayLevel < max ) {
+
+					
+					if(grayLevel == min){
+						grayLevel = (int)mean1 - (int)stDeviation1;
+					}
+
+					else {
+						grayLevel = ((grayLevel - min) * (int)stDeviation1) / (int)stDeviation + (((int)mean1) + (int)stDeviation1);
+					}
+
+
+				}
+
+				cvSetReal2D(v, j, x, grayLevel);
+				
+				/*newhist = (grayLevel - mean) / (stDeviation);
 				newhist1 = (grayLevel1 - mean1) / (stDeviation1);
 				//aggreHIst = (newhist + newhist1)/2.0;
 			
@@ -309,11 +335,11 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 					//cvSetReal2D(v, j, x, newhist);
 					//cvSetReal2D(v1, j, x, newhist1);
 				}
+				*/
+			//}
+		//}
 
-			}
-		}
-
-		for (int j = 0;j < src->height; j++) {
+		/*for (int j = 0;j < src->height; j++) {
 		
 			for(int x = 0; x < src->width; x++) {
 
@@ -367,21 +393,41 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 			}
 		}
+		*/
 
+		double retinex = 0.0;
+		double funct = 0.0, coef = 0.0;
+		for (int j = 0;j < src->height; j++) {
+		
+			for(int x = 0; x < src->width; x++) {
+
+				grayLevel = cvGetReal2D(v, j, x);
+
+				coef = (x*x + j*j)/(25);
+				funct =exp(coef);
+				retinex = log10f(grayLevel) - log10f(grayLevel * funct);
+
+				retinex = pow(10, retinex);
+				cvSetReal2D(v, j, x, retinex);
+
+
+			}
+
+		}
 		//cvEqualizeHist(v, v);
 
 		cvMerge(h, s, v, NULL, hsv);
 		cvCvtColor(hsv, src1, CV_HSV2BGR);
 		show_histogram("NewHist", src1, "gray");
 		cvShowImage("one",src1);
-		cvSaveImage("res//texture11.bmp", dst1);
+		//cvSaveImage("res//texture11.bmp", dst1);
 
 
 		cvMerge(h1, s1, v1, NULL, hsv1);
 		cvCvtColor(hsv1, dst1, CV_HSV2BGR);
 		show_histogram("AggreHist1", dst1, "gray");
 		cvShowImage("two",dst1);
-		cvSaveImage("res//texture.bmp", dst1);
+		//cvSaveImage("res//texture.bmp", dst1);
 		//cvSmooth();
 	  }
 	  else if (src->nChannels == 1)
@@ -430,8 +476,8 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 void MyTabThree::OnBnClickedButton3()
 {
 	
-	IplImage* src = cvLoadImage("res\\Wtexture.bmp");
-	IplImage* dst = cvLoadImage("res\\FACEJ.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
+	IplImage* src = cvLoadImage("res\\FACEJ.jpg");
+	IplImage* dst = cvLoadImage("res\\FACEY.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
 	IplImage* src1 = cvLoadImage("res\\FACEJ.jpg");
 	IplImage* dst1 = cvLoadImage("res\\FACEJ.jpg");
 
@@ -460,4 +506,111 @@ void MyTabThree::OnBnClickedsaveface()
 {
 	captureImage();
 	// TODO: Add your control notification handler code here
+}
+
+
+void MyTabThree::OnBnClickedButton4()
+{
+	
+
+int i,j,k;
+int heightc,widthc,stepc,channelsc;
+
+int temp=0;
+int units=0;
+uchar *data,*datac;
+i=j=k=0;
+
+IplImage *frame=cvLoadImage("res\\FACEN.jpg",1);
+IplImage *convert=cvCreateImage( cvGetSize(frame), 8, 3 );
+IplImage *result=cvCreateImage( cvGetSize(frame), 8, 3 );
+//printf("By what value Do you want to increase the strenght of the color..? ");
+//scanf("%d", &units);
+units = 30;
+if(frame==NULL ) {
+//puts("unable to load the frame");exit(0);}
+}
+
+
+cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
+ cvNamedWindow("Result",CV_WINDOW_AUTOSIZE);
+
+heightc = convert->height;
+widthc = convert->width;
+
+stepc=convert->widthStep;
+channelsc=convert->nChannels;
+datac = (uchar *)convert->imageData;
+
+IplImage*  h, * s, * v;
+	
+	
+		h   = cvCreateImage(cvGetSize(frame), 8, 1);
+		s   = cvCreateImage(cvGetSize(frame), 8, 1);
+		v   = cvCreateImage(cvGetSize(frame), 8, 1);
+
+cvCvtColor(frame,convert,CV_BGR2HSV);
+cvSplit(convert, h, s, v, NULL);
+int gray = 0;
+for(i=0;i< (heightc);i++) for(j=0;j<(widthc);j++)
+{/*Here datac means data of the HSV Image*/
+/*Here i want to Increase the saturation or the strength of the Colors in the Image and
+then I would be able to perform a good color detection*/
+
+temp=datac[i*stepc+j*channelsc+1]+units;/*increas the saturaion component is the second arrray.*/
+
+gray = cvGetReal2D(v, i, j);
+gray = gray - 23;
+cvSetReal2D(v, i, j, gray);
+
+/*Here there is a small problem...when you add a value to the data and if it exceeds 255
+it starts all over again from zero and hence some of the pixels might go to zero.
+So to stop this we need to include this loop i would not try to explain the loop but
+please try and follow it is easy to do so..*/
+if(temp>255) datac[i*stepc+j*channelsc+1]=255;
+else datac[i*stepc+j*channelsc+1]=temp;/*you may
+please remove and see what is happening if the if else loop is not there*/}
+
+
+//cvEqualizeHist(v, v);
+
+cvMerge(h, s, v, NULL, convert);
+		
+
+cvCvtColor(convert, result, CV_HSV2BGR);
+cvShowImage("Result", result);
+cvShowImage("original", frame);
+
+ cvSaveImage("Enhresult.jpg",result);
+ cvWaitKey(0);
+ cvDestroyWindow("original");
+ cvDestroyWindow("Result");
+ 
+
+ }
+
+
+
+
+
+void MyTabThree::OnBnClickedNew()
+{
+		
+		int kernelsize = 5;
+		float gain = 2.3;
+
+		IplImage *img = cvLoadImage("res\\FACEJ.jpg");
+
+		
+
+		cv::Mat image = cvCreateMat(img->height,img->width,CV_32FC3 );
+
+		//IplImage* low_threshold_mask = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
+
+
+
+		//cvConvert( img, image );
+
+       // cvHoughLines();
+
 }

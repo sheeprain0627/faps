@@ -47,7 +47,7 @@ END_MESSAGE_MAP()
 CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CcvisionDlg::IDD, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
 }
 
 void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
@@ -63,6 +63,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -154,6 +155,7 @@ BOOL CcvisionDlg::OnInitDialog()
 
 
 	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
+
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -171,10 +173,27 @@ void CcvisionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	}
 }
 
+
+
+BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
+{
+    CRect rect;
+    GetClientRect(&rect);
+    CBrush myBrush(RGB(192, 0, 68));    // dialog background color
+    CBrush *pOld = pDC->SelectObject(&myBrush);
+    BOOL bRes  = pDC->PatBlt(0, 0, rect.Width(), rect.Height(), PATCOPY);
+    pDC->SelectObject(pOld);    // restore old brush
+	CBitmap cBit;
+	/*cBit.setBiIDB_BITMAP8);
+	CBitmap *pOld = pDC->SelectObject(IDB_BITMAP8);
+    BOOL bRes  = pDC->PatBlt(0, 0, rect.Width(), rect.Height(), PATCOPY);
+    pDC->SelectObject(pOld);*/ 
+    return bRes;                       // CDialog::OnEraseBkgnd(pDC);
+}
+
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
-
+//  this is automatically done for you by the framework
 
 void CcvisionDlg::OnPaint()
 {
