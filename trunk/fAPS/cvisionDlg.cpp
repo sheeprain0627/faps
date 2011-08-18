@@ -179,7 +179,7 @@ BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 {
     CRect rect;
     GetClientRect(&rect);
-    CBrush myBrush(RGB(192, 0, 68));    // dialog background color
+    CBrush myBrush(RGB(249, 179, 133));    // dialog background color
     CBrush *pOld = pDC->SelectObject(&myBrush);
     BOOL bRes  = pDC->PatBlt(0, 0, rect.Width(), rect.Height(), PATCOPY);
     pDC->SelectObject(pOld);    // restore old brush
