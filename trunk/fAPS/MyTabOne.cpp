@@ -12,6 +12,7 @@
 #include <imgproc_c.h>
 #include <fstream>
 #include "Tdsloader.h"
+#include "metrixCalculation.h"
 
 
 using namespace std;
@@ -19,6 +20,7 @@ using namespace cv;
 
 const int poiX1 = 25;
 const int poiY1 = 25;
+metrixCalculation aa;
 int countfile=0;
 CvPoint pt;
 IplImage* img0[100];
@@ -273,7 +275,10 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	resizePicDB();
+	IplImage *src=cvLoadImage("res//as1.jpg", 1);
+	IplImage *dst=cvLoadImage("res//pil111.bmp", 1);
+	aa.CalFundermentalMatrix(src,dst);
+	//resizePicDB();
 	//resizePic1();
 	//cropPic1();
 	//LoadImage(savePath,255,0,1);
@@ -433,7 +438,8 @@ void MyTabOne::OnBnClickedSetface()
 	CString selectedString = "selctVal";
 	modify(x, selectedString);
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
-	
+	//aa.WritePixelsToFile(cvLoadImage("res\\a.bmp", 1),"pixelVal.txt");
+//	aa.CalFundermentalMatrix();
 }
 
 void MyTabOne::resizePic1(){
