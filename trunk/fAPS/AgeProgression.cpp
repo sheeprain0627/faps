@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include <cv.h>
-#include <cv.h>
 #include <highgui.h>
 #include "Ageprogression.h"
 #include "Tdsloader.h"
+#include "MyTabOne.h"
 
 
 
@@ -20,8 +20,7 @@ const int NO_IMAGES=4;
 
 
 //create the age prototype
-void Ageprogression ::texureEnhancePrototype(float p){
-	
+void Ageprogression ::texureEnhancePrototype(float p){		
 	IplImage* imgRed[NO_IMAGES];
     IplImage* imgGreen[NO_IMAGES];
     IplImage* imgBlue[NO_IMAGES];
