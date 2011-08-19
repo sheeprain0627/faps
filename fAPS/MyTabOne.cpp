@@ -47,7 +47,7 @@ IplImage* findImg(int x,int y);
 int globalCoordinateX[]={59, 78, 98, 79, 118, 142, 97, 135, 152, 172, 154, 85, 118, 147, 118, 35, 117, 187, 119 };
 int globalCoordinateY[]={119,110, 124, 130, 112, 170, 169, 122, 108, 116, 129, 198, 193, 200, 212, 118, 85, 109, 248 };
 int noOfControlPoints = 19;
-int point = 1;
+int selPoint = -1;
 
 // MyTabOne dialog
 
@@ -487,19 +487,19 @@ IplImage* MyTabOne::findImg(int x,int y){
 	IplImage *img = img0[countImage];
 	
 	for(int i = 0; i < noOfControlPoints; i++){
-		if((x>=(globalCoordinateX[i]-1)) && (x<=(globalCoordinateX[i]+1 ))&& (y<=(globalCoordinateY[i]+1 ))&& (y<=(globalCoordinateY[i]+1 ))){
-			point=i;
+		if((x>=(globalCoordinateX[i]-2)) && (x<=(globalCoordinateX[i]+2 ))&& (y<=(globalCoordinateY[i]+2 ))&& (y<=(globalCoordinateY[i]+2 ))){
+			selPoint=i;
 			break;
 		}
 
 	}
 
 	for(int j=0;j < noOfControlPoints;j++){
-		if(j != point){
+		if(j != selPoint){
 			img = cvCloneImage(img);
 			cvRectangle(img, 
-						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
-						cvPoint(globalCoordinateX[j] + 1, globalCoordinateY[j] + 1), 
+						cvPoint(globalCoordinateX[j] -1, globalCoordinateY[j] - 1), 
+						cvPoint(globalCoordinateX[j] , globalCoordinateY[j] ), 
 						cvScalar(0, 0,  255, 0), 2, 8, 0);
 		}
 	}
@@ -518,10 +518,10 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 		img.Load(savePath);
 		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 
-		globalCoordinateX[point]=x;
-		globalCoordinateY[point]=y;
+		globalCoordinateX[selPoint]=x;
+		globalCoordinateY[selPoint]=y;
 		cvReleaseImage(&img1);
-
+		selPoint=-1;
 }
 
 
@@ -532,7 +532,7 @@ void MyTabOne::showImage(){
 		img2 = cvCloneImage(img2);
 			cvRectangle(img2, 
 						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
-						cvPoint(globalCoordinateX[j] + 1, globalCoordinateY[j] + 1), 
+						cvPoint(globalCoordinateX[j] , globalCoordinateY[j] ), 
 						cvScalar(0, 0, 255, 0), 2, 8, 0);
 		}
 
@@ -553,7 +553,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
 
-
+	if((selPoint!=-1)&&(selectedImg!=NULL)){			
 	int poiX, poiY;
 	int X, Y;
 	X = point.x;
@@ -578,6 +578,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 	}
 	CDialog::OnMouseMove(nFlags, point);
+	}
 }
 
 
@@ -612,6 +613,7 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 
 void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	if((selectedImg!=NULL)&&selPoint!=-1){
 	int X, Y;
 	X = point.x;
 	Y = point.y;
@@ -634,4 +636,13 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 	
 
 	CDialog::OnLButtonUp(nFlags, point);
+}
+}
+
+int* getXCriticalPoints(){
+	return globalCoordinateX;
+}
+
+int* getYCriticalPoints(){
+	return globalCoordinateY;
 }
