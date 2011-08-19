@@ -14,8 +14,6 @@
 #include "Tdsloader.h"
 
 
-//#include "ximage.h"
-
 using namespace std;
 using namespace cv;
 
@@ -47,7 +45,7 @@ IplImage* findImg(int x,int y);
 int globalCoordinateX[]={59, 78, 98, 79, 118, 142, 97, 135, 152, 172, 154, 85, 118, 147, 118, 35, 117, 187, 119 };
 int globalCoordinateY[]={119,110, 124, 130, 112, 170, 169, 122, 108, 116, 129, 198, 193, 200, 212, 118, 85, 109, 248 };
 int noOfControlPoints = 19;
-int point=1;
+int point = 1;
 
 // MyTabOne dialog
 
@@ -78,8 +76,9 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_SetFace, &MyTabOne::OnBnClickedSetface)
 	ON_WM_MOUSEMOVE()
-	ON_WM_RBUTTONDOWN()
+//	ON_WM_RBUTTONDOWN()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -490,8 +489,8 @@ IplImage* MyTabOne::findImg(int x,int y){
 	}
 
 	for(int j=0;j < noOfControlPoints;j++){
-		if(j!=point){
-		img = cvCloneImage(img);
+		if(j != point){
+			img = cvCloneImage(img);
 			cvRectangle(img, 
 						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
 						cvPoint(globalCoordinateX[j] + 1, globalCoordinateY[j] + 1), 
@@ -513,8 +512,6 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 		img.Load(savePath);
 		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 
-		//cvShowImage("image", img1); 
-
 		globalCoordinateX[point]=x;
 		globalCoordinateY[point]=y;
 		cvReleaseImage(&img1);
@@ -523,7 +520,7 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 
 
 void MyTabOne::showImage(){
-	IplImage *img2=img0[countImage];
+	IplImage *img2 = img0[countImage];
 
 	for(int j=0;j<noOfControlPoints;j++){		
 		img2 = cvCloneImage(img2);
@@ -578,7 +575,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 }
 
 
-void MyTabOne::OnRButtonDown(UINT nFlags, CPoint point)
+void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	int poiX, poiY;
 	int X, Y;
@@ -596,17 +593,18 @@ void MyTabOne::OnRButtonDown(UINT nFlags, CPoint point)
 	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
 
 
-	if(((nFlags & MK_RBUTTON) == MK_RBUTTON) && load) {
+	if(((nFlags & MK_LBUTTON) == MK_LBUTTON) && load) {
 		//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
 	
 	selectedImg=findImg( pt.x, pt.y);
 	}
 
-	CDialog::OnRButtonDown(nFlags, point);
+
+	CDialog::OnLButtonDown(nFlags, point);
 }
 
 
-void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
+void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	int X, Y;
 	X = point.x;
@@ -620,16 +618,14 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	CString str2;
 	str2.Format("%d", Y);
 
-	if(load) {
-	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
-	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
-		//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
-	if(selectedImg!=NULL){
-				releaseImg(selectedImg,pt.x,pt.y);
-					selectedImg=NULL;
+	if( load) {
+	
+	if(selectedImg != NULL){
+				releaseImg(selectedImg, pt.x, pt.y);
+					selectedImg = NULL;
 			}
 	}
-	}
+	
 
-	CDialog::OnLButtonDown(nFlags, point);
+	CDialog::OnLButtonUp(nFlags, point);
 }
