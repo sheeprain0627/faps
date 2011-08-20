@@ -165,6 +165,14 @@ void Ageprogression ::applyIbsdt(float q){
   cvReleaseImage(&AgePrototype);
 
 
+   IplImage* input = cvLoadImage("Ageprogression\\2_murali.bmp");
+   IplImage* imgRed_input = cvCreateImage(cvGetSize(input), 8, 1);
+   IplImage* imgGreen_input = cvCreateImage(cvGetSize(input), 8, 1);
+   IplImage* imgBlue_input = cvCreateImage(cvGetSize(input), 8, 1);
+  cvSplit(input, imgRed_input, imgGreen_input, imgBlue_input, NULL);
+  cvReleaseImage(&input);
+
+
   //smoothening the age prototype and input image
 for(int i=0;i<2;i++)
 	{ 
@@ -222,12 +230,66 @@ for(int y=0;y<imgSize_Standard.height;y++)
 			    double	theSmoothRed_Prototype=cvGetReal2D(imgRedSmoothed[0], y, x);
 			    double	theSmoothGreen_Prototype=cvGetReal2D(imgGreenSmoothed[0], y, x);
 			    double	theSmoothBlue_Prototype=cvGetReal2D(imgBlueSmoothed[0], y, x);
+		
+			//not applying IBSDT
+				int *xc=getXCriticalPoints();
+				int *yc=getYCriticalPoints();
 
-	//the algo function
-			    double	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
-			    double	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
-			    double	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;
-
+                double	theTemFinalRed;
+			    double	theTemFinalGreen;
+			    double	theTemFinalBlue;
+//left eye
+		  int cx1=26;//xc[0];
+		  int cy2=66;//yc[1];
+		  int cy3=80;//yc[2]; 
+		  int cx4=66;//xc[3];
+//right eye	
+		  int cx5=104;//xc[4];
+		  int cy6=65;//yc[5];
+		  int cy7=81;//yc[6]; 
+		  int cx8=144;//xc[7];
+//mouth	
+		  int cx12=57;//xc[11];  
+		  int cy13=143;//yc[12];
+		  int cy14=165;//yc[13];
+		  int cx15=117;//xc[14]; 
+		  
+//calculate eclipse
+		  float a1=(float)((cx4-cx1)/2);
+		  float b1=(float)((cy3-cy2)/2);
+		  float ck1=((float)((a1+cx1-x)*(a1+cx1-x)))/(a1*a1)+((float)((cy2+b1-y)*(cy2+b1-y)))/(b1*b1);
+		  float a2=(float)((cx8-cx5)/2);
+		  float b2=(float)((cy7-cy6)/2);
+		  float ck2=((float)((a2+cx5-x)*(a2+cx5-x)))/(a2*a2)+((float)((cy6+b2-y)*(cy6+b2-y)))/(b2*b2);
+		  float a3=(float)((cx15-cx12)/2);
+		  float b3=(float)((cy14-cy13)/2);
+		  float ck3=((float)((a3+cx12-x)*(a3+cx12-x)))/(a3*a3)+((float)((cy13+b3-y)*(cy13+b3-y)))/(b3*b3);
+			
+          if (((x>=cx1)&&(x<=cx4)&&(y>=cy2)&&(ck1<=1.0)&&(y<=cy3))||((x>=cx5)&&(x<=cx8)&&(y>=cy6)&&(ck2<=1.0)&&(y<=cy7))||((x>=cx12)&&(x<=cx15)&&(y>=cy13)&&(ck3<=1.0)&&(y<=cy14))){
+					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
+			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
+			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);
+				}
+		  /*
+				double	theTemFinalRed;
+			    double	theTemFinalGreen;
+			    double	theTemFinalBlue;
+		  float a1=20; float b1=7;
+		  float ck1=((float)((20+26-x)*(20+26-x)))/(a1*a1)+((float)((66+7-y)*(66+7-y)))/(b1*b1);
+		  float a2=20; float b2=8;
+		  float ck2=((float)((20+104-x)*(20+104-x)))/(a2*a2)+((float)((65+8-y)*(65+8-y)))/(b2*b2);
+		  float a3=30; float b3=11;
+		  float ck3=((float)((30+57-x)*(30+57-x)))/(a3*a3)+((float)((143+11-y)*(143+11-y)))/(b3*b3);
+				if (((x>=26)&&(x<=66)&&(y>=66)&&(ck1<=1.0)&&(y<=80))||((x>=104)&&(x<=144)&&(y>=65)&&(ck2<=1.0)&&(y<=81))||((x>=57)&&(x<=117)&&(y>=143)&&(ck3<=1.0)&&(y<=165))){
+					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
+			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
+			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);}*/
+				else {
+			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
+			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
+			   	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;
+				}
+			
 		  cvSetReal2D(imgResultRedTem, y, x, theTemFinalRed);
           cvSetReal2D(imgResultGreenTem, y, x, theTemFinalGreen);
           cvSetReal2D(imgResultBlueTem, y, x, theTemFinalBlue);
