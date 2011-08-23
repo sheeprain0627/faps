@@ -275,8 +275,8 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	IplImage *dst=cvLoadImage("res//as1.jpg", 1);
-	IplImage *src=cvLoadImage("res//pil111.bmp", 1);
+	IplImage *dst=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
+	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
 	//HistogramEqualization();
 	aa.CalFundermentalMatrix(src,dst);
@@ -720,34 +720,65 @@ int fm_count = cvFindFundamentalMat( points1,points2,fundamental_matrix,CV_FM_RA
 }
 
 void MyTabOne::test1234(){
-	int nopnt=20;
-CvMat* points1;
-CvMat* points2;
-CvMat* status;
-CvMat* fundamental_matrix;
 
-points1 = cvCreateMat(2, nopnt, CV_32FC1);
-points2 = cvCreateMat(2, nopnt, CV_32FC1);
-status = cvCreateMat(1, nopnt, CV_8UC1);
 
-for (int i = 0; i < nopnt; i ++)
+CvMat* mmat = cvCreateMat(3,3,CV_32FC1);
+    //CvPoint2D32f* c1 = (&cvPoint2D32f(43,18), &cvPoint2D32f(280,40), &cvPoint2D32f(19,223), &cvPoint2D32f(300,200));
+    //CvPoint2D32f* c2 = (&cvPoint2D32f(0,0), &cvPoint2D32f(300,0), &cvPoint2D32f(0,225), &cvPoint2D32f(300,225));
+
+CvPoint2D32f *c1 = new CvPoint2D32f[4];
+CvPoint2D32f *c2 = new CvPoint2D32f[4];
+/*
+int trg_img_cordinate_x[19]={65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
+int trg_img_cordinate_y[19]={127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
+//int db_img_cordinate_x[19]={62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
+//int db_img_cordinate_y[19]={121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
+int db_img_cordinate_x[19]={65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
+int db_img_cordinate_y[19]={127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
+*/
+int trg_img_cordinate_x[4]={0,0,240,240};
+int trg_img_cordinate_y[4]={0,320,0,320};
+//int db_img_cordinate_x[19]={62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
+//int db_img_cordinate_y[19]={121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
+int db_img_cordinate_x[4]={0,0,240,240};
+int db_img_cordinate_y[4]={0,320,100,200};
+
+
+
+
+/* Fill the points here ... */
+
+for( int i = 0; i < 4; i++ )
 {
-cvmSet(points1, 0, i, i+2);
-cvmSet(points1, 1, i, i+6);
-cvmSet(points2, 0, i, i + 10);
-cvmSet(points2, 1, i, i+20);
+
+	c1[i].x = trg_img_cordinate_x[i];   c1[i].y = trg_img_cordinate_y[i];
+	c2[i].x = db_img_cordinate_x[i];   c2[i].y = db_img_cordinate_y[i];
+
+
 }
 
 
-fundamental_matrix = cvCreateMat(3, 3, CV_32FC1);
-cvFindFundamentalMat(points1, points2, fundamental_matrix, CV_FM_RANSAC, 1.0,0.99, status);
-int a=0;
-for (int i = 0; i < 3; i ++)
+
+    mmat = cvGetPerspectiveTransform(c1, c2, mmat);
+	IplImage *src=cvLoadImage("res//pil111.bmp", 1);
+	int a=-1;
+	for (int i = 0; i < 3; i ++)
 {
 for (int j = 0; j < 3; j ++)
 {
 	//a=cvmGet(points1, i, j);
- a=cvmGet(fundamental_matrix, i, j);
+ a=cvmGet(mmat, i, j);
 }
 }
+
+	IplImage *img_out= cvCloneImage(src);
+    cvWarpPerspective(src, img_out, mmat);
+
+	cvNamedWindow("ori",1);
+cvShowImage("ori",src);
+
+	cvNamedWindow("wrppedImg",1);
+cvShowImage("wrppedImg",img_out);
+
+
 }
