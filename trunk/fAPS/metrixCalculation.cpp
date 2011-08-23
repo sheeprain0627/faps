@@ -329,46 +329,6 @@ cvmSet(points2, 1, i, db_img_cordinate_y[i]);
 }
 
 
-/*
- cvmSet(points1,0,0,31); cvmSet(points1,1,0,34);
-cvmSet(points1,0,1,165); cvmSet(points1,1,1,85);
- cvmSet(points1,0,2,51); cvmSet(points1,1,2,171);
- cvmSet(points1,0,3,174); cvmSet(points1,1,3,221);
- cvmSet(points1,0,4,210); cvmSet(points1,1,4,17);
- cvmSet(points1,0,5,290); cvmSet(points1,1,5,66);
- cvmSet(points1,0,6,283); cvmSet(points1,1,6,106);
- cvmSet(points1,0,7,89); cvmSet(points1,1,7,128);
- cvmSet(points1,0,8,129); cvmSet(points1,1,8,86);
-
- cvmSet(points2,0,0,88); cvmSet(points2,1,0,23);
- cvmSet(points2,0,1,203); cvmSet(points2,1,1,85);
- cvmSet(points2,0,2,101); cvmSet(points2,1,2,158);
- cvmSet(points2,0,3,205); cvmSet(points2,1,3,223);
- cvmSet(points2,0,4,154); cvmSet(points2,1,4,11);
- cvmSet(points2,0,5,350); cvmSet(points2,1,5,98);
- cvmSet(points2,0,6,289); cvmSet(points2,1,6,123);
- cvmSet(points2,0,7,136); cvmSet(points2,1,7,122);
- cvmSet(points2,0,8,170); cvmSet(points2,1,8,85);
-
- cvmSet(status,0,0,0);
- cvmSet(status,0,1,0);
- cvmSet(status,0,2,0);
- cvmSet(status,0,3,0);
- cvmSet(status,0,4,0);
- cvmSet(status,0,5,0);
- cvmSet(status,0,6,0);
- cvmSet(status,0,7,0);
- cvmSet(status,0,8,0);
-
- */
- 
- //float *PPt_inv=new float[9];
-
-	//for(int i=0; i<3;i++)
-	//{
-//PPt_inv[i]= new float[3];
-//	}
-
 fundamental_matrix = cvCreateMat(3,3,CV_32FC1);
 //cvFindFundamentalMatrix( trg_img_cordinate_x,trg_img_cordinate_x,9,CV_FM_RANSAC,PPt_inv);
 int fm_count = cvFindFundamentalMat( points1,points2,fundamental_matrix,CV_FM_RANSAC,1.0,0.99,status );
