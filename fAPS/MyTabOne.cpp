@@ -277,7 +277,7 @@ void MyTabOne::OnBnClickedButton5()
 {
 	IplImage *dst=cvLoadImage("res//as1.jpg", 1);
 	IplImage *src=cvLoadImage("res//pil111.bmp", 1);
-	test1234();
+	//test1234();
 	//HistogramEqualization();
 	aa.CalFundermentalMatrix(src,dst);
 	//resizePicDB();
