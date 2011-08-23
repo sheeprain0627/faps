@@ -46,6 +46,9 @@ class MyTabOne : public CDialog
 		IplImage* MyTabOne::findImg(int x,int y);
 		void MyTabOne::releaseImg(IplImage *a,int x,int y);
 		void MyTabOne::showImage();
+		void HistogramEqualization();
+		void test123();
+		void test1234();
 		afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 //		afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 		afx_msg void OnLButtonDown(UINT nFlags, CPoint point);

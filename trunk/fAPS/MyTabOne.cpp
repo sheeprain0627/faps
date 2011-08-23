@@ -275,12 +275,16 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	IplImage *src=cvLoadImage("res//as1.jpg", 1);
-	IplImage *dst=cvLoadImage("res//pil111.bmp", 1);
+	IplImage *dst=cvLoadImage("res//as1.jpg", 1);
+	IplImage *src=cvLoadImage("res//pil111.bmp", 1);
+	test1234();
+	//HistogramEqualization();
 	aa.CalFundermentalMatrix(src,dst);
 	//resizePicDB();
 	//resizePic1();
+
 	//cropPic1();
+
 	//LoadImage(savePath,255,0,1);
 	
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[a+4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[a+4]+2)/(source->height));	changeVU1(u1,v1);
@@ -645,4 +649,105 @@ int* getXCriticalPoints(){
 
 int* getYCriticalPoints(){
 	return globalCoordinateY;
+}
+
+void MyTabOne::HistogramEqualization(){
+const char* name = "Histogram Equalization";
+	IplImage *img = cvLoadImage("res//Untitled.bmp", 3);
+	IplImage* out = cvCreateImage( cvGetSize(img), 8, 3 );
+
+	
+	IplImage *imgRed = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage *imgGreen = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage *imgBlue = cvCreateImage(cvGetSize(img), 8, 1);
+    cvSplit(img, imgRed, imgGreen, imgBlue, NULL);
+	
+
+
+	IplImage *imgRed1 = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage *imgGreen1 = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage *imgBlue1 = cvCreateImage(cvGetSize(img), 8, 1);
+
+	cvEqualizeHist( imgRed, imgRed1 );
+	cvEqualizeHist( imgGreen, imgGreen1 );
+	cvEqualizeHist( imgBlue, imgBlue1 );
+
+	cvMerge(imgRed1, imgGreen1, imgBlue1, NULL, out);
+
+	// Show original
+	cvNamedWindow( "Original", 1) ;
+	cvShowImage( "Original", img );
+
+	// Perform histogram equalization
+	//cvEqualizeHist( img, out );
+
+	// Show histogram equalized
+	cvNamedWindow( name, 1) ;
+	cvShowImage( name, out );
+
+	cvWaitKey();
+
+	cvReleaseImage( &img );
+	cvReleaseImage( &out );
+}
+
+void MyTabOne::test123(){
+int point_count = 100;
+CvMat* points1;
+CvMat* points2;
+CvMat* status;
+CvMat* fundamental_matrix;
+//points1=(byte *) malloc(200);
+points1 = cvCreateMat(1,point_count,CV_64FC1);
+points2 = cvCreateMat(1,point_count,CV_64FC1);
+status = cvCreateMat(1,point_count,CV_64FC1);
+
+/* Fill the points here … */
+for(int i = 0; i < point_count; i++ )
+{
+	cvmSet(points1,0,i,i+1);
+	cvmSet(points1,0,i,i+2);
+//points1->data.db[i*2] = 1;
+//points1->data.db[i*2+1] = 2;
+//points2->data.db[i*2] = 3;
+//points2->data.db[i*2+1] =4 ;
+}
+
+fundamental_matrix = cvCreateMat(1,point_count,CV_64FC1);
+int q=4;
+int fm_count = cvFindFundamentalMat( points1,points2,fundamental_matrix,CV_FM_RANSAC,1.0,0.99,status );
+
+}
+
+void MyTabOne::test1234(){
+	int nopnt=20;
+CvMat* points1;
+CvMat* points2;
+CvMat* status;
+CvMat* fundamental_matrix;
+
+points1 = cvCreateMat(2, nopnt, CV_32FC1);
+points2 = cvCreateMat(2, nopnt, CV_32FC1);
+status = cvCreateMat(1, nopnt, CV_8UC1);
+
+for (int i = 0; i < nopnt; i ++)
+{
+cvmSet(points1, 0, i, i+2);
+cvmSet(points1, 1, i, i+6);
+cvmSet(points2, 0, i, i + 10);
+cvmSet(points2, 1, i, i+20);
+}
+
+
+fundamental_matrix = cvCreateMat(3, 3, CV_32FC1);
+cvFindFundamentalMat(points1, points2, fundamental_matrix, CV_FM_RANSAC, 1.0,0.99, status);
+int a=0;
+for (int i = 0; i < 3; i ++)
+{
+for (int j = 0; j < 3; j ++)
+{
+	//a=cvmGet(points1, i, j);
+ a=cvmGet(fundamental_matrix, i, j);
+}
+}
 }

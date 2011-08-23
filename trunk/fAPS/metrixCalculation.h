@@ -13,3 +13,5 @@ public:
 	int WritePixelsToFile(IplImage *img,const char *filename);
 	void CalFundermentalMatrix(IplImage *src,IplImage *dst);
 };
+
+//void CalFundermentalMatrix(IplImage *src,IplImage *dst);

@@ -301,29 +301,31 @@ W_inv[i]= new float[3];
 
 void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 {
-	int point_count = 9;
+	int point_count = 19;
 CvMat* points1;
 CvMat* points2;
 CvMat* status;
 CvMat* fundamental_matrix;
 //IplImage *src, *dst;
-int trg_img_cordinate_x[19]={65,80,80,102,132,147,149,165,116,101,132,88,119,117,144,33,199,117,117};
-int trg_img_cordinate_y[19]={127,117,131,127,127,113,130,124,121,171,169,201,193,210,201,142,142,102,253};
-int db_img_cordinate_x[19]={62,79,80,104,136,156,157,173,120,99,144,87,120,120,148,35,196,119,117};
-int db_img_cordinate_y[19]={121,111,130,127,124,110,129,120,112,171,172,202,191,215,198,136,140,88,256};
+int trg_img_cordinate_x[19]={65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
+int trg_img_cordinate_y[19]={127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
+int db_img_cordinate_x[19]={62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
+int db_img_cordinate_y[19]={121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
 
-points1 = cvCreateMat(1,point_count,CV_32FC2);
-points2 = cvCreateMat(1,point_count,CV_32FC2);
+points1 = cvCreateMat(2,point_count,CV_32FC1);
+points2 = cvCreateMat(2,point_count,CV_32FC1);
 status = cvCreateMat(1,point_count,CV_8UC1);
+
 
 /* Fill the points here ... */
 
 for( int i = 0; i < point_count; i++ )
 {
-    points1->data.db[i*2] = trg_img_cordinate_x[i];
-    points1->data.db[i*2+1] = trg_img_cordinate_y[i];
-    points2->data.db[i*2] = db_img_cordinate_x[i];
-    points2->data.db[i*2+1] = db_img_cordinate_y[i];
+cvmSet(points1, 0, i, trg_img_cordinate_x[i]);
+cvmSet(points1, 1, i, trg_img_cordinate_y[i]);
+cvmSet(points2, 0, i, db_img_cordinate_x[i]);
+cvmSet(points2, 1, i, db_img_cordinate_y[i]);
+
 }
 
 
@@ -367,15 +369,33 @@ cvmSet(points1,0,1,165); cvmSet(points1,1,1,85);
 //PPt_inv[i]= new float[3];
 //	}
 
-fundamental_matrix = cvCreateMat(3,3,CV_32SC1);
+fundamental_matrix = cvCreateMat(3,3,CV_32FC1);
 //cvFindFundamentalMatrix( trg_img_cordinate_x,trg_img_cordinate_x,9,CV_FM_RANSAC,PPt_inv);
 int fm_count = cvFindFundamentalMat( points1,points2,fundamental_matrix,CV_FM_RANSAC,1.0,0.99,status );
 //std::cout<<"ff";
 
+int a=0;
+for (int i = 0; i < 3; i ++)
+{
+for (int j = 0; j < 3; j ++)
+{
+	//a=cvmGet(points1, i, j);
+ a=cvmGet(fundamental_matrix, i, j);
+}
+}
 
-cvWarpPerspective( src, dst, fundamental_matrix);
+//cvWarpPerspective( src, dst, fundamental_matrix);
+IplImage *xformed1=cvCreateImage(cvGetSize(src), 8, 1);
+
+IplImage *img_out= cvCloneImage(src);
+ //IplImage *xformed1 = cvCreateImage( xformed_size, IPL_DEPTH_8U, 3 );
+CvMat* perspective_mat=cvCreateMat(3,3,CV_32FC1);;
+//cvFindHomography(src, img_out, perspective_mat); 
+cvWarpPerspective( src, img_out, fundamental_matrix);
+cvNamedWindow("ori",1);
+cvShowImage("ori",src);
 cvNamedWindow("wrppedImg",1);
-cvShowImage("wrppedImg",dst);
+cvShowImage("wrppedImg",img_out);
 
 
 }
