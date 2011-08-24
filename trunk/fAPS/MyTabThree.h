@@ -2,6 +2,7 @@
 #include "resource.h"
 #include "afxcmn.h"
 #include "highgui.h"
+using namespace cv;
 
 // MyTabThree dialog
 
@@ -35,4 +36,7 @@ class MyTabThree : public CDialog
 		afx_msg void OnBnClickedsaveface();
 		afx_msg void OnBnClickedButton4();
 		afx_msg void OnBnClickedNew();
+		void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) ;
+		void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf);
+
 };
