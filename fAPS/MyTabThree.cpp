@@ -10,7 +10,8 @@
 #include "cv.h"
 #include <math.h>
 
-
+using namespace cv;
+#define HISTMATCH_EPSILON 0.000001
 
 // MyTabThree dialog
 Ageprogression age;
@@ -590,27 +591,151 @@ cvShowImage("original", frame);
  }
 
 
+// Compute histogram and CDF for an image with mask
+void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf) {
+	Mat _t = _i.reshape(1,1);
+
+	/*Mat _tm;
+	mask.copyTo(_tm);
+	CvPoint pt;
+	_tm = _tm.reshape(1,1);
+	for(int p=0; p < _t.cols; p++) {
+	uchar tm = _tm.at<uchar>(0,p);
+	int itm = tm;
+	if(itm > 0) {
+	uchar c = _t.at<uchar>(0,p);
+	h[c] += 1.0;
+	}
+	}*/
+ 
+	// Get the histogram with or without the mask
+	if (true) {
+		cv::Mat _tm;
+		mask.copyTo(_tm);
+		_tm = _tm.reshape(1,1);
+
+		for(int p=0; p<_t.cols; p++) {
+			uchar m = _tm.at<uchar>(0,p);
+			if(m > 0) { // Mask value
+				uchar c = _t.at<uchar>(0,p); // Image value
+				h[c] += 1.0;
+	        }
+        }
+    }
+    else {
+        for(int p=0; p<_t.cols; p++) {
+            uchar c = _t.at<uchar>(0,p);   // Image value
+            h[c] += 1.0;
+		}
+	}
+	//normalize hist
+	Mat _tmp(1,256,CV_64FC1,h);
+	double minVal,maxVal;
+	minMaxLoc(_tmp,&minVal,&maxVal);
+	_tmp = _tmp / maxVal;
+ 
+	cdf[0] = h[0];
+	for(int j=1; j < 256; j++) {
+	cdf[j] = cdf[j-1]+h[j];
+	}
+ 
+	//normalize CDF
+	_tmp.data = (uchar*)cdf;
+	minMaxLoc(_tmp,&minVal,&maxVal);
+	_tmp = _tmp / maxVal;
+}
+
+void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) {
+#ifdef BTM_DEBUG
+    namedWindow("original source",CV_WINDOW_AUTOSIZE);
+    imshow("original source",src);
+    namedWindow("original query",CV_WINDOW_AUTOSIZE);
+    imshow("original query",dst);
+#endif
+ 
+	namedWindow("original source",CV_WINDOW_AUTOSIZE);
+    imshow("original source",src);
+    namedWindow("original query",CV_WINDOW_AUTOSIZE);
+    imshow("original query",dst);
+
+    vector<Mat> chns;
+    split(src,chns);
+    vector<Mat> chns1;
+    split(dst,chns1);
+    Mat src_hist = Mat::zeros(1,256,CV_64FC1);
+    Mat dst_hist = Mat::zeros(1,256,CV_64FC1);
+    Mat src_cdf = Mat::zeros(1,256,CV_64FC1);
+    Mat dst_cdf = Mat::zeros(1,256,CV_64FC1);
+    Mat Mv(1,256,CV_8UC1);
+    uchar* M = Mv.ptr<uchar>();
+ 
+    for (int i=0;i<3;i++) {
+        src_hist.setTo(cvScalar(0));
+        dst_hist.setTo(cvScalar(0));
+        src_cdf.setTo(cvScalar(0));
+        src_cdf.setTo(cvScalar(0));
+
+		
+ 
+        
+ 
+        uchar last = 0;
+        double* _src_cdf = src_cdf.ptr<double>();
+        double* _dst_cdf = dst_cdf.ptr<double>();
+		double* _src_hist = src_hist.ptr<double>();
+        double* _dst_hist = dst_hist.ptr<double>();
+
+		do1ChnHist(chns[i],src_mask,_src_hist,_src_cdf);
+        do1ChnHist(chns1[i],dst_mask,_dst_hist,_dst_cdf);
+ 
+        for(int j=0;j<src_cdf.cols;j++) {
+            double F1j = _src_cdf[j];
+ 
+            for(uchar k = last; k<dst_cdf.cols; k++) {
+                double F2k = _dst_cdf[k];
+                if(abs(F2k - F1j) < HISTMATCH_EPSILON || F2k > F1j) {
+                    M[j] = k;
+                    last = k;
+                    break;
+                }
+            }
+        }
+ 
+        Mat lut(1,256,CV_8UC1,M);
+        LUT(chns[i],lut,chns[i]);
+    }
+ 
+    Mat res;
+    merge(chns,res);
+ 
+	namedWindow("matched",CV_WINDOW_AUTOSIZE);
+    imshow("matched",res);
+	//show_histogram("matched", res, "gray");
+ 
+    //waitKey(BTM_WAIT_TIME);
+#ifdef BTM_DEBUG
+    namedWindow("matched",CV_WINDOW_AUTOSIZE);
+    imshow("matched",res);
+ 
+    waitKey(BTM_WAIT_TIME);
+#endif
+ 
+    res.copyTo(src);
+}
 
 
 
 void MyTabThree::OnBnClickedNew()
 {
 		
-		int kernelsize = 5;
-		float gain = 2.3;
+		// TODO: Add your control notification handler code here
+	Mat src=cvLoadImage("Ageprogression\\young.jpg");
+	Mat dst=cvLoadImage("Ageprogression\\reti.jpg");
+	Mat src_mask = cvLoadImage("Ageprogression\\white.bmp",0);
+	Mat dst_mask = cvLoadImage("Ageprogression\\white.bmp",0);
+	
+ 
+	histMatchRGB(dst,dst_mask,src,src_mask);
 
-		IplImage *img = cvLoadImage("res\\FACEJ.jpg");
-
-		
-
-		cv::Mat image = cvCreateMat(img->height,img->width,CV_32FC3 );
-
-		//IplImage* low_threshold_mask = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
-
-
-
-		//cvConvert( img, image );
-
-       // cvHoughLines();
 
 }
