@@ -10,7 +10,7 @@ public:
 	//float **WrapFuction(int img_cordinate_x[],int img_cordinate_y[],int db_img_cordinate_x[],int db_img_cordinate_y[] );
     float **WrapFuction();
     
-	int WritePixelsToFile(IplImage *img,const char *filename);
+	int WritePixelsToFile(IplImage *img,const char *filename,CvMat* mat);
 	void CalFundermentalMatrix(IplImage *src,IplImage *dst);
 };
 

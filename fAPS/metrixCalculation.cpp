@@ -248,7 +248,7 @@ return wrapMetrix;
 /*
 Function takes OpenCV image as input and dumps its pixels to a file specified by filename in function arguments.
 */
-int metrixCalculation::WritePixelsToFile(IplImage *img,const char *filename)
+int metrixCalculation::WritePixelsToFile(IplImage *img,const char *filename,CvMat* mat)
 {
   /*open a file in text mode with write permissions.*/
  FILE *file = fopen(filename, "wt");
@@ -279,21 +279,51 @@ W[i]= new float[3];
 W_inv[i]= new float[3];
 	}
 
-  W=WrapFuction(); //get the wrappin metrix
+	for (int i = 0; i < 3; i ++)
+{
+for (int j = 0; j < 3; j ++)
+{
+	//a=cvmGet(points1, i, j);
+ W[i][j]=cvmGet(mat, i, j);
+}
+}
+
+
+  //W=WrapFuction(); //get the wrappin metrix
   W_inv=MatrixInversion(W, 3); // inverse the metrix
-  for(i=0;i< size.height;i++)
+  //IplImage* img_out = cvCreateImage(size, 8,3 );
+   IplImage *img_out= cvCloneImage(img);
+  CvScalar ss;
+  for(int i=300;i< size.height;i++)
      {
-      for(j=0;j< size.width;j++)
+      for(int j=220;j< size.width;j++)
         {
 
 			int X_pixel=j*W_inv[0][0]+i*W_inv[0][1]+ W_inv[0][2]; // reverce mapping value for x coordinate
 			int Y_pixel=j*W_inv[1][0]+i*W_inv[1][1]+ W_inv[1][2];  // reverce mapping value for x coordinate
-         s[i][j]=cvGet2D(img,X_pixel,Y_pixel); // get the (i,j) pixel value
+         //s[i][j]=cvGet2D(img,i,j); // get the (i,j) pixel value
+			if(X_pixel<225 && Y_pixel<300){
+		 cvSet2D(img_out,i,j,cvGet2D(img,X_pixel,Y_pixel));
 
-         fprintf (file,"%f\t",s[i][j].val[0]); // dump the (i,j) pixel value in file 
+		 
+//ss=cvGet2D(img,i,j); // get the (i,j) pixel value
+//printf("intensity=%f\n",s.val[0]);
+//ss.val[0]=111;
+//cvSet2D(img,i,j,ss);
+
+			}
+        // fprintf (file,"%f\t",s[i][j].val); // dump the (i,j) pixel value in file 
         }                         
-      fprintf(file,"\n");//write new line in file to seperate rows.         
+      //fprintf(file,"\n");//write new line in file to seperate rows.         
      }
+
+
+
+ 
+//cvPerspectiveTransform( src, img_out, fundamental_matrix);
+cvNamedWindow("ajith",1);
+cvShowImage("ajith",img_out);
+
      /*release the file pointer.*/
  fclose(file);
  return 1;
@@ -301,16 +331,16 @@ W_inv[i]= new float[3];
 
 void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 {
-	int point_count = 23;
+	int point_count = 5;
 CvMat* points1;
 CvMat* points2;
 CvMat* status;
 CvMat* fundamental_matrix;
 //IplImage *src, *dst;
-int trg_img_cordinate_x[23]={0,0,240,240,65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
-int trg_img_cordinate_y[23]={0,320,0,320,127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
-int db_img_cordinate_x[23]={0,0,240,240,62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
-int db_img_cordinate_y[23]={0,320,0,320,121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
+float trg_img_cordinate_x[23]={0,0,240,240,65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
+float trg_img_cordinate_y[23]={0,320,0,320,127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
+float db_img_cordinate_x[23]={0,0,240,240,62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
+float db_img_cordinate_y[23]={0,320,0,320,121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
 
 //int db_img_cordinate_x[19]={65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
 //int db_img_cordinate_y[19]={127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
@@ -325,11 +355,17 @@ status = cvCreateMat(1,point_count,CV_8UC1);
 
 for( int i = 0; i < point_count; i++ )
 {
-cvmSet(points1, 0, i, trg_img_cordinate_x[i]);
+	
+	cvmSet(points1, 0, i, trg_img_cordinate_x[i]);
 cvmSet(points1, 1, i, trg_img_cordinate_y[i]);
 cvmSet(points2, 0, i, db_img_cordinate_x[i]);
 cvmSet(points2, 1, i, db_img_cordinate_y[i]);
-
+/*
+points1->data.db[i*2] = trg_img_cordinate_x[i];
+    points1->data.db[i*2+1] = trg_img_cordinate_y[i];
+    points2->data.db[i*2] = db_img_cordinate_x[i];
+    points2->data.db[i*2+1] = db_img_cordinate_y[i];
+*/
 }
 
 
@@ -371,11 +407,11 @@ cvmSet(perspective_mat,2,2,1);
 
 IplImage *img_out= cvCloneImage(dst);
 //cvPerspectiveTransform( src, img_out, fundamental_matrix);
-cvWarpPerspective( dst, img_out, fundamental_matrix);
+cvWarpPerspective( dst, img_out, fundamental_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS ,cvScalarAll( 0 )  );
 cvNamedWindow("ori",1);
-cvShowImage("ori",dst);
+cvShowImage("ori",src);
 cvNamedWindow("wrppedImg",1);
 cvShowImage("wrppedImg",img_out);
-
+WritePixelsToFile(dst,"output1",fundamental_matrix);
 
 }
