@@ -44,8 +44,11 @@ int a = 15;
 IplImage *selectedImg,*temp;
 void releaseImg(IplImage *a,int x,int y);
 IplImage* findImg(int x,int y);
-int globalCoordinateX[]={59, 78, 98, 79, 118, 142, 97, 135, 152, 172, 154, 85, 118, 147, 118, 35, 117, 187, 119 };
-int globalCoordinateY[]={119,110, 124, 130, 112, 170, 169, 122, 108, 116, 129, 198, 193, 200, 212, 118, 85, 109, 248 };
+int globalCoordinateX[100] ;
+int globalCoordinateY[100] ;
+
+int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
+int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
 int noOfControlPoints = 19;
 int selPoint = -1;
 
@@ -275,12 +278,12 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
-	IplImage *dst=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
+	IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
 	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
 	//HistogramEqualization();
-	aa.CalFundermentalMatrix(src,dst);
-	//resizePicDB();
+	//aa.CalFundermentalMatrix(src,dst);
+	resizePicDB();
 	//resizePic1();
 
 	//cropPic1();
@@ -300,6 +303,7 @@ int MyTabOne::getfHeight(){
 	return (yCoordinate[a + 3] - yCoordinate[a + 2]);
 }
 
+//resize the picture for the setFace
 void MyTabOne::resizePic(){
 		// Create an IplImage object *image 
 	IplImage *source = cvLoadImage( path);
@@ -340,13 +344,13 @@ void MyTabOne::resizePic(){
 
 }
 
-
+//resize the picture for the database collection
 void MyTabOne::resizePicDB(){
 	
 	IplImage *source = cvLoadImage(path);
 
-	int fwidth = xCoordinate[1] - xCoordinate[0];
-	int fheight = yCoordinate[2] - yCoordinate[0];
+	int fwidth = globalCoordinateX[1] - globalCoordinateX[0];
+	int fheight = globalCoordinateY[2] - globalCoordinateY[0];
 	double xpercent = 78.0 / fwidth;
 	double ypercent = 78.0 / fheight;
 	int newwidth = (int)(((source->width) * xpercent));
@@ -356,13 +360,13 @@ void MyTabOne::resizePicDB(){
 	cvResize(source, destination);
 
 	for(int i = 0;i < 3; i++) {
-		xCoordinate[i] = (int)xCoordinate[i] * xpercent;
-		yCoordinate[i] = (int)yCoordinate[i] * ypercent;
+		globalCoordinateX[i] = (int)globalCoordinateX[i] * xpercent;
+		globalCoordinateY[i] = (int)globalCoordinateY[i] * ypercent;
 		
 	}
 
 	//165*210
-	int x0=xCoordinate[0]-45;int y0=yCoordinate[0]-75;cvSetImageROI(destination, cvRect(x0, y0, 165, 210));
+	int x0=globalCoordinateX[0]-45;int y0=globalCoordinateY[0]-75;cvSetImageROI(destination, cvRect(x0, y0, 165, 210));
 
 
 	//240*320
@@ -382,6 +386,8 @@ void MyTabOne::resizePicDB(){
 	cvReleaseImage(&source);
 }
 
+
+//crop the picture for the setFace
 void MyTabOne::cropPic(){
 
 	/* load image */
@@ -491,7 +497,7 @@ IplImage* MyTabOne::findImg(int x,int y){
 	IplImage *img = img0[countImage];
 	
 	for(int i = 0; i < noOfControlPoints; i++){
-		if((x>=(globalCoordinateX[i]-2)) && (x<=(globalCoordinateX[i]+2 ))&& (y<=(globalCoordinateY[i]+2 ))&& (y<=(globalCoordinateY[i]+2 ))){
+		if((x>=(xCoordinate[i]-2)) && (x<=(xCoordinate[i]+2 ))&& (y>=(yCoordinate[i]-2 ))&& (y<=(yCoordinate[i]+2 ))){
 			selPoint=i;
 			break;
 		}
@@ -502,8 +508,8 @@ IplImage* MyTabOne::findImg(int x,int y){
 		if(j != selPoint){
 			img = cvCloneImage(img);
 			cvRectangle(img, 
-						cvPoint(globalCoordinateX[j] -1, globalCoordinateY[j] - 1), 
-						cvPoint(globalCoordinateX[j] , globalCoordinateY[j] ), 
+						cvPoint(xCoordinate[j] -1, yCoordinate[j] - 1), 
+						cvPoint(xCoordinate[j] , yCoordinate[j] ), 
 						cvScalar(0, 0,  255, 0), 2, 8, 0);
 		}
 	}
@@ -514,7 +520,7 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 	IplImage *img1 = cvCloneImage(a);
 			cvRectangle(img1, 
 						cvPoint(x-1, y-1 ), 
-						cvPoint(x + 1, y + 1), 
+						cvPoint(x , y ), 
 						cvScalar(0, 0, 255, 0), 2, 8, 0);
 
 		cvSaveImage(savePath, img1);
@@ -522,8 +528,8 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 		img.Load(savePath);
 		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 
-		globalCoordinateX[selPoint]=x;
-		globalCoordinateY[selPoint]=y;
+		xCoordinate[selPoint]=x;
+		yCoordinate[selPoint]=y;
 		cvReleaseImage(&img1);
 		selPoint=-1;
 }
@@ -535,8 +541,8 @@ void MyTabOne::showImage(){
 	for(int j=0;j<noOfControlPoints;j++){		
 		img2 = cvCloneImage(img2);
 			cvRectangle(img2, 
-						cvPoint(globalCoordinateX[j] - 1, globalCoordinateY[j] - 1), 
-						cvPoint(globalCoordinateX[j] , globalCoordinateY[j] ), 
+						cvPoint(xCoordinate[j] - 1, yCoordinate[j] - 1), 
+						cvPoint(xCoordinate[j] , yCoordinate[j] ), 
 						cvScalar(0, 0, 255, 0), 2, 8, 0);
 		}
 
@@ -572,7 +578,14 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 			cvRectangle(temp, 
 						cvPoint(pt.x - 1,pt.y - 1), 
 						cvPoint(pt.x + 1, pt.y + 1), 
-						cvScalar(0, 0,  255,0), 2, 8, 0);
+						cvScalar(0, 0,  0,255), 2, 8, 0);
+			/* initialize font and add text */
+			char buffer[3];
+			itoa(selPoint+1, buffer, 10);		
+			CvFont font;
+			cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 1.0, 1.0, 0, 1, CV_AA);
+			cvPutText(temp,buffer ,cvPoint(pt.x+2,pt.y+2), &font, cvScalar(255, 255, 255, 0)); 
+			
 			cvShowImage("image", temp); 
 			cvSaveImage(savePath, temp);
 
@@ -644,11 +657,11 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 }
 
 int* getXCriticalPoints(){
-	return globalCoordinateX;
+	return xCoordinate;
 }
 
 int* getYCriticalPoints(){
-	return globalCoordinateY;
+	return yCoordinate;
 }
 
 void MyTabOne::HistogramEqualization(){
