@@ -276,7 +276,7 @@ BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 		GetClientRect(&rect);
 		CDC dc;
 		dc.CreateCompatibleDC(pDC);
-		m_background.LoadBitmapA(IDB_BITMAP8);
+		m_background.LoadBitmapA(IDB_BACKGROUND);
 		CBitmap* pOldBitmap = dc.SelectObject(&m_background);
 
 

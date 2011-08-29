@@ -85,6 +85,8 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_ERASEBKGND()
+//	ON_WM_DELETEITEM()
+ON_WM_DRAWITEM()
 END_MESSAGE_MAP()
 
 
@@ -855,4 +857,60 @@ bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i)
             }
             return true;
  
+}
+
+//Changing the Background colour of the Button
+
+void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
+{
+	if(nIDCtl==IDC_BUTTON5)         //checking for the button 
+
+    {
+    CDC dc;
+    RECT rect;
+    dc.Attach(lpDrawItemStruct ->hDC);   // Get the Button DC to CDC
+
+    
+    rect = lpDrawItemStruct->rcItem;     //Store the Button rect to our local rect.
+
+    
+    dc.Draw3dRect(&rect,RGB(255,255,255),RGB(0,0,0)); 
+
+    dc.FillSolidRect(&rect,RGB(100,100,255));//Here you can define the required color to appear on the Button.
+
+ 
+    UINT state=lpDrawItemStruct->itemState;  //This defines the state of the Push button either pressed or not. 
+
+
+    if((state & ODS_SELECTED))
+    {
+        dc.DrawEdge(&rect,EDGE_SUNKEN,BF_RECT);
+
+    }
+    else
+    {
+        dc.DrawEdge(&rect,EDGE_RAISED,BF_RECT);
+    }
+
+    dc.SetBkColor(RGB(100,100,255));   //Setting the Text Background color
+
+    dc.SetTextColor(RGB(255,0,0));     //Setting the Text Color
+
+
+
+    TCHAR buffer[MAX_PATH];           //To store the Caption of the button.
+
+    ZeroMemory(buffer,MAX_PATH );     //Intializing the buffer to zero
+
+        ::GetWindowText(lpDrawItemStruct->hwndItem,buffer,MAX_PATH); //Get the Caption of Button Window 
+
+    
+    dc.DrawText(buffer,&rect,DT_CENTER|DT_VCENTER|DT_SINGLELINE);//Redraw the  Caption of Button Window 
+
+    
+    dc.Detach();  // Detach the Button DC
+
+	}
+
+	CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 }
