@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
 //	ON_WM_ERASEBKGND()
 ON_WM_ERASEBKGND()
+ON_WM_DRAWITEM()
 END_MESSAGE_MAP()
 
 
@@ -140,7 +141,7 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_pDlgPage1->MoveWindow(rectPage);
 	m_pDlgPage2->MoveWindow(rectPage);
 	
-	m_TabCtrl.AddPage(m_pDlgPage1, _T("Critical Points"));
+	m_TabCtrl.AddPage(m_pDlgPage1, _T("      Critical Points      "));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
 	
 	rectPage.left	+= 2;
@@ -155,7 +156,16 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_pDlgPage3->agebar.SetTicFreq(5);
 
 
+	CFont fnt;
+	fnt.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	DEFAULT_PITCH, "Comic Sans MS");
+	m_pDlgPage1->GetDlgItem(IDC_EDIT1)->SetFont(&fnt);
 	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
+
+
+	
+	fnt.Detach();
 
 	btnBmpCancel.LoadBitmaps(IDB_BITMAP9);
 
@@ -289,4 +299,60 @@ BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 		dc.SelectObject(pOldBitmap);
 
 	return true;	//CDialogEx::OnEraseBkgnd(pDC);
+}
+
+
+void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
+{
+	if((nIDCtl==IDOK) || (nIDCtl==IDCANCEL))         //checking for the button 
+
+    {
+    CDC dc;
+    RECT rect;
+    dc.Attach(lpDrawItemStruct ->hDC);   // Get the Button DC to CDC
+
+    
+    rect = lpDrawItemStruct->rcItem;     //Store the Button rect to our local rect.
+
+    
+    dc.Draw3dRect(&rect,RGB(255,255,255),RGB(0,0,0)); 
+
+    dc.FillSolidRect(&rect,RGB(0,0,0));//Here you can define the required color to appear on the Button.
+
+ 
+    UINT state=lpDrawItemStruct->itemState;  //This defines the state of the Push button either pressed or not. 
+
+
+    if((state & ODS_SELECTED))
+    {
+        dc.DrawEdge(&rect,EDGE_SUNKEN,BF_RECT);
+
+    }
+    else
+    {
+        dc.DrawEdge(&rect,EDGE_RAISED,BF_RECT);
+    }
+
+    dc.SetBkColor(RGB(0,00,0));   //Setting the Text Background color
+
+    dc.SetTextColor(RGB(255,255,255));     //Setting the Text Color
+	//dc.SetText
+
+
+
+    TCHAR buffer[MAX_PATH];           //To store the Caption of the button.
+
+    ZeroMemory(buffer,MAX_PATH );     //Intializing the buffer to zero
+
+        ::GetWindowText(lpDrawItemStruct->hwndItem,buffer,MAX_PATH); //Get the Caption of Button Window 
+
+    
+    dc.DrawText(buffer,&rect,DT_CENTER|DT_VCENTER|DT_SINGLELINE);//Redraw the  Caption of Button Window 
+
+    
+    dc.Detach();  // Detach the Button DC
+
+	}
+
+	CDialogEx::OnDrawItem(nIDCtl, lpDrawItemStruct);
 }
