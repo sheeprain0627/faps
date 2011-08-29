@@ -63,9 +63,8 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
-//	ON_WM_ERASEBKGND()
-ON_WM_ERASEBKGND()
-ON_WM_DRAWITEM()
+	ON_WM_ERASEBKGND()
+	ON_WM_DRAWITEM()
 END_MESSAGE_MAP()
 
 
@@ -116,7 +115,8 @@ BOOL CcvisionDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// Included tab initialization
+
+	//********* Included tab initialization********//
 
 	
 	CRect	rectPage, rectPage1;
@@ -155,6 +155,10 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_pDlgPage3->agebar.SetRange(20,50);
 	m_pDlgPage3->agebar.SetTicFreq(5);
 
+	///////////////************tab finished***************//////////////
+
+
+	///////*************Font size of Text in edit ctrl***********///////////
 
 	CFont fnt;
 	fnt.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
@@ -163,13 +167,9 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_pDlgPage1->GetDlgItem(IDC_EDIT1)->SetFont(&fnt);
 	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
 
-
-	
 	fnt.Detach();
 
-	btnBmpCancel.LoadBitmaps(IDB_BITMAP9);
-
-
+	///////**************Font finished*************************/////////
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -188,46 +188,6 @@ void CcvisionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 }
 
 
-
-//BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
-//{
-//   /* CRect rect;
-//    GetClientRect(&rect);
-//    CBrush myBrush(RGB(249, 179, 133));    // dialog background color
-//    CBrush *pOld = pDC->SelectObject(&myBrush);
-//    BOOL bRes  = pDC->PatBlt(0, 0, rect.Width(), rect.Height(), PATCOPY);
-//    pDC->SelectObject(pOld);    // restore old brush
-//	CBitmap cBit;*/
-//
-//
-//
-//	/*cBit.setBiIDB_BITMAP8);
-//	CBitmap *pOld = pDC->SelectObject(IDB_BITMAP8);
-//    BOOL bRes  = pDC->PatBlt(0, 0, rect.Width(), rect.Height(), PATCOPY);
-//    pDC->SelectObject(pOld);*/ 
-//
-//		CRect rect;
-//		GetClientRect(&rect);
-//		CDC dc;
-//		dc.CreateCompatibleDC(pDC);
-//		m_background.LoadBitmapA(IDB_BITMAP8);
-//		CBitmap* pOldBitmap = dc.SelectObject(&m_background);
-//
-//
-//		BITMAP bmap;
-//		
-//		m_background.GetBitmap(&bmap);
-//		// stretch		
-//		pDC->StretchBlt(0, 0, rect.Width(),rect.Height(), &dc,0, 0,bmap.bmWidth,bmap.bmHeight, SRCCOPY);
-//
-//		// don't stretch 
-//		//pDC->StretchBlt(0, 0, rect.Width(),rect.Height(), &dc,0, 0,rect.Width(),rect.Height(), SRCCOPY);
-//		dc.SelectObject(pOldBitmap);
-//
-//
-//
-//    return true;	//CDialog::OnEraseBkgnd(pDC);
-//}
 
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
@@ -280,6 +240,8 @@ void CcvisionDlg::OnBnClickedButton1()
 }
 
 
+//////////********Background Image Of main dialog*********////////////
+
 BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 {
 	CRect rect;
@@ -301,6 +263,11 @@ BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 	return true;	//CDialogEx::OnEraseBkgnd(pDC);
 }
 
+
+/////////**************Backgrnd Finished******************/////////////////////
+
+
+//////////*************Button Colour*******************///////////////////////
 
 void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
@@ -356,3 +323,6 @@ void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	CDialogEx::OnDrawItem(nIDCtl, lpDrawItemStruct);
 }
+
+
+///////////////////***********Button Finished**************////////////////////////
