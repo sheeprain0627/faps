@@ -64,6 +64,12 @@
     <None Include="res\icon1.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\Background.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Button_Bitmaps\Cacel.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
