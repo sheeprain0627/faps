@@ -39,4 +39,8 @@ class MyTabThree : public CDialog
 		void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) ;
 		void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf);
 
+		afx_msg void OnBnClickedButton6();
+		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+		
+		bool SBitdraw(CDC *pDC, UINT nIDResource, int i) ;
 };
