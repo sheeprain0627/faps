@@ -59,10 +59,15 @@ class CcvisionDlg : public CDialogEx
 	
 	private :
 		COpenGLControl m_oglWindow;
+		CBitmapButton btnBmpOK, btnBmpCancel, btnBmpHelp;
+
 
 	public:
 		MyFTabCtrl m_TabCtrl;
+		CBitmap m_background;
+
 		afx_msg void OnBnClickedButton1();
+//		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 #endif
