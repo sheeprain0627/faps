@@ -84,6 +84,7 @@ BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 //	ON_WM_RBUTTONDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -794,4 +795,64 @@ cvShowImage("ori",src);
 cvShowImage("wrppedImg",img_out);
 
 
+}
+
+BOOL MyTabOne::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: Add your message handler code here and/or call default
+	SBitdraw(pDC, IDB_BITMAP11, 1);
+	return true;	//CDialog::OnEraseBkgnd(pDC);
+}
+
+
+bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
+{
+            CBitmap* m_bitmap;
+            m_bitmap=new CBitmap();
+            m_bitmap->LoadBitmap(nIDResource);
+            if(!m_bitmap->m_hObject)
+                        return true;
+			CRect rect;
+            GetClientRect(&rect);
+            CDC dc;
+            dc.CreateCompatibleDC(pDC);    
+            dc.SelectObject(m_bitmap);
+            int bmw, bmh ;
+            BITMAP bmap;
+            m_bitmap->GetBitmap(&bmap);
+            bmw = bmap.bmWidth;
+            bmh = bmap.bmHeight;
+            int xo=0, yo=0;
+            switch(i){
+            case 1:
+            	pDC->StretchBlt(xo, yo, rect.Width(),
+                                    rect.Height(), &dc,
+                                    0, 0,bmw,bmh, SRCCOPY);
+                break;
+            case 2:
+                if(bmw < rect.Width())
+                    xo = (rect.Width() - bmw)/2;
+                else 
+                    xo=0;
+                if(bmh < rect.Height())
+                    yo = (rect.Height()-bmh)/2;
+                else
+                    yo=0;
+                pDC->BitBlt (xo, yo, rect.Width(),
+                            rect.Height(), &dc,
+                            0, 0, SRCCOPY);
+                break;
+             case 3:
+                for (yo = 0; yo < rect.Height(); yo += bmh)
+                {
+                    for (xo = 0; xo < rect.Width(); xo += bmw)
+                    {
+                        pDC->BitBlt (xo, yo, rect.Width(),
+                                    rect.Height(), &dc,
+                                    0, 0, SRCCOPY);
+                    }
+                }
+            }
+            return true;
+ 
 }

@@ -53,8 +53,8 @@ class MyTabOne : public CDialog
 		afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 		afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 
-		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 		bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
+		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 int* getXCriticalPoints();
