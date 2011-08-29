@@ -103,6 +103,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\back.bmp" />
     <None Include="res\Background.bmp" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />
