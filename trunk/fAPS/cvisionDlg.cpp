@@ -144,10 +144,10 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("      Critical Points      "));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
 	
-	rectPage.left	+= 2;
-	rectPage.top	+= 22;
+	/*rectPage.left	+= 2;
+	rectPage.top	+= 0;
 	rectPage.right	-= 4;
-	rectPage.bottom -= 4;
+	rectPage.bottom -= 4;*/
 
 	//tab 3 designs 
 	m_pDlgPage3->MoveWindow(rectPage);
@@ -163,7 +163,7 @@ BOOL CcvisionDlg::OnInitDialog()
 	CFont fnt;
 	fnt.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 	ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-	DEFAULT_PITCH, "Comic Sans MS");
+	DEFAULT_PITCH, "Cambria");
 	m_pDlgPage1->GetDlgItem(IDC_EDIT1)->SetFont(&fnt);
 	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
 

@@ -217,7 +217,7 @@ BOOL MyTabTwo::OnEraseBkgnd(CDC* pDC)
 {
 	
 
-	SBitdraw(pDC, IDB_BITMAP11, 1);
+	SBitdraw(pDC, IDB_TABBACKGRND, 1);
 	return true;//CDialog::OnEraseBkgnd(pDC);
 }
 
