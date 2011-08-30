@@ -592,7 +592,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 66);
+	pt = cvPoint(X - 315, Y - 126);
 
 	
 	if(load && (selectedImg != NULL)) {
@@ -629,13 +629,13 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 66);
+	pt = cvPoint(X - 315, Y - 126);
 
 	CString str1;
-	str1.Format("%d", X);
+	str1.Format("%d", X-315);
 
 	CString str2;
-	str2.Format("%d", Y);
+	str2.Format("%d", Y-126);
 	
 	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
 
@@ -658,7 +658,7 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 66);
+	pt = cvPoint(X - 315, Y - 126);
 
 	CString str1;
 	str1.Format("%d", X);
