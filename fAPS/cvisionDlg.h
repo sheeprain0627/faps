@@ -68,7 +68,9 @@ class CcvisionDlg : public CDialogEx
 
 		afx_msg void OnBnClickedButton1();
 //		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 		afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
+		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+		bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
 };
 #endif

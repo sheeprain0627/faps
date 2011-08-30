@@ -63,8 +63,9 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
-	ON_WM_ERASEBKGND()
+//	ON_WM_ERASEBKGND()
 	ON_WM_DRAWITEM()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -242,26 +243,26 @@ void CcvisionDlg::OnBnClickedButton1()
 
 //////////********Background Image Of main dialog*********////////////
 
-BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
-{
-	CRect rect;
-		GetClientRect(&rect);
-		CDC dc;
-		dc.CreateCompatibleDC(pDC);
-		m_background.LoadBitmapA(IDB_BACKGROUND);
-		CBitmap* pOldBitmap = dc.SelectObject(&m_background);
-
-
-		BITMAP bmap;
-		
-		m_background.GetBitmap(&bmap);
-		pDC->StretchBlt(0, 0, rect.Width(),rect.Height(), &dc,0, 0,bmap.bmWidth,bmap.bmHeight, SRCCOPY);
-
-		
-		dc.SelectObject(pOldBitmap);
-
-	return true;	//CDialogEx::OnEraseBkgnd(pDC);
-}
+//BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
+//{
+//	CRect rect;
+//		GetClientRect(&rect);
+//		CDC dc;
+//		dc.CreateCompatibleDC(pDC);
+//		m_background.LoadBitmapA(IDB_BACKGROUND);
+//		CBitmap* pOldBitmap = dc.SelectObject(&m_background);
+//
+//
+//		BITMAP bmap;
+//		
+//		m_background.GetBitmap(&bmap);
+//		pDC->StretchBlt(0, 0, rect.Width(),rect.Height(), &dc,0, 0,bmap.bmWidth,bmap.bmHeight, SRCCOPY);
+//
+//		
+//		dc.SelectObject(pOldBitmap);
+//
+//	return true;	//CDialogEx::OnEraseBkgnd(pDC);
+//}
 
 
 /////////**************Backgrnd Finished******************/////////////////////
@@ -326,3 +327,63 @@ void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 
 ///////////////////***********Button Finished**************////////////////////////
+
+BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
+{
+	
+	SBitdraw(pDC, IDB_BACKGROUND, 1);
+	return true;//CDialog::OnEraseBkgnd(pDC);
+}
+
+bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
+{
+            CBitmap* m_bitmap;
+            m_bitmap=new CBitmap();
+            m_bitmap->LoadBitmap(nIDResource);
+            if(!m_bitmap->m_hObject)
+                        return true;
+			CRect rect;
+            GetClientRect(&rect);
+            CDC dc;
+            dc.CreateCompatibleDC(pDC);    
+            dc.SelectObject(m_bitmap);
+            int bmw, bmh ;
+            BITMAP bmap;
+            m_bitmap->GetBitmap(&bmap);
+            bmw = bmap.bmWidth;
+            bmh = bmap.bmHeight;
+            int xo=0, yo=0;
+            switch(i){
+            case 1:
+            	pDC->StretchBlt(xo, yo, rect.Width(),
+                                    rect.Height(), &dc,
+                                    0, 0,bmw,bmh, SRCCOPY);
+                break;
+            case 2:
+                if(bmw < rect.Width())
+                    xo = (rect.Width() - bmw)/2;
+                else 
+                    xo=0;
+                if(bmh < rect.Height())
+                    yo = (rect.Height()-bmh)/2;
+                else
+                    yo=0;
+                pDC->BitBlt (xo, yo, rect.Width(),
+                            rect.Height(), &dc,
+                            0, 0, SRCCOPY);
+                break;
+             case 3:
+                for (yo = 0; yo < rect.Height(); yo += bmh)
+                {
+                    for (xo = 0; xo < rect.Width(); xo += bmw)
+                    {
+                        pDC->BitBlt (xo, yo, rect.Width(),
+                                    rect.Height(), &dc,
+                                    0, 0, SRCCOPY);
+                    }
+                }
+            }
+            return true;
+ 
+}
+
