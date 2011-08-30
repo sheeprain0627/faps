@@ -192,6 +192,26 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
                 globalCoordinateY[countDb] = y;
                 countDb++;
                 break;
+
+		case CV_EVENT_RBUTTONDOWN:
+			ofstream crifile;
+			string savePath=path;
+			savePath.replace(savePath.length()-4,4,".txt");
+
+			//strtok(path,".");
+			crifile.open (savePath);
+			
+			for (int i=0;i<22;i++){
+
+			crifile << globalCoordinateX[i] << " " << globalCoordinateY[i] << "\n" ;			
+
+			}
+			
+			crifile.close();
+
+			break;
+
+
         }
 }
 
@@ -285,8 +305,8 @@ void MyTabOne::OnBnClickedButton5()
 	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
 	//HistogramEqualization();
-	//aa.CalFundermentalMatrix(src,dst);
-	resizePicDB();
+	aa.CalFundermentalMatrix(src,dst);
+	//resizePicDB();
 	//resizePic1();
 
 	//cropPic1();
