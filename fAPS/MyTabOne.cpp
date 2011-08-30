@@ -802,7 +802,7 @@ cvShowImage("wrppedImg",img_out);
 BOOL MyTabOne::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: Add your message handler code here and/or call default
-	SBitdraw(pDC, IDB_BITMAP11, 1);
+	SBitdraw(pDC, IDB_TABBACKGRND, 1);
 	return true;	//CDialog::OnEraseBkgnd(pDC);
 }
 
@@ -863,7 +863,7 @@ bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	if(nIDCtl==IDC_BUTTON5)         //checking for the button 
+	if((nIDCtl==IDC_BUTTON5) || (nIDCtl==IDC_SetFace) || (nIDCtl==IDC_BUTTON1) || (nIDCtl==IDC_BUTTON2) || (nIDCtl==IDC_BUTTON4) )         //checking for the button 
 
     {
     CDC dc;
@@ -876,7 +876,7 @@ void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
     
     dc.Draw3dRect(&rect,RGB(255,255,255),RGB(0,0,0)); 
 
-    dc.FillSolidRect(&rect,RGB(100,100,255));//Here you can define the required color to appear on the Button.
+    dc.FillSolidRect(&rect,RGB(134,27,9));//Here you can define the required color to appear on the Button.
 
  
     UINT state=lpDrawItemStruct->itemState;  //This defines the state of the Push button either pressed or not. 
@@ -892,9 +892,10 @@ void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
         dc.DrawEdge(&rect,EDGE_RAISED,BF_RECT);
     }
 
-    dc.SetBkColor(RGB(100,100,255));   //Setting the Text Background color
+    dc.SetBkColor(RGB(134,27,9));   //Setting the Text Background color
 
-    dc.SetTextColor(RGB(255,0,0));     //Setting the Text Color
+    dc.SetTextColor(RGB(255,255,255));     //Setting the Text Color
+	//dc.Set
 
 
 

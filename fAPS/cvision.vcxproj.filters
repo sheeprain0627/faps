@@ -73,6 +73,9 @@
     <None Include="res\back.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\tab.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
