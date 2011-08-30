@@ -31,7 +31,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
     {
         IplImage* img;
         char filename[30];
-        sprintf(filename, "Ageprogression\\%d.bmp", (i+1));
+        sprintf(filename, "Ageprogression\\out%d.jpg", (i+1));
         img = cvLoadImage(filename);
         imgRed[i] = cvCreateImage(cvGetSize(img), 8, 1);
         imgGreen[i] = cvCreateImage(cvGetSize(img), 8, 1);
@@ -78,7 +78,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
 	{ 
 	    char infilename[30];
 	    char outfilename[30];
-        sprintf(infilename, "Ageprogression\\%d.bmp", (i+1));   
+        sprintf(infilename, "Ageprogression\\out%d.jpg", (i+1));   
 	    IplImage* img1 = cvLoadImage(infilename);
 	    IplImage* out = cvCreateImage( cvGetSize(img1), IPL_DEPTH_8U, 3 ); 
         cvSmooth(img1, out, CV_GAUSSIAN, 7, 7,q, 0);
@@ -303,11 +303,11 @@ for(int y=0;y<imgSize_Standard.height;y++)
     cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD);
 
 	IplImage* black = cvLoadImage("Ageprogression\\black.bmp");
-	cvOverlayImage(black, imgResultD, cvPoint(35, 55), cvScalar(0.5,0.5,0.5,0.5), cvScalar(0.5,0.5,0.5,0.5));
+	//cvOverlayImage(black, imgResultD, cvPoint(35, 55), cvScalar(0.5,0.5,0.5,0.5), cvScalar(0.5,0.5,0.5,0.5));
 	//mergeImage(black,imgResultD,30,30);
-	cvSaveImage("Ageprogression\\newimage.bmp",black);
+	//cvSaveImage("Ageprogression\\newimage.bmp",black);
 	
-	LoadImage("Ageprogression\\newimage.bmp", 255, 0, 1);
+	//LoadImage("Ageprogression\\newimage.bmp", 255, 0, 1);
 	//cvWaitKey(0);
 	//;
 

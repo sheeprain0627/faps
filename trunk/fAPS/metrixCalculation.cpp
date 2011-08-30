@@ -331,13 +331,13 @@ cvShowImage("ajith",img_out);
 
 void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 {
-	int point_count = 5;
+	int point_count = 7;
 CvMat* points1;
 CvMat* points2;
 CvMat* status;
 CvMat* fundamental_matrix;
 //IplImage *src, *dst;
-float trg_img_cordinate_x[23]={0,0,240,240,65.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
+float trg_img_cordinate_x[23]={0,0,240,240,61.0,80.0,80.0,102.0,132.0,147.0,149.0,165.0,116.0,101.0,132,88,119,117,144,33,199,117,117};
 float trg_img_cordinate_y[23]={0,320,0,320,127.0,117.0,131.0,127.0,127.0,113.0,130.0,124.0,121.0,171.0,169,201,193,210,201,142,142,102,253};
 float db_img_cordinate_x[23]={0,0,240,240,62.0,79.0,80.0,104.0,136.0,156.0,157.0,173.0,120.0,99.0,144.0,87,120,120,148,35,196,119,117};
 float db_img_cordinate_y[23]={0,320,0,320,121.0,111.0,130.0,127.0,124.0,110.0,129.0,120.0,112.0,171.0,172.0,202,191,215,198,136,140,88,256};
@@ -371,9 +371,9 @@ points1->data.db[i*2] = trg_img_cordinate_x[i];
 
 fundamental_matrix = cvCreateMat(3,3,CV_32FC1);
 //cvFindFundamentalMatrix( trg_img_cordinate_x,trg_img_cordinate_x,9,CV_FM_RANSAC,PPt_inv);
-//int fm_count = cvFindFundamentalMat( points2,points1,fundamental_matrix,CV_FM_RANSAC,1.0,.99,status );
+int fm_count = cvFindFundamentalMat( points2,points1,fundamental_matrix,CV_FM_RANSAC);
 
-cvFindHomography( points1,points2,fundamental_matrix,CV_FM_RANSAC,1.0);
+//cvFindHomography( points1,points2,fundamental_matrix,CV_FM_RANSAC,1.0);
 int a=0;
 for (int i = 0; i < 3; i ++)
 {
@@ -401,17 +401,36 @@ cvmSet(perspective_mat,2,0,0);
 cvmSet(perspective_mat,2,1,0);
 cvmSet(perspective_mat,2,2,1);
 
+IplImage *img_out= cvCloneImage(src);
+
+CvPoint2D32f srcTri[3], dstTri[3];
+// Compute warp matrix
+	srcTri[0].x = 121;
+	srcTri[0].y = 123;
+	srcTri[1].x = 97;
+	srcTri[1].y = 169;
+	srcTri[2].x = 145;
+	srcTri[2].y = 169;
+
+	dstTri[0].x = 121;
+	dstTri[0].y = 110;
+	dstTri[1].x = 90;
+	dstTri[1].y = 180;
+	dstTri[2].x = 155;
+	dstTri[2].y = 150;
+
+CvMat* affine_mat=cvCreateMat(2,3,CV_32FC1);
+cvGetAffineTransform( srcTri, dstTri, affine_mat );
+cvWarpAffine( src, img_out, affine_mat );
 
 
-
-
-IplImage *img_out= cvCloneImage(dst);
 //cvPerspectiveTransform( src, img_out, fundamental_matrix);
-cvWarpPerspective( dst, img_out, fundamental_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS ,cvScalarAll( 0 )  );
+//cvWarpPerspective( src, img_out, fundamental_matrix,CV_INTER_LINEAR ,cvScalarAll( 0 )  );
 cvNamedWindow("ori",1);
 cvShowImage("ori",src);
 cvNamedWindow("wrppedImg",1);
 cvShowImage("wrppedImg",img_out);
-WritePixelsToFile(dst,"output1",fundamental_matrix);
+
+//WritePixelsToFile(dst,"output1",fundamental_matrix);
 
 }
