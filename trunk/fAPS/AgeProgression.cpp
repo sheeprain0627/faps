@@ -146,7 +146,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
         }
     }
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
-    cvSaveImage("Ageprogression\\1_murali.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
+    cvSaveImage("Ageprogression\\1_murali.jpg",imgResultD); //Texure-Enhanced-prototype.bmp
 	cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	cvWaitKey(0);
 
@@ -156,7 +156,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
 void Ageprogression ::applyIbsdt(float q){
 
 
-   IplImage* AgePrototype = cvLoadImage("Ageprogression\\1_murali.bmp");
+   IplImage* AgePrototype = cvLoadImage("Ageprogression\\1_murali.jpg");
    IplImage* imgRed_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
    IplImage* imgGreen_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
    IplImage* imgBlue_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
@@ -165,7 +165,7 @@ void Ageprogression ::applyIbsdt(float q){
   cvReleaseImage(&AgePrototype);
 
 
-   IplImage* input = cvLoadImage("Ageprogression\\2_murali.bmp");
+   IplImage* input = cvLoadImage("Ageprogression\\2_murali.jpg");
    IplImage* imgRed_input = cvCreateImage(cvGetSize(input), 8, 1);
    IplImage* imgGreen_input = cvCreateImage(cvGetSize(input), 8, 1);
    IplImage* imgBlue_input = cvCreateImage(cvGetSize(input), 8, 1);
@@ -178,7 +178,7 @@ for(int i=0;i<2;i++)
 	{ 
 	char infilename_face[30];
 	char outfilename_face[50];
-    sprintf(infilename_face, "Ageprogression\\%d_murali.bmp", (i+1));   
+    sprintf(infilename_face, "Ageprogression\\%d_murali.jpg", (i+1));   
 	IplImage* in_face = cvLoadImage(infilename_face);
 	IplImage* out_face = cvCreateImage( cvGetSize(in_face), IPL_DEPTH_8U, 3 ); 
     cvSmooth(in_face, out_face, CV_GAUSSIAN, 7, 7,q, 0);
@@ -239,20 +239,20 @@ for(int y=0;y<imgSize_Standard.height;y++)
 			    double	theTemFinalGreen;
 			    double	theTemFinalBlue;
 //left eye
-		  int cx1=26;//xc[0];
-		  int cy2=66;//yc[1];
-		  int cy3=80;//yc[2]; 
-		  int cx4=66;//xc[3];
+		  int cx1=xc[0];
+		  int cy2=yc[1];
+		  int cy3=yc[2]; 
+		  int cx4=xc[3];
 //right eye	
-		  int cx5=104;//xc[4];
-		  int cy6=65;//yc[5];
-		  int cy7=81;//yc[6]; 
-		  int cx8=144;//xc[7];
+		  int cx5=xc[4];
+		  int cy6=yc[5];
+		  int cy7=yc[6]; 
+		  int cx8=xc[7];
 //mouth	
-		  int cx12=57;//xc[11];  
-		  int cy13=143;//yc[12];
-		  int cy14=165;//yc[13];
-		  int cx15=117;//xc[14]; 
+		  int cx12=xc[11];  
+		  int cy13=yc[12];
+		  int cy14=yc[13];
+		  int cx15=xc[14]; 
 		  
 //calculate eclipse
 		  float a1=(float)((cx4-cx1)/2);
@@ -307,7 +307,7 @@ for(int y=0;y<imgSize_Standard.height;y++)
 	//mergeImage(black,imgResultD,30,30);
 	//cvSaveImage("Ageprogression\\newimage.bmp",black);
 	
-	//LoadImage("Ageprogression\\newimage.bmp", 255, 0, 1);
+	LoadImage("Ageprogression\\IBSDT.bmp", 255, 0, 1);
 	//cvWaitKey(0);
 	//;
 
