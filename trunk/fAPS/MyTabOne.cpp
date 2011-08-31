@@ -75,7 +75,7 @@ void MyTabOne::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &MyTabOne::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON2, &MyTabOne::OnBnClickedButton2)
+	//ON_BN_CLICKED(IDC_BUTTON2, &MyTabOne::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &MyTabOne::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabOne::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
@@ -257,7 +257,7 @@ void MyTabOne::OnBnClickedButton1()
 }
 
 
-void MyTabOne::OnBnClickedButton2()
+/*void MyTabOne::OnBnClickedButton2()
 {
 	countImage -= 1;
 	cvSaveImage(savePath, img0[countImage]);
@@ -283,7 +283,7 @@ void MyTabOne::OnBnClickedButton2()
 
 	
 	
-}
+}*/
 
 
 void MyTabOne::OnBnClickedButton3()
