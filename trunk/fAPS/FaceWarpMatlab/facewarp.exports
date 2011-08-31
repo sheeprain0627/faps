@@ -1,0 +1,6 @@
+facewarpInitialize
+facewarpInitializeWithHandlers
+facewarpTerminate
+facewarpPrintStackTrace
+mlxFaceWarp
+mlfFaceWarp
