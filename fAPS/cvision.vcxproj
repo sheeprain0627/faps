@@ -132,6 +132,7 @@
     <ClInclude Include="Ageprogression.h" />
     <ClInclude Include="cvision.h" />
     <ClInclude Include="cvisionDlg.h" />
+    <ClInclude Include="detectFaceComponets.h" />
     <ClInclude Include="feature.h" />
     <ClInclude Include="metrixCalculation.h" />
     <ClInclude Include="MyFTabCtrl.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Ageprogression.cpp" />
     <ClCompile Include="cvision.cpp" />
     <ClCompile Include="cvisionDlg.cpp" />
+    <ClCompile Include="detectFaceComponets.cpp" />
     <ClCompile Include="feature.cpp" />
     <ClCompile Include="metrixCalculation.cpp" />
     <ClCompile Include="MyFTabCtrl.cpp" />

@@ -7,12 +7,14 @@
 
 #include <cxcore.h>
 #include "cv.h"
+#include "cvisionDlg.h"
 #include "highgui.h"
 #include "cvaux.h"
 #include <imgproc_c.h>
 #include <fstream>
 #include "Tdsloader.h"
 #include "metrixCalculation.h"
+#include "MyTabThree.h"
 
 
 using namespace std;
@@ -21,6 +23,7 @@ using namespace cv;
 const int poiX1 = 25;
 const int poiY1 = 25;
 metrixCalculation aa;
+//MyTabThree bb;
 int countfile=0;
 CvPoint pt;
 IplImage* img0[100];
@@ -47,8 +50,13 @@ IplImage* findImg(int x,int y);
 int globalCoordinateX[100] ;
 int globalCoordinateY[100] ;
 
+
+
 int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
 int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
+
+//CvPoint *points=m_picture
+
 int noOfControlPoints = 19;
 int selPoint = -1;
 
@@ -305,7 +313,7 @@ void MyTabOne::OnBnClickedButton5()
 	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
 	//HistogramEqualization();
-	aa.CalFundermentalMatrix(src,dst);
+	//aa.CalFundermentalMatrix(src,dst);
 	//resizePicDB();
 	//resizePic1();
 
