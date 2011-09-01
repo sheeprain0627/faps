@@ -17,7 +17,7 @@ Ageprogression::~Ageprogression(void)
 
 //define number of images takein as database
 const int NO_IMAGES=4;
-
+int ageLimit=80;
 
 //create the age prototype
 void Ageprogression ::texureEnhancePrototype(float p){		
@@ -31,7 +31,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
     {
         IplImage* img;
         char filename[30];
-        sprintf(filename, "Ageprogression\\out%d.jpg", (i+1));
+        sprintf(filename, "Ageprogression\\%d\\%d.jpg", ageLimit,(i+1));
         img = cvLoadImage(filename);
         imgRed[i] = cvCreateImage(cvGetSize(img), 8, 1);
         imgGreen[i] = cvCreateImage(cvGetSize(img), 8, 1);
@@ -77,12 +77,12 @@ void Ageprogression ::texureEnhancePrototype(float p){
 	for(int i=0;i<NO_IMAGES;i++)
 	{ 
 	    char infilename[30];
-	    char outfilename[30];
-        sprintf(infilename, "Ageprogression\\out%d.jpg", (i+1));   
+	    char outfilename[40];
+        sprintf(infilename, "Ageprogression\\%d\\%d.jpg", ageLimit,(i+1));   
 	    IplImage* img1 = cvLoadImage(infilename);
 	    IplImage* out = cvCreateImage( cvGetSize(img1), IPL_DEPTH_8U, 3 ); 
         cvSmooth(img1, out, CV_GAUSSIAN, 7, 7,q, 0);
-	    sprintf(outfilename, "Ageprogression\\%d_smooth.bmp", (i+1));
+	    sprintf(outfilename, "Ageprogression\\%d\\%d_smooth.bmp", ageLimit,(i+1));
 		cvSaveImage(outfilename, out);
 	}
 
@@ -95,8 +95,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
 	//split the smoothed database images in to RGB segment
 	for(int i=0;i<NO_IMAGES;i++)
 	{
-	    char otfilename[30];
-        sprintf(otfilename, "Ageprogression\\%d_smooth.bmp", (i+1));
+	    char otfilename[40];
+        sprintf(otfilename, "Ageprogression\\%d\\%d_smooth.bmp",ageLimit, (i+1));
 	    IplImage* imgSmooth = cvLoadImage(otfilename);
         imgRedSmooth[i] = cvCreateImage(cvGetSize(imgSmooth), 8, 1);
         imgGreenSmooth[i] = cvCreateImage(cvGetSize(imgSmooth), 8, 1);
@@ -147,8 +147,8 @@ void Ageprogression ::texureEnhancePrototype(float p){
     }
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
     cvSaveImage("Ageprogression\\1_murali.jpg",imgResultD); //Texure-Enhanced-prototype.bmp
-	cvShowImage("Texure-Enhanced-prototype", imgResultD);
-	cvWaitKey(0);
+	//cvShowImage("Texure-Enhanced-prototype", imgResultD);
+	//cvWaitKey(0);
 
 }
 
@@ -307,7 +307,7 @@ for(int y=0;y<imgSize_Standard.height;y++)
 	//mergeImage(black,imgResultD,30,30);
 	//cvSaveImage("Ageprogression\\newimage.bmp",black);
 	
-	LoadImage("Ageprogression\\IBSDT.bmp", 255, 0, 1);
+	LoadImage2("Ageprogression\\IBSDT.bmp", 255, 0, 1);
 	//cvWaitKey(0);
 	//;
 

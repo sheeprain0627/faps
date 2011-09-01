@@ -17,6 +17,17 @@
 #include "MyTabThree.h"
 
 
+//to avoid the VS2020 +matlab bug
+#include <yvals.h>
+#if (_MSC_VER >= 1600)
+#define __STDC_UTF_16__
+#endif
+
+#include "facewarp.h" /* MATLAB-generated header file */
+
+
+
+
 using namespace std;
 using namespace cv;
 
@@ -469,15 +480,43 @@ void MyTabOne::OnBnClickedSetface()
 	resizePic();
 	cropPic();
 
+	/* Call the MCR and library initialization functions */
+if( !mclInitializeApplication(NULL,0) )
+{
+fprintf(stderr, "Could not initialize the application.\n");
+exit(1);
+}
+
+if (!facewarpInitialize())
+{
+fprintf(stderr,"Could not initialize the library.\n");
+exit(1);
+}
+
+
+mlfFaceWarp();
+
+
+/* Call the library termination function */
+facewarpTerminate();
+
+mclTerminateApplication();
+
+
+
+
+
 	//float a=(source->width)*(0.821289-0.1818449)/(xCoordinate[1]-xCoordinate[0]);
 	//float b=(source->width)*(0.1818449*xCoordinate[1]-0.821289*xCoordinate[0])/(xCoordinate[1]-xCoordinate[0]);
 
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
 	
 	LoadImage("res\\b.bmp", 255, 0, 1);
+
+
 	float x = 8.6;
 	CString selectedString = "selctVal";
-	modify(x, selectedString);
+	//modify(x, selectedString);
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	//aa.WritePixelsToFile(cvLoadImage("res\\a.bmp", 1),"pixelVal.txt");
 //	aa.CalFundermentalMatrix();
