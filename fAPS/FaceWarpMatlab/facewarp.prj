@@ -5,7 +5,6 @@
   <MATLABPath>
     <Directory>$(PROJECTDIR)\</Directory>
     <Directory>$(MATLABROOT)\toolbox\compiler\deploy</Directory>
-    <Directory>C:\Users\Ajith\Desktop\mattoc</Directory>
     <Directory>C:\Users\Ajith\Documents\MATLAB</Directory>
     <Directory>$(MATLABROOT)\toolbox\matlab\general</Directory>
     <Directory>$(MATLABROOT)\toolbox\matlab\ops</Directory>
