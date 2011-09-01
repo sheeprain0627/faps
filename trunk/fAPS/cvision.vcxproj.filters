@@ -76,6 +76,10 @@
     <None Include="res\tab.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Mouth.xml" />
+    <None Include="Nariz.xml" />
+    <None Include="haarcascade_frontalface_alt2.xml" />
+    <None Include="parojos.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
@@ -120,6 +124,9 @@
     <ClInclude Include="metrixCalculation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StartDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvision.cpp">
@@ -156,6 +163,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="metrixCalculation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
