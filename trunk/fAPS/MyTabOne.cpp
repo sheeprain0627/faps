@@ -15,6 +15,7 @@
 #include "Tdsloader.h"
 #include "metrixCalculation.h"
 #include "MyTabThree.h"
+#include "detectFaceComponets.h"
 
 
 //to avoid the VS2020 +matlab bug
@@ -34,6 +35,7 @@ using namespace cv;
 const int poiX1 = 25;
 const int poiY1 = 25;
 metrixCalculation aa;
+detectFaceComponets facecomp;
 //MyTabThree bb;
 int countfile=0;
 CvPoint pt;
@@ -63,9 +65,10 @@ int globalCoordinateY[100] ;
 
 
 
-int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
-int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
-
+//int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
+//int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
+int xCoordinate[19];
+int yCoordinate[19];
 //CvPoint *points=m_picture
 
 int noOfControlPoints = 19;
@@ -238,6 +241,22 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 
 void MyTabOne::OnBnClickedButton1()
 {
+
+	int *xCoordinate_=facecomp.getFeaturePoints_x();
+		
+
+		for(int i=0;i<19;i++){
+			xCoordinate[i]=xCoordinate_[i];
+			
+		}
+
+		int *yCoordinate_=facecomp.getFeaturePoints_y();
+
+		for(int i=0;i<19;i++){
+			
+			yCoordinate[i]=yCoordinate_[i];
+		}
+
 	this -> DragAcceptFiles(true);
 
 	CFileDialog dlg(TRUE, _T("*.bmp"), NULL,
@@ -270,6 +289,9 @@ void MyTabOne::OnBnClickedButton1()
 		showImage();	//defined inside the class
 		
 		LoadImage(savePath, 255, 0, 1); //sent the pathe of image to opengl window    //ajith
+
+
+		
 					
 	}
 		
@@ -320,6 +342,7 @@ void MyTabOne::OnBnClickedButton4()
 
 void MyTabOne::OnBnClickedButton5()
 {
+
 	IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
 	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();

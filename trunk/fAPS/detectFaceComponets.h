@@ -12,4 +12,6 @@ public:
 	void detectEyes( IplImage *img,CvRect *r);
 	void detectNose( IplImage *img,CvRect *r);
 	void detectMouth( IplImage *img,CvRect *r);
+	int *getFeaturePoints_x();
+	int *getFeaturePoints_y();
 };
