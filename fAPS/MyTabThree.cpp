@@ -20,7 +20,7 @@ using namespace cv;
 // MyTabThree dialog
 Ageprogression age;
 detectFaceComponets facedetect;
-//CvPoint pointsArry[19];
+
 IMPLEMENT_DYNAMIC(MyTabThree, CDialog)
 
 MyTabThree::MyTabThree(CWnd* pParent /*=NULL*/)

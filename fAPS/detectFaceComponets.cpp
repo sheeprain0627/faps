@@ -21,9 +21,23 @@ char *nose_cascade="Nariz.xml";
 char *mouth_cascade="Mouth.xml";
 
 
-/*Mouth detect ion*/
 
+int *detectFaceComponets::getFeaturePoints_x(){
+	int detectedpoints_x[19];
+	for(int i=0;i<19;i++){
+		detectedpoints_x[i]=pointsArry[i].x;
+	}
+	return detectedpoints_x;
+}
 
+int *detectFaceComponets::getFeaturePoints_y(){
+	int detectedpoints_y[19];
+	for(int i=0;i<19;i++){
+		detectedpoints_y[i]=pointsArry[i].y;
+	}
+	return detectedpoints_y;
+}
+ /*Mouth detect ion*/
 void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 {
    CvSeq *mouth;
