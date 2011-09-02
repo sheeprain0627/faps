@@ -265,11 +265,6 @@ for(int y=0;y<imgSize_Standard.height;y++)
 		  float b3=(float)((cy14-cy13)/2);
 		  float ck3=((float)((a3+cx12-x)*(a3+cx12-x)))/(a3*a3)+((float)((cy13+b3-y)*(cy13+b3-y)))/(b3*b3);
 			
-          if (((x>=cx1)&&(x<=cx4)&&(y>=cy2)&&(ck1<=1.0)&&(y<=cy3))||((x>=cx5)&&(x<=cx8)&&(y>=cy6)&&(ck2<=1.0)&&(y<=cy7))||((x>=cx12)&&(x<=cx15)&&(y>=cy13)&&(ck3<=1.0)&&(y<=cy14))){
-					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
-			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
-			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);
-				}
 		  /*
 				double	theTemFinalRed;
 			    double	theTemFinalGreen;
@@ -284,11 +279,11 @@ for(int y=0;y<imgSize_Standard.height;y++)
 					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
 			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
 			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);}*/
-				else {
+				
 			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
 			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
 			   	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;
-				}
+				
 			
 		  cvSetReal2D(imgResultRedTem, y, x, theTemFinalRed);
           cvSetReal2D(imgResultGreenTem, y, x, theTemFinalGreen);

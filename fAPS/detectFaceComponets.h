@@ -14,4 +14,5 @@ public:
 	void detectMouth( IplImage *img,CvRect *r);
 	int *getFeaturePoints_x();
 	int *getFeaturePoints_y();
+	CvPoint *getFeaturePoints();
 };

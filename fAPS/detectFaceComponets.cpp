@@ -22,21 +22,10 @@ char *mouth_cascade="Mouth.xml";
 
 
 
-int *detectFaceComponets::getFeaturePoints_x(){
-	int detectedpoints_x[19];
-	for(int i=0;i<19;i++){
-		detectedpoints_x[i]=pointsArry[i].x;
-	}
-	return detectedpoints_x;
+CvPoint *detectFaceComponets::getFeaturePoints(){
+	return pointsArry;
 }
 
-int *detectFaceComponets::getFeaturePoints_y(){
-	int detectedpoints_y[19];
-	for(int i=0;i<19;i++){
-		detectedpoints_y[i]=pointsArry[i].y;
-	}
-	return detectedpoints_y;
-}
  /*Mouth detect ion*/
 void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 {
@@ -69,14 +58,14 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 		  ///////////////////
 
 		 
-		 pointsArry[11].x=mouthpoint1.x;
-		 pointsArry[11].y=mouthpoint1.y;
-		  pointsArry[12].x=mouthpoint2.x;
-		 pointsArry[12].y=mouthpoint2.y;
-		  pointsArry[13].x=mouthpoint3.x;
-		 pointsArry[13].y=mouthpoint3.y;
-		  pointsArry[14].x=mouthpoint4.x;
-		 pointsArry[14].y=mouthpoint4.y;
+		 pointsArry[11].x=mouthpoint1.x+r->x;
+		 pointsArry[11].y=mouthpoint1.y+r->y+(r->height *2/3);
+		  pointsArry[12].x=mouthpoint2.x+r->x;
+		 pointsArry[12].y=mouthpoint2.y+r->y+(r->height *2/3);
+		  pointsArry[13].x=mouthpoint3.x+r->x;
+		 pointsArry[13].y=mouthpoint3.y+r->y+(r->height *2/3);
+		  pointsArry[14].x=mouthpoint4.x+r->x;
+		 pointsArry[14].y=mouthpoint4.y+r->y+(r->height *2/3);
 		 
 		 /* draw points on mouth*/
 
@@ -86,14 +75,14 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 		 cvCircle(img, mouthpoint4, 1, CV_RGB(255,255, 255), 1, 8, 0);
 
           /* draw a red rectangle */
-		 /*
+		
           cvRectangle(img,
                       cvPoint(mouth_cord->x, mouth_cord->y),
                       cvPoint(mouth_cord->x + mouth_cord->width, mouth_cord->y + mouth_cord->height),
                       CV_RGB(255,255, 255),
                       1, 8, 0
                     );
-					*/
+					
         }
      //end mouth detection
          
@@ -131,15 +120,15 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 		 CvPoint nosepoint2= cvPoint(nose_cord->x, nose_cord->y + nose_cord->height/2);
 		 CvPoint nosepoint3= cvPoint(nose_cord->x + nose_cord->width, nose_cord->y + nose_cord->height/2);
 
-		  pointsArry[9].x=nosepoint2.x;
-		  pointsArry[9].y=nosepoint2.y;
-		  pointsArry[10].x=nosepoint3.x;
-		  pointsArry[10].y=nosepoint3.y;
+		  pointsArry[9].x=nosepoint2.x+r->x;
+		  pointsArry[9].y=nosepoint2.y+r->y;
+		  pointsArry[10].x=nosepoint3.x+r->x;
+		  pointsArry[10].y=nosepoint3.y+r->y;
 
 		 cvCircle(img, nosepoint2, 1, CV_RGB(255,255, 255), 1, 8, 0);
 		 cvCircle(img, nosepoint3, 1, CV_RGB(255,255, 255), 1, 8, 0);
           /* draw a red rectangle */
-		  /*
+		  
 
           cvRectangle(img,
                       cvPoint(nose_cord->x, nose_cord->y),
@@ -148,7 +137,7 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
                       1, 8, 0
                   );
 
-      */  
+      
 	  }
 }
 
@@ -208,12 +197,12 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 		  ///////////////////
 
 		 for(int i=0;i<8;i++){ 
-		 pointsArry[i].x=eyepoint[i].x;
-		 pointsArry[i].y=eyepoint[i].y;
+			 pointsArry[i].x=eyepoint[i].x+r->x;
+		 pointsArry[i].y=eyepoint[i].y+r->y + (r->height/5.5);
 		 }
 
-		 pointsArry[8].x=nosepoint1.x;
-		 pointsArry[8].y=nosepoint1.y;
+		 pointsArry[8].x=nosepoint1.x+r->x;
+		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);
 		 /* draw points on mouth*/
 
 		 cvCircle(img, eyepoint[0], 1, CV_RGB(255,255, 255), 1, 8, 0);
@@ -228,14 +217,14 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 		 cvCircle(img, nosepoint1, 1, CV_RGB(255,255, 255), 1, 8, 0);
 
               /* draw a red rectangle */
-			  /*
+			  
                         cvRectangle(img,
                                     cvPoint(eye->x, eye->y),
                                     cvPoint(eye->x + eye->width, eye->y + eye->height),
                                     CV_RGB(0, 0, 255),
                                     1, 8, 0
                                    );
-								   */
+								   
 			int tot = 0;
 
 			IplImage* hsv, * h, * s, * v;
@@ -361,7 +350,7 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 
 
 		/*draw rectangle for face*/
-		/*
+		
         cvRectangle( img,cvPoint( r->x, r->y ),cvPoint( r->x + r->width, r->y + r->height ),
                      CV_RGB( 255, 0, 0 ), 1, 8, 0 );   
    
@@ -369,7 +358,7 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 
         printf("\n face_x=%d face_y=%d wd=%d ht=%d",r->x,r->y,r->width,r->height);
 
-		*/
+		
        
         detectEyes(img,r);
         /* reset region of interest */
