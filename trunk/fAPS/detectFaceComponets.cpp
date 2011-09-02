@@ -45,10 +45,9 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
                                 cvSize(25, 15)  /* minimum detection scale */
                                );
 
-        for( int i = 0; i < 1; i++ )
-        {
+       
      
-          CvRect *mouth_cord = (CvRect*)cvGetSeqElem(mouth, i);
+          CvRect *mouth_cord = (CvRect*)cvGetSeqElem(mouth, 0);
 
 		  /* get the points*/
 		 CvPoint mouthpoint1= cvPoint(mouth_cord->x, mouth_cord->y + mouth_cord->height/2);
@@ -67,23 +66,9 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 		  pointsArry[14].x=mouthpoint4.x+r->x;
 		 pointsArry[14].y=mouthpoint4.y+r->y+(r->height *2/3);
 		 
-		 /* draw points on mouth*/
-
-		 cvCircle(img, mouthpoint1, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, mouthpoint2, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, mouthpoint3, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, mouthpoint4, 1, CV_RGB(255,255, 255), 1, 8, 0);
-
-          /* draw a red rectangle */
 		
-          cvRectangle(img,
-                      cvPoint(mouth_cord->x, mouth_cord->y),
-                      cvPoint(mouth_cord->x + mouth_cord->width, mouth_cord->y + mouth_cord->height),
-                      CV_RGB(255,255, 255),
-                      1, 8, 0
-                    );
 					
-        }
+        
      //end mouth detection
          
 }
@@ -111,9 +96,8 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
                              cvSize(25, 15)  /* minimum detection scale */
                             );
 
-  for( int i = 0; i < 1; i++ )
-      {
-          CvRect *nose_cord = (CvRect*)cvGetSeqElem(nose, i);
+  
+          CvRect *nose_cord = (CvRect*)cvGetSeqElem(nose, 0);
 
 		  /*darw nose points*/
 
@@ -123,22 +107,8 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 		  pointsArry[9].x=nosepoint2.x+r->x;
 		  pointsArry[9].y=nosepoint2.y+r->y;
 		  pointsArry[10].x=nosepoint3.x+r->x;
-		  pointsArry[10].y=nosepoint3.y+r->y;
-
-		 cvCircle(img, nosepoint2, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, nosepoint3, 1, CV_RGB(255,255, 255), 1, 8, 0);
-          /* draw a red rectangle */
-		  
-
-          cvRectangle(img,
-                      cvPoint(nose_cord->x, nose_cord->y),
-                      cvPoint(nose_cord->x + nose_cord->width, nose_cord->y + nose_cord->height),
-                      CV_RGB(0,255, 0),
-                      1, 8, 0
-                  );
-
-      
-	  }
+		  pointsArry[10].y=nosepoint3.y+r->y;      
+	  
 }
 
 
@@ -171,15 +141,9 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
                                   cvSize(25, 15)  /* minimum detection scale */
                                 );
    
-      //printf("\no of eyes detected are %d",eyes->total);
-   
-     
-        /* draw a rectangle for each detected eye */
-        for( int i = 0; i < 1; i++ )
-          {
-              eye_detect++;
+                   eye_detect++;
               /* get one eye */
-              CvRect *eye = (CvRect*)cvGetSeqElem(eyes, i);
+              CvRect *eye = (CvRect*)cvGetSeqElem(eyes, 0);
 
 
 			  CvPoint eyepoint[8];
@@ -198,94 +162,12 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 
 		 for(int i=0;i<8;i++){ 
 			 pointsArry[i].x=eyepoint[i].x+r->x;
-		 pointsArry[i].y=eyepoint[i].y+r->y + (r->height/5.5);
+			pointsArry[i].y=eyepoint[i].y+r->y + (r->height/5.5);
 		 }
 
 		 pointsArry[8].x=nosepoint1.x+r->x;
-		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);
-		 /* draw points on mouth*/
-
-		 cvCircle(img, eyepoint[0], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[1], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[2], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[3], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[4], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[5], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[6], 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, eyepoint[7], 1, CV_RGB(255,255, 255), 1, 8, 0);
-
-		 cvCircle(img, nosepoint1, 1, CV_RGB(255,255, 255), 1, 8, 0);
-
-              /* draw a red rectangle */
-			  
-                        cvRectangle(img,
-                                    cvPoint(eye->x, eye->y),
-                                    cvPoint(eye->x + eye->width, eye->y + eye->height),
-                                    CV_RGB(0, 0, 255),
-                                    1, 8, 0
-                                   );
-								   
-			int tot = 0;
-
-			IplImage* hsv, * h, * s, * v;
-	
-
+		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);						   
 			
-
-			hsv = cvCreateImage(cvGetSize(img), 8, 3);
-			h   = cvCreateImage(cvGetSize(img), 8, 1);
-			s   = cvCreateImage(cvGetSize(img), 8, 1);
-			v   = cvCreateImage(cvGetSize(img), 8, 1);
-
-			cvCvtColor(img, hsv, CV_BGR2HSV);
-			cvSplit(hsv, h, s, v, NULL);
-
-			int gray = 0;
-			int max = 0, mx =0 ,mGray =0, my=0, mxj = 0, myi = 0;
-			int maxGray = 0;
-			int maxX = 0;
-			int dif = 0;
-			
-			for(int i = eye->y; i < eye->height + eye->y; i++) {
-
-				for(int j = eye->x; j < eye->width + eye->x; j++) {
-						
-					gray = cvGetReal2D(v, i, j);
-					//dif = cvGetReal2D(v, i, j) - cvGetReal2D(v, i, j-1);
-					if(gray < 20){
-						//maxGray = gray;
-						myi = j;
-						mxj =  i;
-
-						if(mx < mxj) {
-						mx = j;
-						my = i;
-						}
-
-					}
-					//tot = (eye->x + eye->width - j)*gray;
-					//max = tot;
-					/*if(max < tot) {
-						max = tot;
-						mx = i;
-						mj = j;
-
-					}*/
-					
-						
-				}
-
-				
-			}
-
-			cvMerge(h, s, v, NULL, img);
-				cvCvtColor(img, img, CV_HSV2BGR);
-				//cvCircle(img, cvPoint(eye->x, eye->y), 1, CV_RGB(0, 255, 0), -1, 8,0);
-				cvCircle(img, cvPoint(mx, my), 1, CV_RGB(0, 255, 0), -1, 8,0);
-
-
-           
-}
 
 }
 
@@ -317,14 +199,8 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
         faces = cvHaarDetectObjects(img,cascade, storage, 1.2, 2, CV_HAAR_DO_CANNY_PRUNING, cvSize(20, 20));
     else
         printf("\nFrontal face cascade not loaded\n");
-
-    //printf("\n no of faces detected are %d",faces->total);
-   
-
-    /* for each face found, draw a red box */
-    for(int i = 0 ; i < 1 ; i++ )
-    {       
-        r = ( CvRect* )cvGetSeqElem( faces, i );
+    
+        r = ( CvRect* )cvGetSeqElem( faces, 0 );
 
 		/* draw points on overall face*/
 		 CvPoint facepoint1= cvPoint(r->x , r->y + r->height/2);
@@ -341,23 +217,6 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 		 pointsArry[17].y=facepoint1.y;
 		 pointsArry[18].x=facepoint1.x;
 		 pointsArry[18].y=facepoint1.y;
-		 /* draw points on overall face*/
-
-		 cvCircle(img, facepoint1, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, facepoint2, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, facepoint3, 1, CV_RGB(255,255, 255), 1, 8, 0);
-		 cvCircle(img, facepoint4, 1, CV_RGB(255,255, 255), 1, 8, 0);
-
-
-		/*draw rectangle for face*/
-		
-        cvRectangle( img,cvPoint( r->x, r->y ),cvPoint( r->x + r->width, r->y + r->height ),
-                     CV_RGB( 255, 0, 0 ), 1, 8, 0 );   
-   
-
-
-        printf("\n face_x=%d face_y=%d wd=%d ht=%d",r->x,r->y,r->width,r->height);
-
 		
        
         detectEyes(img,r);
@@ -367,7 +226,7 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
         cvResetImageROI(img);
         detectMouth(img,r);
         cvResetImageROI(img);
-    }
+    
     /* reset region of interest */
       cvResetImageROI(img);
 
@@ -379,12 +238,12 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 }
 
 
-void detectFaceComponets::loadFaceImages()
+void detectFaceComponets::loadFaceImages(IplImage *img)
 {
 
 	
-   CvCapture *capture;
-	IplImage  *img,*temp_img;
+   
+	IplImage  *temp_img=img;;
 	int       key;
 
 	char image[100],temp_image[100];
@@ -412,8 +271,7 @@ void detectFaceComponets::loadFaceImages()
 
          //sprintf(image,"res\\%d.bmp",2);
        
-        img=cvLoadImage("res\\c20.bmp");
-        temp_img=cvLoadImage("res\\c20.bmp");
+        
        
         if(!img)
         {
@@ -432,9 +290,5 @@ void detectFaceComponets::loadFaceImages()
     cvReleaseHaarClassifierCascade( &cascade_mouth );
     cvReleaseMemStorage( &storage );
    
-	cvShowImage("sdfs", img);
-    
-   
-
    
 }

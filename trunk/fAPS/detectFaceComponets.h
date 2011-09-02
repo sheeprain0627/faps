@@ -7,7 +7,7 @@ using namespace cv;
 class detectFaceComponets{
 
 public:
-	void loadFaceImages();
+	void loadFaceImages(IplImage *img);
 	void detectFacialFeatures( IplImage *img,IplImage *temp_img,int img_no);
 	void detectEyes( IplImage *img,CvRect *r);
 	void detectNose( IplImage *img,CvRect *r);

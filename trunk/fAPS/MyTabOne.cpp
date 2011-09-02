@@ -241,17 +241,6 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 
 void MyTabOne::OnBnClickedButton1()
 {
-
-	CvPoint *featurePoints=facecomp.getFeaturePoints();
-
-
-	
-
-		for(int i=0;i<19;i++){
-			xCoordinate[i]=featurePoints[i].x;
-			yCoordinate[i]=featurePoints[i].y;
-		}
-
 		
 
 	this -> DragAcceptFiles(true);
@@ -271,6 +260,16 @@ void MyTabOne::OnBnClickedButton1()
         countImage = 0;
         countDb = 0;
         img0[countImage] = cvLoadImage(path);             // load the image
+
+
+
+		facecomp.loadFaceImages(img0[countImage]);
+		CvPoint *featurePoints=facecomp.getFeaturePoints();
+		for(int i=0;i<19;i++){
+			xCoordinate[i]=featurePoints[i].x;
+			yCoordinate[i]=featurePoints[i].y;
+		}
+
 
                 
         cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
