@@ -242,20 +242,17 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 void MyTabOne::OnBnClickedButton1()
 {
 
-	int *xCoordinate_=facecomp.getFeaturePoints_x();
+	CvPoint *featurePoints=facecomp.getFeaturePoints();
+
+
+	
+
+		for(int i=0;i<19;i++){
+			xCoordinate[i]=featurePoints[i].x;
+			yCoordinate[i]=featurePoints[i].y;
+		}
+
 		
-
-		for(int i=0;i<19;i++){
-			xCoordinate[i]=xCoordinate_[i];
-			
-		}
-
-		int *yCoordinate_=facecomp.getFeaturePoints_y();
-
-		for(int i=0;i<19;i++){
-			
-			yCoordinate[i]=yCoordinate_[i];
-		}
 
 	this -> DragAcceptFiles(true);
 
