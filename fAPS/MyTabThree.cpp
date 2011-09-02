@@ -757,7 +757,7 @@ void MyTabThree::OnBnClickedButton6()
 {
 
 	
-	facedetect.loadFaceImages();
+//	facedetect.loadFaceImages();
 
    
 }
