@@ -719,6 +719,7 @@ void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, con
  
 	namedWindow("matched",CV_WINDOW_AUTOSIZE);
     imshow("matched",res);
+	imwrite("Ageprogression\\hist.jpg", res);
 	//show_histogram("matched", res, "gray");
  
     //waitKey(BTM_WAIT_TIME);
@@ -738,8 +739,8 @@ void MyTabThree::OnBnClickedNew()
 {
 		
 		// TODO: Add your control notification handler code here
-	Mat src=cvLoadImage("Ageprogression\\young.jpg");
-	Mat dst=cvLoadImage("Ageprogression\\reti.jpg");
+	Mat src=cvLoadImage("Ageprogression\\img4E.bmp");
+	Mat dst=cvLoadImage("Ageprogression\\retinex2.jpg");
 	Mat src_mask = cvLoadImage("Ageprogression\\white.bmp",0);
 	Mat dst_mask = cvLoadImage("Ageprogression\\white.bmp",0);
 	
