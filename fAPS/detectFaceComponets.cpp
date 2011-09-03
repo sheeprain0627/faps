@@ -12,7 +12,7 @@
 #include "detectFaceComponets.h"
 
 
-CvPoint pointsArry[19];
+CvPoint pointsArry[23];
 CvHaarClassifierCascade *cascade,*cascade_e,*cascade_nose,*cascade_mouth;
 CvMemStorage            *storage;
 char *face_cascade="haarcascade_frontalface_alt2.xml";
@@ -101,8 +101,8 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 
 		  /*darw nose points*/
 
-		 CvPoint nosepoint2= cvPoint(nose_cord->x, nose_cord->y + nose_cord->height/2);
-		 CvPoint nosepoint3= cvPoint(nose_cord->x + nose_cord->width, nose_cord->y + nose_cord->height/2);
+		 CvPoint nosepoint2= cvPoint(nose_cord->x + nose_cord->width * 1.5/6, nose_cord->y + nose_cord->height/2);
+		 CvPoint nosepoint3= cvPoint(nose_cord->x  + nose_cord->width * 5.5/6, nose_cord->y + nose_cord->height/2);
 
 		  pointsArry[9].x=nosepoint2.x+r->x;
 		  pointsArry[9].y=nosepoint2.y+r->y;
@@ -207,6 +207,10 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 		 CvPoint facepoint2= cvPoint(r->x + r->width, r->y + r->height/2);
 		 CvPoint facepoint3= cvPoint(r->x + r->width/2, r->y + r->height/5);
 		 CvPoint facepoint4= cvPoint(r->x + r->width/2, r->y + r->height*9/8);
+		  CvPoint facepoint5= cvPoint(r->x + r->width*1/8, r->y );
+		 CvPoint facepoint6= cvPoint(r->x + r->width*7/8, r->y );
+		  CvPoint facepoint7= cvPoint(r->x + r->width*2/8, r->y + r->height);
+		 CvPoint facepoint8= cvPoint(r->x + r->width*6/8, r->y + r->height);
 		  ///////////////////
 
 		 pointsArry[15].x=facepoint1.x;
@@ -217,6 +221,15 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 		 pointsArry[17].y=facepoint3.y;
 		 pointsArry[18].x=facepoint4.x;
 		 pointsArry[18].y=facepoint4.y;
+		 
+		  pointsArry[19].x=facepoint5.x;
+		 pointsArry[19].y=facepoint5.y;
+		 pointsArry[20].x=facepoint6.x;
+		 pointsArry[20].y=facepoint6.y;
+		 pointsArry[21].x=facepoint7.x;
+		 pointsArry[21].y=facepoint7.y;
+		 pointsArry[22].x=facepoint8.x;
+		 pointsArry[22].y=facepoint8.y;
 		
        
         detectEyes(img,r);

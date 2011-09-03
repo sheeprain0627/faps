@@ -67,11 +67,11 @@ int globalCoordinateY[100] ;
 
 //int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
 //int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
-int xCoordinate[19];
-int yCoordinate[19];
+int xCoordinate[23];
+int yCoordinate[23];
 //CvPoint *points=m_picture
 
-int noOfControlPoints = 19;
+int noOfControlPoints = 23;
 int selPoint = -1;
 
 // MyTabOne dialog
@@ -265,7 +265,7 @@ void MyTabOne::OnBnClickedButton1()
 
 		facecomp.loadFaceImages(img0[countImage]);
 		CvPoint *featurePoints=facecomp.getFeaturePoints();
-		for(int i=0;i<19;i++){
+		for(int i=0;i<23;i++){
 			xCoordinate[i]=featurePoints[i].x;
 			yCoordinate[i]=featurePoints[i].y;
 		}
