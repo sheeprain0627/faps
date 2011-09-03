@@ -658,7 +658,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 126);
+	pt = cvPoint(X - 310, Y - 188);
 
 	
 	if(load && (selectedImg != NULL)) {
@@ -675,7 +675,8 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 			cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 1.0, 1.0, 0, 1, CV_AA);
 			cvPutText(temp,buffer ,cvPoint(pt.x+2,pt.y+2), &font, cvScalar(255, 255, 255, 0)); 
 			
-			cvShowImage("image", temp); 
+			cvShowImage("image", temp);
+			//cvCircle(temp, pt, 1, CV_RGB(0, 255, 0), -1, 8,0);
 			cvSaveImage(savePath, temp);
 
 							
@@ -695,17 +696,17 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 126);
+	pt = cvPoint(X - 310, Y - 188);
 
 	CString str1;
-	str1.Format("%d", X-315);
+	str1.Format("%d", X);
 
 	CString str2;
-	str2.Format("%d", Y-126);
+	str2.Format("%d", Y);
 	
 	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
 
-
+	
 	if(((nFlags & MK_LBUTTON) == MK_LBUTTON) && load) {
 		//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
 	
@@ -724,7 +725,7 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 	X = point.x;
 	Y = point.y;
 
-	pt = cvPoint(X - 315, Y - 126);
+	pt = cvPoint(X - 310, Y - 188);
 
 	CString str1;
 	str1.Format("%d", X);

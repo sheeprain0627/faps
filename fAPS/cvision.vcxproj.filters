@@ -80,6 +80,21 @@
     <None Include="Nariz.xml" />
     <None Include="haarcascade_frontalface_alt2.xml" />
     <None Include="parojos.xml" />
+    <None Include="res\Tab_Texts\step1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tab_Texts\step2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tab_Texts\tab_header.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tab_Texts\temp.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tab_Texts\input.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
