@@ -223,7 +223,7 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 			//strtok(path,".");
 			crifile.open (savePath);
 			
-			for (int i=0;i<22;i++){
+			for (int i=0;i<23;i++){
 
 			crifile << globalCoordinateX[i] << " " << globalCoordinateY[i] << "\n" ;			
 
@@ -261,7 +261,7 @@ void MyTabOne::OnBnClickedButton1()
         countDb = 0;
         img0[countImage] = cvLoadImage(path);             // load the image
 
-
+		
 
 		facecomp.loadFaceImages(img0[countImage]);
 		CvPoint *featurePoints=facecomp.getFeaturePoints();
@@ -270,7 +270,7 @@ void MyTabOne::OnBnClickedButton1()
 			yCoordinate[i]=featurePoints[i].y;
 		}
 
-
+		
                 
         cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
 
@@ -339,6 +339,29 @@ void MyTabOne::OnBnClickedButton4()
 void MyTabOne::OnBnClickedButton5()
 {
 
+	
+	
+if( !mclInitializeApplication(NULL,0) )
+{
+fprintf(stderr, "Could not initialize the application.\n");
+exit(1);
+}
+
+if (!facewarpInitialize())
+{
+fprintf(stderr,"Could not initialize the library.\n");
+exit(1);
+}
+
+
+mlfFaceWarp();
+
+
+//Call the library termination function 
+facewarpTerminate();
+
+
+
 	IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
 	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
@@ -384,7 +407,7 @@ void MyTabOne::resizePic(){
 		newheight += 1;
 	}
 
-	for(int i = 0;i < 20;i++) {
+	for(int i = 0;i < 23;i++) {
 		xCoordinate[i] = (int)xCoordinate[i] * xpercent;
 		yCoordinate[i] = (int)yCoordinate[i] * ypercent;
 		
@@ -457,6 +480,8 @@ void MyTabOne::cropPic(){
 	/* sets the Region of Interest
 	   Note that the rectangle area has to be __INSIDE__ the image */
 
+
+	//reduce the 18th point from all other points
 	int x0 = xCoordinate[a+2] - 115;
 	int y0 = yCoordinate[a+2] - 90;
 	
@@ -473,14 +498,22 @@ void MyTabOne::cropPic(){
 	/* always reset the Region of Interest */
 	cvResetImageROI(img1);
 
-	cvSaveImage("res\\b.bmp", img2);
+	cvSaveImage("Ageprogression\\2_murali.bmp", img2);
 	//cvSaveImage( "Ageprogression\\2_murali.bmp", img2 );
 
-	for(int i = 0;i < 20;i++) {
+
+			ofstream crifile;
+
+			//strtok(path,".");
+			crifile.open ("Ageprogression\\base.txt");
+						
+
+	for(int i = 0;i < 23;i++) {
 		xCoordinate[i] = (int)(xCoordinate[i] - x0);
 		yCoordinate[i] = (int)(yCoordinate[i] - y0);
-		
+		crifile << xCoordinate[i] << " " << yCoordinate[i] << "\n" ;			
 	}
+	crifile.close();
 	cvReleaseImage(&img1);
 
 	//adjust the texture
@@ -500,26 +533,9 @@ void MyTabOne::OnBnClickedSetface()
 	cropPic();
 
 	/* Call the MCR and library initialization functions */
-if( !mclInitializeApplication(NULL,0) )
-{
-fprintf(stderr, "Could not initialize the application.\n");
-exit(1);
-}
-
-if (!facewarpInitialize())
-{
-fprintf(stderr,"Could not initialize the library.\n");
-exit(1);
-}
 
 
-mlfFaceWarp();
-
-
-/* Call the library termination function */
-facewarpTerminate();
-
-mclTerminateApplication();
+	
 
 
 
@@ -530,12 +546,13 @@ mclTerminateApplication();
 
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
 	
-	LoadImage("res\\b.bmp", 255, 0, 1);
+	LoadImage("Ageprogression\\2_murali.bmp", 255, 0, 1);
 
 
 	float x = 8.6;
 	CString selectedString = "selctVal";
-	//modify(x, selectedString);
+	modify(x, selectedString);
+
 	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
 	//aa.WritePixelsToFile(cvLoadImage("res\\a.bmp", 1),"pixelVal.txt");
 //	aa.CalFundermentalMatrix();
@@ -1002,3 +1019,5 @@ void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 }
+
+

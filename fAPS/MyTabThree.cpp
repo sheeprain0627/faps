@@ -23,7 +23,7 @@ detectFaceComponets facedetect;
 
 IMPLEMENT_DYNAMIC(MyTabThree, CDialog)
 
-MyTabThree::MyTabThree(CWnd* pParent /*=NULL*/)
+	MyTabThree::MyTabThree(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabThree::IDD, pParent)
 {
 
@@ -81,11 +81,11 @@ void MyTabThree::OnBnClickedLoadtexture()
 {
 	this->DragAcceptFiles(true);
 	CFileDialog dlg(TRUE, _T("*.bmp"), NULL,
-	OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY,
-	_T("image files (*.bmp; *.jpg) |*.bmp;*.jpg|All Files (*.*)|*.*||"),NULL);
- 
+		OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY,
+		_T("image files (*.bmp; *.jpg) |*.bmp;*.jpg|All Files (*.*)|*.*||"),NULL);
+
 	dlg.m_ofn.lpstrTitle = _T("Open Image");
- 
+
 	if (dlg.DoModal() == IDOK) { 
 		CString path = dlg.GetPathName();
 		LoadImage2(path, 255, 0, 0);		
@@ -95,12 +95,12 @@ void MyTabThree::OnBnClickedLoadtexture()
 
 void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	
+
 	int curret = agebar.GetPos();
-	
+
 	float x = (float)(curret - 20) / 30;
 	changeContrast(x);
-	
+
 	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
 	// TODO: Add your control notification handler code here
 	*pResult = 0;
@@ -114,90 +114,90 @@ void MyTabThree::OnEnChangeEdit1()
 	GetDlgItemText(IDC_EDIT3, s);
 	float p = atof( s );
 	age.setSigma(p);
-	
+
 }
 
 
 void MyTabThree::OnBnClickedButton2()
 {
-		IplImage* img11;
-		IplImage* img_new;
-		
-		img_new = cvLoadImage("Ageprogression\\1.bmp");
-		cvNamedWindow("Lap", 1);
-		//img11 = cvCreateImage(cvSize(101,32),8 , 3);
-		
-		show_histogram("Lap", img_new, "red");
-		//cvSetData(img11,l_text ,303);
-		//cvShowImage("Lap", img11);	
-		
-		cvWaitKey();
+	IplImage* img11;
+	IplImage* img_new;
 
-	
+	img_new = cvLoadImage("Ageprogression\\1.bmp");
+	cvNamedWindow("Lap", 1);
+	//img11 = cvCreateImage(cvSize(101,32),8 , 3);
+
+	show_histogram("Lap", img_new, "red");
+	//cvSetData(img11,l_text ,303);
+	//cvShowImage("Lap", img11);	
+
+	cvWaitKey();
+
+
 	// TODO: Add your control notification handler code here
 }
 
 
 void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel_name)
 {
-  IplImage* img, * canvas;
-  int       bins = 256;
-  int       hist[256];
-  double    scale;
-  int       i, j, channel, max = 0;
+	IplImage* img, * canvas;
+	int       bins = 256;
+	int       hist[256];
+	double    scale;
+	int       i, j, channel, max = 0;
 
-  CvScalar   colors[] = { CV_RGB(0,0,255), CV_RGB(0,255,0),
-                          CV_RGB(255,0,0), CV_RGB(0,0,0) };
+	CvScalar   colors[] = { CV_RGB(0,0,255), CV_RGB(0,255,0),
+		CV_RGB(255,0,0), CV_RGB(0,0,0) };
 
-  channel = strcmp(channel_name, "blue")  == 0 ? 0
-          : strcmp(channel_name, "green") == 0 ? 1
-          : strcmp(channel_name, "red")   == 0 ? 2
-          : strcmp(channel_name, "gray")  == 0 ? 3 : 0;
+	channel = strcmp(channel_name, "blue")  == 0 ? 0
+		: strcmp(channel_name, "green") == 0 ? 1
+		: strcmp(channel_name, "red")   == 0 ? 2
+		: strcmp(channel_name, "gray")  == 0 ? 3 : 0;
 
-  if (src->nChannels == 3 && channel == 3) {
-    img = cvCreateImage(cvGetSize(src), 8, 1);
-    cvCvtColor(src, img, CV_BGR2GRAY);
-  }
-  else if (channel > src->nChannels)
-    return;
-  else
-    img = cvCloneImage(src);
+	if (src->nChannels == 3 && channel == 3) {
+		img = cvCreateImage(cvGetSize(src), 8, 1);
+		cvCvtColor(src, img, CV_BGR2GRAY);
+	}
+	else if (channel > src->nChannels)
+		return;
+	else
+		img = cvCloneImage(src);
 
-  canvas = cvCreateImage(cvSize(256, 125), IPL_DEPTH_8U, 3);
-  cvSet(canvas, CV_RGB(255,255,255), NULL);
+	canvas = cvCreateImage(cvSize(256, 125), IPL_DEPTH_8U, 3);
+	cvSet(canvas, CV_RGB(255,255,255), NULL);
 
-  /* Reset histogram */
-  for (j = 0; j < bins-1; hist[j]=0, j++);
+	/* Reset histogram */
+	for (j = 0; j < bins-1; hist[j]=0, j++);
 
-  /* Calc histogram of the image */
-  for (i = 0; i < img->height; i++) {
-    uchar* ptr = (uchar*)(img->imageData + i * img->widthStep);
-    for (j = 0; j < img->width; j+=img->nChannels)
-      hist[ptr[j+(channel == 3 ? 0 : channel)]]++;
-  }
+	/* Calc histogram of the image */
+	for (i = 0; i < img->height; i++) {
+		uchar* ptr = (uchar*)(img->imageData + i * img->widthStep);
+		for (j = 0; j < img->width; j+=img->nChannels)
+			hist[ptr[j+(channel == 3 ? 0 : channel)]]++;
+	}
 
-  /* Get histogram peak */
-  for (i = 0; i < bins-1; i++)
-    max = hist[i] > max ? hist[i] : max;
+	/* Get histogram peak */
+	for (i = 0; i < bins-1; i++)
+		max = hist[i] > max ? hist[i] : max;
 
-  /* Get scale so the histogram fit the canvas height */
-  scale = max > canvas->height ? (double)canvas->height/max : 1.;
+	/* Get scale so the histogram fit the canvas height */
+	scale = max > canvas->height ? (double)canvas->height/max : 1.;
 
-  /* Draw histogram */
-  for (i = 0; i < bins-1; i++) {
-    CvPoint pt1 = cvPoint(i, canvas->height - (hist[i] * scale));
-    CvPoint pt2 = cvPoint(i, canvas->height);
-    cvLine(canvas, pt1, pt2, colors[channel], 1, 8, 0);
-  }
+	/* Draw histogram */
+	for (i = 0; i < bins-1; i++) {
+		CvPoint pt1 = cvPoint(i, canvas->height - (hist[i] * scale));
+		CvPoint pt2 = cvPoint(i, canvas->height);
+		cvLine(canvas, pt1, pt2, colors[channel], 1, 8, 0);
+	}
 
-  cvShowImage(window_title, canvas);
-  cvReleaseImage(&img);
+	cvShowImage(window_title, canvas);
+	cvReleaseImage(&img);
 }
 
 
 IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1)
 {
-  
+
 	int hist[256];
 	int density[256];
 	IplImage* hsv, * h, * s, * v;
@@ -208,7 +208,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		density[i] = 0;
 	}
 
-	  if (src->nChannels == 3) {
+	if (src->nChannels == 3) {
 
 		hsv = cvCreateImage(cvGetSize(src), 8, 3);
 		h   = cvCreateImage(cvGetSize(src), 8, 1);
@@ -217,7 +217,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 		cvCvtColor(src, hsv, CV_BGR2HSV);
 		cvSplit(hsv, h, s, v, NULL);
-		
+
 		hsv1 = cvCreateImage(cvGetSize(dst), 8, 3);
 		h1   = cvCreateImage(cvGetSize(dst), 8, 1);
 		s1   = cvCreateImage(cvGetSize(dst), 8, 1);
@@ -242,15 +242,15 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		//double min1 = 0.0, min = 0.0, max = 0.0, max1 = 0, min2 = 0.0, max2 = 0.0;
 		int min = 0, max = 0;
 		for (int j = 0; j < src->height; j++) {
-		
+
 			for(int x = 0; x < src->width; x++) {
-			
+
 				grayLevel = cvGetReal2D(v, j, x);
 				grayLevel1 = cvGetReal2D(v1, j, x);
 				//hist[grayLevel] += 1;
 				total += grayLevel;
 				total1 += grayLevel1;
-		
+
 			}
 		}
 
@@ -258,15 +258,15 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		mean1 = total1 / n;
 
 		for (int j = 0; j < src->height; j++){
-		
+
 			for(int x = 0; x < src->width; x++){
-			
+
 				grayLevel = cvGetReal2D(v, j, x);
 				grayLevel1 = cvGetReal2D(v1, j, x);
 
 				varToal += (grayLevel - mean) * (grayLevel - mean);
 				varToal1 += (grayLevel1 - mean1) * (grayLevel1 - mean1);
-		
+
 			}
 		}
 
@@ -281,134 +281,134 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		//int min = 0, max = 0;
 
 		//fitted dynamic range into two segma
-		
+
 		/*for (int j = 0; j < src->height; j++){
-		
-			for(int x = 0; x<src->width; x++){
-			
-				grayLevel = cvGetReal2D(v, j, x);
-				grayLevel1 = cvGetReal2D(v1, j, x);
 
-				min = (int)mean - (int)(stDeviation*0.3);
-				max = (int)mean + (int)(stDeviation*0.3);
+		for(int x = 0; x<src->width; x++){
 
-				if(grayLevel > min || grayLevel < max ) {
+		grayLevel = cvGetReal2D(v, j, x);
+		grayLevel1 = cvGetReal2D(v1, j, x);
 
-					
-					if(grayLevel == min){
-						grayLevel = (int)mean1 - (int)stDeviation1;
-					}
+		min = (int)mean - (int)(stDeviation*0.3);
+		max = (int)mean + (int)(stDeviation*0.3);
 
-					else {
-						grayLevel = ((grayLevel - min) * (int)stDeviation1) / (int)stDeviation + (((int)mean1) + (int)stDeviation1);
-					}
+		if(grayLevel > min || grayLevel < max ) {
 
 
-				}
+		if(grayLevel == min){
+		grayLevel = (int)mean1 - (int)stDeviation1;
+		}
 
-				cvSetReal2D(v, j, x, grayLevel);
-				
-				/*newhist = (grayLevel - mean) / (stDeviation);
-				newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-				//aggreHIst = (newhist + newhist1)/2.0;
-			
-				//aggreHIst = (aggreHIst*(stDeviation+stDeviation1)/2.0) + ((mean +mean1)/2.0);
+		else {
+		grayLevel = ((grayLevel - min) * (int)stDeviation1) / (int)stDeviation + (((int)mean1) + (int)stDeviation1);
+		}
 
-				//newhist = fvalue;
-				if(min > newhist) 
-					min = newhist;
 
-				 if(min1 > newhist1)
-					min1 = newhist1;
-			
-				if(max < newhist) 
-					max = newhist;
+		}
 
-				if(max1 < newhist1) 
-					max1 = newhist1;
+		cvSetReal2D(v, j, x, grayLevel);
 
-				if(min2 > aggreHIst)
-					min2 = aggreHIst;
-			
-				if(max2 < aggreHIst) 
-					max2 = aggreHIst;
-			
+		/*newhist = (grayLevel - mean) / (stDeviation);
+		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
+		//aggreHIst = (newhist + newhist1)/2.0;
 
-				if((newhist1 < 0) || (newhist < 0)) {
+		//aggreHIst = (aggreHIst*(stDeviation+stDeviation1)/2.0) + ((mean +mean1)/2.0);
 
-					//newhist = abs(newhist);
-					//cvSetReal2D(v, j, x, newhist);
-					//cvSetReal2D(v1, j, x, newhist1);
+		//newhist = fvalue;
+		if(min > newhist) 
+		min = newhist;
 
-				} else {
-					//newhist += 100;
-					//cvSetReal2D(v, j, x, newhist);
-					//cvSetReal2D(v1, j, x, newhist1);
-				}
-				*/
-			//}
+		if(min1 > newhist1)
+		min1 = newhist1;
+
+		if(max < newhist) 
+		max = newhist;
+
+		if(max1 < newhist1) 
+		max1 = newhist1;
+
+		if(min2 > aggreHIst)
+		min2 = aggreHIst;
+
+		if(max2 < aggreHIst) 
+		max2 = aggreHIst;
+
+
+		if((newhist1 < 0) || (newhist < 0)) {
+
+		//newhist = abs(newhist);
+		//cvSetReal2D(v, j, x, newhist);
+		//cvSetReal2D(v1, j, x, newhist1);
+
+		} else {
+		//newhist += 100;
+		//cvSetReal2D(v, j, x, newhist);
+		//cvSetReal2D(v1, j, x, newhist1);
+		}
+		*/
+		//}
 		//}
 
 		/*for (int j = 0;j < src->height; j++) {
-		
-			for(int x = 0; x < src->width; x++) {
 
-				grayLevel = cvGetReal2D(v, j, x);
-				grayLevel1 = cvGetReal2D(v1, j, x);
+		for(int x = 0; x < src->width; x++) {
 
-				newhist = (grayLevel - mean) / (stDeviation);
-				newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-				aggreHIst = (newhist + newhist1);
-			
-				aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + ((mean + mean1)));
+		grayLevel = cvGetReal2D(v, j, x);
+		grayLevel1 = cvGetReal2D(v1, j, x);
 
-				if(min1 > aggreHIst)
-					min1 = aggreHIst;
-			
-				if(max1 < aggreHIst) 
-					max1 = aggreHIst;
+		newhist = (grayLevel - mean) / (stDeviation);
+		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
+		aggreHIst = (newhist + newhist1);
 
-				//cvSetReal2D(v1, j, x, aggreHIst);
-			}
+		aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + ((mean + mean1)));
+
+		if(min1 > aggreHIst)
+		min1 = aggreHIst;
+
+		if(max1 < aggreHIst) 
+		max1 = aggreHIst;
+
+		//cvSetReal2D(v1, j, x, aggreHIst);
 		}
-	
+		}
+
 		for (int j = 0; j < src->height; j++) {
-		
-			for(int x = 0; x < src->width; x++) {
 
-				grayLevel = cvGetReal2D(v, j, x);
-				//grayLevel -= 80; 
-				grayLevel1 = cvGetReal2D(v1, j, x);
-				//grayLevel1 +=30;
-				//aggreHIst = (grayLevel + grayLevel1)/2;
+		for(int x = 0; x < src->width; x++) {
 
-				newhist = (grayLevel - mean) / (stDeviation);
-				newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-				aggreHIst = (newhist + newhist1);
-			
-				aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + 
-						((mean + mean1))) * 255 / (abs(min1) + max1);
-				
-				if(aggreHIst < 0) {
-					aggreHIst = abs(aggreHIst);
-					cvSetReal2D(v1, j, x, aggreHIst);
-					cvSetReal2D(v, j, x, grayLevel);
-				
-				} else {
+		grayLevel = cvGetReal2D(v, j, x);
+		//grayLevel -= 80; 
+		grayLevel1 = cvGetReal2D(v1, j, x);
+		//grayLevel1 +=30;
+		//aggreHIst = (grayLevel + grayLevel1)/2;
 
-					cvSetReal2D(v, j, x, grayLevel);			
-					cvSetReal2D(v1, j, x, aggreHIst);
-				}
+		newhist = (grayLevel - mean) / (stDeviation);
+		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
+		aggreHIst = (newhist + newhist1);
+
+		aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + 
+		((mean + mean1))) * 255 / (abs(min1) + max1);
+
+		if(aggreHIst < 0) {
+		aggreHIst = abs(aggreHIst);
+		cvSetReal2D(v1, j, x, aggreHIst);
+		cvSetReal2D(v, j, x, grayLevel);
+
+		} else {
+
+		cvSetReal2D(v, j, x, grayLevel);			
+		cvSetReal2D(v1, j, x, aggreHIst);
+		}
 
 
-			}
+		}
 		}
 		*/
 
 		double retinex = 0.0;
 		double funct = 0.0, coef = 0.0;
 		for (int j = 0;j < src->height; j++) {
-		
+
 			for(int x = 0; x < src->width; x++) {
 
 				grayLevel = cvGetReal2D(v, j, x);
@@ -439,14 +439,14 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		cvShowImage("two",dst1);
 		//cvSaveImage("res//texture.bmp", dst1);
 		//cvSmooth();
-	  }
-	  else if (src->nChannels == 1)
+	}
+	else if (src->nChannels == 1)
 		//cvEqualizeHist(src, dst);
 
-	  if (hsv) cvReleaseImage(&hsv);
-	  if (h) cvReleaseImage(&h);
-	  if (s) cvReleaseImage(&s);
-	  if (v) cvReleaseImage(&v);
+		if (hsv) cvReleaseImage(&hsv);
+	if (h) cvReleaseImage(&h);
+	if (s) cvReleaseImage(&s);
+	if (v) cvReleaseImage(&v);
 
 	/*IplImage* image_32F = cvCreateImage(cvGetSize(src),IPL_DEPTH_32F,1);
 
@@ -485,7 +485,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 void MyTabThree::OnBnClickedButton3()
 {
-	
+
 	IplImage* src = cvLoadImage("res\\FACEJ.jpg");
 	IplImage* dst = cvLoadImage("res\\FACEY.jpg"); //cvCreateImage(cvGetSize(src), src->depth, src->nChannels);
 	IplImage* src1 = cvLoadImage("res\\FACEJ.jpg");
@@ -505,7 +505,7 @@ void MyTabThree::OnBnClickedApplyage()
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
-		age.applyIbsdt(x);
+	age.applyIbsdt(x);
 
 
 	// TODO: Add your control notification handler code here
@@ -521,83 +521,83 @@ void MyTabThree::OnBnClickedsaveface()
 
 void MyTabThree::OnBnClickedButton4()
 {
-	
 
-int i,j,k;
-int heightc,widthc,stepc,channelsc;
 
-int temp=0;
-int units=0;
-uchar *data,*datac;
-i=j=k=0;
+	int i,j,k;
+	int heightc,widthc,stepc,channelsc;
 
-IplImage *frame=cvLoadImage("res\\FACEN.jpg",1);
-IplImage *convert=cvCreateImage( cvGetSize(frame), 8, 3 );
-IplImage *result=cvCreateImage( cvGetSize(frame), 8, 3 );
-//printf("By what value Do you want to increase the strenght of the color..? ");
-//scanf("%d", &units);
-units = 30;
-if(frame==NULL ) {
-//puts("unable to load the frame");exit(0);}
+	int temp=0;
+	int units=0;
+	uchar *data,*datac;
+	i=j=k=0;
+
+	IplImage *frame=cvLoadImage("res\\FACEN.jpg",1);
+	IplImage *convert=cvCreateImage( cvGetSize(frame), 8, 3 );
+	IplImage *result=cvCreateImage( cvGetSize(frame), 8, 3 );
+	//printf("By what value Do you want to increase the strenght of the color..? ");
+	//scanf("%d", &units);
+	units = 30;
+	if(frame==NULL ) {
+		//puts("unable to load the frame");exit(0);}
+	}
+
+
+	cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("Result",CV_WINDOW_AUTOSIZE);
+
+	heightc = convert->height;
+	widthc = convert->width;
+
+	stepc=convert->widthStep;
+	channelsc=convert->nChannels;
+	datac = (uchar *)convert->imageData;
+
+	IplImage*  h, * s, * v;
+
+
+	h   = cvCreateImage(cvGetSize(frame), 8, 1);
+	s   = cvCreateImage(cvGetSize(frame), 8, 1);
+	v   = cvCreateImage(cvGetSize(frame), 8, 1);
+
+	cvCvtColor(frame,convert,CV_BGR2HSV);
+	cvSplit(convert, h, s, v, NULL);
+	int gray = 0;
+	for(i=0;i< (heightc);i++) for(j=0;j<(widthc);j++)
+	{/*Here datac means data of the HSV Image*/
+		/*Here i want to Increase the saturation or the strength of the Colors in the Image and
+		then I would be able to perform a good color detection*/
+
+		temp=datac[i*stepc+j*channelsc+1]+units;/*increas the saturaion component is the second arrray.*/
+
+		gray = cvGetReal2D(v, i, j);
+		gray = gray - 23;
+		cvSetReal2D(v, i, j, gray);
+
+		/*Here there is a small problem...when you add a value to the data and if it exceeds 255
+		it starts all over again from zero and hence some of the pixels might go to zero.
+		So to stop this we need to include this loop i would not try to explain the loop but
+		please try and follow it is easy to do so..*/
+		if(temp>255) datac[i*stepc+j*channelsc+1]=255;
+		else datac[i*stepc+j*channelsc+1]=temp;/*you may
+											   please remove and see what is happening if the if else loop is not there*/}
+
+
+	//cvEqualizeHist(v, v);
+
+	cvMerge(h, s, v, NULL, convert);
+
+
+	cvCvtColor(convert, result, CV_HSV2BGR);
+	cvShowImage("Result", result);
+	cvShowImage("original", frame);
+
+	cvSaveImage("Enhresult.jpg",result);
+	cvWaitKey(0);
+	cvDestroyWindow("original");
+	cvDestroyWindow("Result");
+
+
 }
-
-
-cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
- cvNamedWindow("Result",CV_WINDOW_AUTOSIZE);
-
-heightc = convert->height;
-widthc = convert->width;
-
-stepc=convert->widthStep;
-channelsc=convert->nChannels;
-datac = (uchar *)convert->imageData;
-
-IplImage*  h, * s, * v;
-	
-	
-		h   = cvCreateImage(cvGetSize(frame), 8, 1);
-		s   = cvCreateImage(cvGetSize(frame), 8, 1);
-		v   = cvCreateImage(cvGetSize(frame), 8, 1);
-
-cvCvtColor(frame,convert,CV_BGR2HSV);
-cvSplit(convert, h, s, v, NULL);
-int gray = 0;
-for(i=0;i< (heightc);i++) for(j=0;j<(widthc);j++)
-{/*Here datac means data of the HSV Image*/
-/*Here i want to Increase the saturation or the strength of the Colors in the Image and
-then I would be able to perform a good color detection*/
-
-temp=datac[i*stepc+j*channelsc+1]+units;/*increas the saturaion component is the second arrray.*/
-
-gray = cvGetReal2D(v, i, j);
-gray = gray - 23;
-cvSetReal2D(v, i, j, gray);
-
-/*Here there is a small problem...when you add a value to the data and if it exceeds 255
-it starts all over again from zero and hence some of the pixels might go to zero.
-So to stop this we need to include this loop i would not try to explain the loop but
-please try and follow it is easy to do so..*/
-if(temp>255) datac[i*stepc+j*channelsc+1]=255;
-else datac[i*stepc+j*channelsc+1]=temp;/*you may
-please remove and see what is happening if the if else loop is not there*/}
-
-
-//cvEqualizeHist(v, v);
-
-cvMerge(h, s, v, NULL, convert);
-		
-
-cvCvtColor(convert, result, CV_HSV2BGR);
-cvShowImage("Result", result);
-cvShowImage("original", frame);
-
- cvSaveImage("Enhresult.jpg",result);
- cvWaitKey(0);
- cvDestroyWindow("original");
- cvDestroyWindow("Result");
- 
-
- }
 
 
 // Compute histogram and CDF for an image with mask
@@ -616,7 +616,7 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 	h[c] += 1.0;
 	}
 	}*/
- 
+
 	// Get the histogram with or without the mask
 	if (true) {
 		cv::Mat _tm;
@@ -628,13 +628,13 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 			if(m > 0) { // Mask value
 				uchar c = _t.at<uchar>(0,p); // Image value
 				h[c] += 1.0;
-	        }
-        }
-    }
-    else {
-        for(int p=0; p<_t.cols; p++) {
-            uchar c = _t.at<uchar>(0,p);   // Image value
-            h[c] += 1.0;
+			}
+		}
+	}
+	else {
+		for(int p=0; p<_t.cols; p++) {
+			uchar c = _t.at<uchar>(0,p);   // Image value
+			h[c] += 1.0;
 		}
 	}
 	//normalize hist
@@ -642,12 +642,12 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 	double minVal,maxVal;
 	minMaxLoc(_tmp,&minVal,&maxVal);
 	_tmp = _tmp / maxVal;
- 
+
 	cdf[0] = h[0];
 	for(int j=1; j < 256; j++) {
-	cdf[j] = cdf[j-1]+h[j];
+		cdf[j] = cdf[j-1]+h[j];
 	}
- 
+
 	//normalize CDF
 	_tmp.data = (uchar*)cdf;
 	minMaxLoc(_tmp,&minVal,&maxVal);
@@ -656,95 +656,95 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 
 void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) {
 #ifdef BTM_DEBUG
-    namedWindow("original source",CV_WINDOW_AUTOSIZE);
-    imshow("original source",src);
-    namedWindow("original query",CV_WINDOW_AUTOSIZE);
-    imshow("original query",dst);
-#endif
- 
 	namedWindow("original source",CV_WINDOW_AUTOSIZE);
-    imshow("original source",src);
-    namedWindow("original query",CV_WINDOW_AUTOSIZE);
-    imshow("original query",dst);
+	imshow("original source",src);
+	namedWindow("original query",CV_WINDOW_AUTOSIZE);
+	imshow("original query",dst);
+#endif
 
-    vector<Mat> chns;
-    split(src,chns);
-    vector<Mat> chns1;
-    split(dst,chns1);
-    Mat src_hist = Mat::zeros(1,256,CV_64FC1);
-    Mat dst_hist = Mat::zeros(1,256,CV_64FC1);
-    Mat src_cdf = Mat::zeros(1,256,CV_64FC1);
-    Mat dst_cdf = Mat::zeros(1,256,CV_64FC1);
-    Mat Mv(1,256,CV_8UC1);
-    uchar* M = Mv.ptr<uchar>();
- 
-    for (int i=0;i<3;i++) {
-        src_hist.setTo(cvScalar(0));
-        dst_hist.setTo(cvScalar(0));
-        src_cdf.setTo(cvScalar(0));
-        src_cdf.setTo(cvScalar(0));
+	namedWindow("original source",CV_WINDOW_AUTOSIZE);
+	imshow("original source",src);
+	namedWindow("original query",CV_WINDOW_AUTOSIZE);
+	imshow("original query",dst);
 
-		
- 
-        
- 
-        uchar last = 0;
-        double* _src_cdf = src_cdf.ptr<double>();
-        double* _dst_cdf = dst_cdf.ptr<double>();
+	vector<Mat> chns;
+	split(src,chns);
+	vector<Mat> chns1;
+	split(dst,chns1);
+	Mat src_hist = Mat::zeros(1,256,CV_64FC1);
+	Mat dst_hist = Mat::zeros(1,256,CV_64FC1);
+	Mat src_cdf = Mat::zeros(1,256,CV_64FC1);
+	Mat dst_cdf = Mat::zeros(1,256,CV_64FC1);
+	Mat Mv(1,256,CV_8UC1);
+	uchar* M = Mv.ptr<uchar>();
+
+	for (int i=0;i<3;i++) {
+		src_hist.setTo(cvScalar(0));
+		dst_hist.setTo(cvScalar(0));
+		src_cdf.setTo(cvScalar(0));
+		src_cdf.setTo(cvScalar(0));
+
+
+
+
+
+		uchar last = 0;
+		double* _src_cdf = src_cdf.ptr<double>();
+		double* _dst_cdf = dst_cdf.ptr<double>();
 		double* _src_hist = src_hist.ptr<double>();
-        double* _dst_hist = dst_hist.ptr<double>();
+		double* _dst_hist = dst_hist.ptr<double>();
 
 		do1ChnHist(chns[i],src_mask,_src_hist,_src_cdf);
-        do1ChnHist(chns1[i],dst_mask,_dst_hist,_dst_cdf);
- 
-        for(int j=0;j<src_cdf.cols;j++) {
-            double F1j = _src_cdf[j];
- 
-            for(uchar k = last; k<dst_cdf.cols; k++) {
-                double F2k = _dst_cdf[k];
-                if(abs(F2k - F1j) < HISTMATCH_EPSILON || F2k > F1j) {
-                    M[j] = k;
-                    last = k;
-                    break;
-                }
-            }
-        }
- 
-        Mat lut(1,256,CV_8UC1,M);
-        LUT(chns[i],lut,chns[i]);
-    }
- 
-    Mat res;
-    merge(chns,res);
- 
+		do1ChnHist(chns1[i],dst_mask,_dst_hist,_dst_cdf);
+
+		for(int j=0;j<src_cdf.cols;j++) {
+			double F1j = _src_cdf[j];
+
+			for(uchar k = last; k<dst_cdf.cols; k++) {
+				double F2k = _dst_cdf[k];
+				if(abs(F2k - F1j) < HISTMATCH_EPSILON || F2k > F1j) {
+					M[j] = k;
+					last = k;
+					break;
+				}
+			}
+		}
+
+		Mat lut(1,256,CV_8UC1,M);
+		LUT(chns[i],lut,chns[i]);
+	}
+
+	Mat res;
+	merge(chns,res);
+
 	namedWindow("matched",CV_WINDOW_AUTOSIZE);
-    imshow("matched",res);
+	imshow("matched",res);
 	imwrite("Ageprogression\\hist.jpg", res);
 	//show_histogram("matched", res, "gray");
- 
-    //waitKey(BTM_WAIT_TIME);
+
+	//waitKey(BTM_WAIT_TIME);
 #ifdef BTM_DEBUG
-    namedWindow("matched",CV_WINDOW_AUTOSIZE);
-    imshow("matched",res);
- 
-    waitKey(BTM_WAIT_TIME);
+	namedWindow("matched",CV_WINDOW_AUTOSIZE);
+	imshow("matched",res);
+
+	waitKey(BTM_WAIT_TIME);
 #endif
- 
-    res.copyTo(src);
+
+	res.copyTo(src);
 }
 
 
 
 void MyTabThree::OnBnClickedNew()
 {
-		
-		// TODO: Add your control notification handler code here
+
+	// TODO: Add your control notification handler code here
 	Mat src=cvLoadImage("Ageprogression\\img4E.bmp");
 	Mat dst=cvLoadImage("Ageprogression\\retinex2.jpg");
 	Mat src_mask = cvLoadImage("Ageprogression\\white.bmp",0);
 	Mat dst_mask = cvLoadImage("Ageprogression\\white.bmp",0);
-	
- 
+
+
 	histMatchRGB(dst,dst_mask,src,src_mask);
 
 
@@ -756,10 +756,10 @@ void MyTabThree::OnBnClickedNew()
 void MyTabThree::OnBnClickedButton6()
 {
 
-	
-//	facedetect.loadFaceImages();
 
-   
+	//	facedetect.loadFaceImages();
+
+
 }
 
 
@@ -773,52 +773,52 @@ BOOL MyTabThree::OnEraseBkgnd(CDC* pDC)
 
 bool MyTabThree::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
-            CBitmap* m_bitmap;
-            m_bitmap=new CBitmap();
-            m_bitmap->LoadBitmap(nIDResource);
-            if(!m_bitmap->m_hObject)
-                        return true;
-    CRect rect;
-            GetClientRect(&rect);
-            CDC dc;
-            dc.CreateCompatibleDC(pDC);    
-            dc.SelectObject(m_bitmap);
-            int bmw, bmh ;
-            BITMAP bmap;
-            m_bitmap->GetBitmap(&bmap);
-            bmw = bmap.bmWidth;
-            bmh = bmap.bmHeight;
-            int xo=0, yo=0;
-            switch(i){
-            case 1:
-            	pDC->StretchBlt(xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0,bmw,bmh, SRCCOPY);
-                break;
-            case 2:
-                if(bmw < rect.Width())
-                    xo = (rect.Width() - bmw)/2;
-                else 
-                    xo=0;
-                if(bmh < rect.Height())
-                    yo = (rect.Height()-bmh)/2;
-                else
-                    yo=0;
-                pDC->BitBlt (xo, yo, rect.Width(),
-                            rect.Height(), &dc,
-                            0, 0, SRCCOPY);
-                break;
-             case 3:
-                for (yo = 0; yo < rect.Height(); yo += bmh)
-                {
-                    for (xo = 0; xo < rect.Width(); xo += bmw)
-                    {
-                        pDC->BitBlt (xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0, SRCCOPY);
-                    }
-                }
-            }
-            return true;
- 
+	CBitmap* m_bitmap;
+	m_bitmap=new CBitmap();
+	m_bitmap->LoadBitmap(nIDResource);
+	if(!m_bitmap->m_hObject)
+		return true;
+	CRect rect;
+	GetClientRect(&rect);
+	CDC dc;
+	dc.CreateCompatibleDC(pDC);    
+	dc.SelectObject(m_bitmap);
+	int bmw, bmh ;
+	BITMAP bmap;
+	m_bitmap->GetBitmap(&bmap);
+	bmw = bmap.bmWidth;
+	bmh = bmap.bmHeight;
+	int xo=0, yo=0;
+	switch(i){
+	case 1:
+		pDC->StretchBlt(xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0,bmw,bmh, SRCCOPY);
+		break;
+	case 2:
+		if(bmw < rect.Width())
+			xo = (rect.Width() - bmw)/2;
+		else 
+			xo=0;
+		if(bmh < rect.Height())
+			yo = (rect.Height()-bmh)/2;
+		else
+			yo=0;
+		pDC->BitBlt (xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0, SRCCOPY);
+		break;
+	case 3:
+		for (yo = 0; yo < rect.Height(); yo += bmh)
+		{
+			for (xo = 0; xo < rect.Width(); xo += bmw)
+			{
+				pDC->BitBlt (xo, yo, rect.Width(),
+					rect.Height(), &dc,
+					0, 0, SRCCOPY);
+			}
+		}
+	}
+	return true;
+
 }
