@@ -57,6 +57,8 @@ class MyTabOne : public CDialog
 		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 //		afx_msg void OnDeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
 		afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
+		CStatic m_text1;
+		CStatic m_text2;
 };
 
 int* getXCriticalPoints();
