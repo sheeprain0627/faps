@@ -211,12 +211,12 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 
 		 pointsArry[15].x=facepoint1.x;
 		 pointsArry[15].y=facepoint1.y;
-		 pointsArry[16].x=facepoint1.x;
-		 pointsArry[16].y=facepoint1.y;
-		 pointsArry[17].x=facepoint1.x;
-		 pointsArry[17].y=facepoint1.y;
-		 pointsArry[18].x=facepoint1.x;
-		 pointsArry[18].y=facepoint1.y;
+		 pointsArry[16].x=facepoint2.x;
+		 pointsArry[16].y=facepoint2.y;
+		 pointsArry[17].x=facepoint3.x;
+		 pointsArry[17].y=facepoint3.y;
+		 pointsArry[18].x=facepoint4.x;
+		 pointsArry[18].y=facepoint4.y;
 		
        
         detectEyes(img,r);
@@ -243,7 +243,7 @@ void detectFaceComponets::loadFaceImages(IplImage *img)
 
 	
    
-	IplImage  *temp_img=img;;
+	IplImage  *temp_img=img;
 	int       key;
 
 	char image[100],temp_image[100];
