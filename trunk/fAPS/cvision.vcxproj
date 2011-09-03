@@ -128,6 +128,11 @@
     <None Include="res\Static-Image.bmp" />
     <None Include="res\static.bmp" />
     <None Include="res\tab.bmp" />
+    <None Include="res\Tab_Texts\input.bmp" />
+    <None Include="res\Tab_Texts\step1.bmp" />
+    <None Include="res\Tab_Texts\step2.bmp" />
+    <None Include="res\Tab_Texts\tab_header.bmp" />
+    <None Include="res\Tab_Texts\temp.bmp" />
     <None Include="res\wringle.bmp" />
     <None Include="res\Wtexture.bmp" />
   </ItemGroup>
