@@ -161,14 +161,14 @@ BOOL CcvisionDlg::OnInitDialog()
 
 	///////*************Font size of Text in edit ctrl***********///////////
 
-	CFont fnt;
+	/*CFont fnt;
 	fnt.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 	ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 	DEFAULT_PITCH, "Cambria");
 	m_pDlgPage1->GetDlgItem(IDC_EDIT1)->SetFont(&fnt);
 	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
 
-	fnt.Detach();
+	fnt.Detach();*/
 
 	///////**************Font finished*************************/////////
 	
