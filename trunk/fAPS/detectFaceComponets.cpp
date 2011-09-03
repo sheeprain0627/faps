@@ -19,7 +19,8 @@ char *face_cascade="haarcascade_frontalface_alt2.xml";
 char *eye_cascade="parojos.xml";
 char *nose_cascade="Nariz.xml";
 char *mouth_cascade="Mouth.xml";
-
+int defaultXCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
+int defaultYCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
 
 
 CvPoint *detectFaceComponets::getFeaturePoints(){
@@ -49,6 +50,8 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
      
           CvRect *mouth_cord = (CvRect*)cvGetSeqElem(mouth, 0);
 
+		  if(mouth_cord){
+
 		  /* get the points*/
 		 CvPoint mouthpoint1= cvPoint(mouth_cord->x, mouth_cord->y + mouth_cord->height/2);
 		 CvPoint mouthpoint2= cvPoint(mouth_cord->x + mouth_cord->width/2, mouth_cord->y);
@@ -66,8 +69,14 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 		  pointsArry[14].x=mouthpoint4.x+r->x;
 		 pointsArry[14].y=mouthpoint4.y+r->y+(r->height *2/3);
 		 
-		
-					
+		  }
+		else
+	{
+		 for(int i=11;i<15;i++){ 
+		pointsArry[i].x=defaultXCoordinate[i];
+		pointsArry[i].y=defaultYCoordinate[i];
+		 }
+		  }			
         
      //end mouth detection
          
@@ -100,6 +109,7 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
           CvRect *nose_cord = (CvRect*)cvGetSeqElem(nose, 0);
 
 		  /*darw nose points*/
+		  if(nose_cord){
 
 		 CvPoint nosepoint2= cvPoint(nose_cord->x + nose_cord->width * 1.5/6, nose_cord->y + nose_cord->height/2);
 		 CvPoint nosepoint3= cvPoint(nose_cord->x  + nose_cord->width * 5.5/6, nose_cord->y + nose_cord->height/2);
@@ -107,7 +117,17 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 		  pointsArry[9].x=nosepoint2.x+r->x;
 		  pointsArry[9].y=nosepoint2.y+r->y;
 		  pointsArry[10].x=nosepoint3.x+r->x;
-		  pointsArry[10].y=nosepoint3.y+r->y;      
+		  pointsArry[10].y=nosepoint3.y+r->y;  
+		  }
+
+
+		  else
+	{
+		 for(int i=9;i<11;i++){ 
+		pointsArry[i].x=defaultXCoordinate[i];
+		pointsArry[i].y=defaultYCoordinate[i];
+		 }
+		  }	
 	  
 }
 
@@ -148,7 +168,7 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 
 			  CvPoint eyepoint[8];
 
-
+if(eye){
 		 eyepoint[0]= cvPoint(eye->x , eye->y + eye->height/2);
 		 eyepoint[1]= cvPoint(eye->x + eye->width/6, eye->y + eye->height*1/4);
 		 eyepoint[2]= cvPoint(eye->x + eye->width/6, eye->y + eye->height*3/4);
@@ -158,16 +178,28 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 		 eyepoint[6]= cvPoint(eye->x + eye->width*5/6, eye->y + eye->height*3/4);
 		 eyepoint[7]= cvPoint(eye->x + eye->width, eye->y + eye->height*2/4);
 		 CvPoint nosepoint1= cvPoint(eye->x + eye->width/2, eye->y + eye->height/2);
-		  ///////////////////
-
 		 for(int i=0;i<8;i++){ 
 			 pointsArry[i].x=eyepoint[i].x+r->x;
 			pointsArry[i].y=eyepoint[i].y+r->y + (r->height/5.5);
 		 }
 
 		 pointsArry[8].x=nosepoint1.x+r->x;
-		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);						   
-			
+		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);	
+		  ///////////////////
+
+
+}
+		
+
+else
+	{
+		 for(int i=0;i<9;i++){ 
+		pointsArry[i].x=defaultXCoordinate[i];
+		pointsArry[i].y=defaultYCoordinate[i];
+		 }
+
+							   
+}
 
 }
 
