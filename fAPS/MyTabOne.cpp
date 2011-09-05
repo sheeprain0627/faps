@@ -262,7 +262,9 @@ void MyTabOne::OnBnClickedButton1()
         img0[countImage] = cvLoadImage(path);             // load the image
 
 		
+		
 
+		//fasc points detection
 		facecomp.loadFaceImages(img0[countImage]);
 		CvPoint *featurePoints=facecomp.getFeaturePoints();
 		for(int i=0;i<23;i++){
@@ -280,7 +282,7 @@ void MyTabOne::OnBnClickedButton1()
 
 		cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
 	
-		cvShowImage("image", img0[countImage]);
+		//cvShowImage("image", img0[countImage]);
 	
 		showImage();	//defined inside the class
 		

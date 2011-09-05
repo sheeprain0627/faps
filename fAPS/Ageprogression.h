@@ -6,7 +6,7 @@ class Ageprogression
 public:
 	Ageprogression(void);
 	~Ageprogression(void);
-void texureEnhancePrototype(float p);
+void texureEnhancePrototype(float p,int age);
 void applyIbsdt(float q);
 
 void setSigma(float q);
