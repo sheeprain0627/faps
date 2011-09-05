@@ -415,8 +415,8 @@ void modify(float x, CString selctVal){
 
 	featureInstance.changeNose(&object,noseChangeVal);
 	featureInstance.changeMouth(&object,mouthChangeVal);
-	//featureInstance.changeLeftEye(&object,leftEyeChangeVal);
-	//featureInstance.changeRightEye(&object,rightEyeChangeVal);
+	featureInstance.changeLeftEye(&object,leftEyeChangeVal);
+	featureInstance.changeRightEye(&object,rightEyeChangeVal);
 	/*
 	if(selctVal == "Nose")
 	{
