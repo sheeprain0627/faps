@@ -255,6 +255,20 @@ for(int y=0;y<imgSize_Standard.height;y++)
 		  int cy13=yc[12];
 		  int cy14=yc[13];
 		  int cx15=xc[14]; 
+
+		   int cx16=xc[15];
+		  int cy16=yc[15];
+		  int cx17=xc[16];
+		  int cy17=yc[16];
+ 		  int cx20=xc[18];
+          int cy20=yc[18];
+		  int cx21=xc[19];
+		  int cy21=yc[19];
+		  int cx22=xc[20];
+		
+		  float a4=(float)((cx17-cx16)/2);
+		  float b4=(float)(cy20-cy16);     
+		 float ck4 =((float)((cx20-x)*(cx20-x)))/(a4*a4) +((float)((y-cy16)*(y-cy16)))/(b4*b4);
 		  
 //calculate eclipse
 		  float a1=(float)((cx4-cx1)/2);
@@ -280,11 +294,21 @@ for(int y=0;y<imgSize_Standard.height;y++)
 				if (((x>=26)&&(x<=66)&&(y>=66)&&(ck1<=1.0)&&(y<=80))||((x>=104)&&(x<=144)&&(y>=65)&&(ck2<=1.0)&&(y<=81))||((x>=57)&&(x<=117)&&(y>=143)&&(ck3<=1.0)&&(y<=165))){
 					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
 			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
-			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);}*/
+			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);}
 				
 			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
 			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
+			   	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;*/
+		  if ((((ck4<=1.0)&&(x>=cx16)&&(x<=cx17)&&(y>=cy16)&&(y<=cy20))||((x>=cx16)&&(x<=cx17)&&(y>=cy21)&&(y<=cy16)))&& (!(((x>=cx1)&&(x<=cx4)&&(y>=cy2)&&(ck1<=1.0)&&(y<=cy3))||((x>=cx5)&&(x<=cx8)&&(y>=cy6)&&(ck2<=1.0)&&(y<=cy7))||((x>=cx12)&&(x<=cx15)&&(y>=cy13)&&(ck3<=1.0)&&(y<=cy14))))) {
+			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
+			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
 			   	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;
+				}  
+				else {
+					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
+			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
+			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);
+				}
 				
 			
 		  cvSetReal2D(imgResultRedTem, y, x, theTemFinalRed);

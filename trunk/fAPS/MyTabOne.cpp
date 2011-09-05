@@ -82,7 +82,12 @@ IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
 MyTabOne::MyTabOne(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabOne::IDD, pParent)
 {
-
+	//initialte the matlab library connection
+if( !matlabCon)
+{
+	matlabCon=mclInitializeApplication(NULL,0);
+	facewarpInitialize();
+}
 }
 
 MyTabOne::~MyTabOne()
@@ -344,24 +349,19 @@ void MyTabOne::OnBnClickedButton5()
 
 	
 	
-if( !matlabCon)
-{
-	matlabCon=mclInitializeApplication(NULL,0);
-	facewarpInitialize();
-}
 
 
 
-
+//call matlab image warping function
 mlfFaceWarp();
-
+//Sleep(100);
 
 //Call the library termination function 
 //facewarpTerminate();
 
 
-	IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
-	IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
+	//IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
+	//IplImage *src=cvLoadImage("res//pil111.bmp", CV_LOAD_IMAGE_COLOR );
 	//test1234();
 	//HistogramEqualization();
 	//aa.CalFundermentalMatrix(src,dst);
