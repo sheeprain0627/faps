@@ -7,6 +7,7 @@
 #include "cvisionDlg.h"
 #include "afxdialogex.h"
 #include "resource.h"
+#include "OpenGLControl.h"
 
 // CAboutDlg dialog used for App About
 
@@ -54,6 +55,7 @@ void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TAB1, m_TabCtrl);
+	DDX_Control(pDX, IDC_SLIDER1, m_zoomSlider);
 }
 
 
@@ -66,6 +68,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 //	ON_WM_ERASEBKGND()
 	ON_WM_DRAWITEM()
 	ON_WM_ERASEBKGND()
+	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -155,6 +158,12 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));	
 	m_pDlgPage3->agebar.SetRange(20,50);
 	m_pDlgPage3->agebar.SetTicFreq(5);
+
+	//Setting Slider Properties
+	m_zoomSlider.SetRangeMin(20);
+	m_zoomSlider.SetRangeMax(80);
+	m_zoomSlider.SetTicFreq(5);
+
 
 	///////////////************tab finished***************//////////////
 
@@ -387,3 +396,13 @@ bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i)
  
 }
 
+
+
+void CcvisionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	 /*if(pScrollBar->NM_RELEASEDCAPTURE) { 
+	//int CurPos = m_zoomSlider.GetPos();
+	scaleTex();
+	 }*/
+	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
+}
