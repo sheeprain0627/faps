@@ -47,6 +47,7 @@ const char* savePath = "res\\pil.bmp";
 int countImage;
 int countDb;
 bool load = false;
+bool matlabCon=false;
 
 IplImage* dbImage;
 //count = 1;
@@ -343,25 +344,20 @@ void MyTabOne::OnBnClickedButton5()
 
 	
 	
-if( !mclInitializeApplication(NULL,0) )
+if( !matlabCon)
 {
-fprintf(stderr, "Could not initialize the application.\n");
-exit(1);
+	matlabCon=mclInitializeApplication(NULL,0);
+	facewarpInitialize();
 }
 
-if (!facewarpInitialize())
-{
-fprintf(stderr,"Could not initialize the library.\n");
-exit(1);
-}
+
 
 
 mlfFaceWarp();
 
 
 //Call the library termination function 
-facewarpTerminate();
-
+//facewarpTerminate();
 
 
 	IplImage *dst=cvLoadImage("res//as1.bmp", CV_LOAD_IMAGE_COLOR );
