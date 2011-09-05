@@ -1,6 +1,6 @@
 /*
  * MATLAB Compiler: 4.8 (R2008a)
- * Date: Sun Sep 04 00:58:59 2011
+ * Date: Mon Sep 05 11:27:46 2011
  * Arguments: "-B" "macro_default" "-B" "csharedlib:facewarp" "-W"
  * "lib:facewarp" "-T" "link:lib" "FaceWarp.m" 
  */
@@ -98,7 +98,7 @@ bool MW_CALL_CONV facewarpInitializeWithHandlers(
                                                      &__MCC_facewarp_component_data,
                                                      true, NoObjectType,
                                                      LibTarget, error_handler,
-                                                     print_handler, 1157297, path_to_dll))
+                                                     print_handler, 1157342, path_to_dll))
     return false;
   return true;
 }

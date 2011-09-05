@@ -63,10 +63,15 @@ END_MESSAGE_MAP()
 
 void MyTabThree::OnBnClickedButton1()
 {
+
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
-	age.texureEnhancePrototype(x);
+	GetDlgItemText(IDC_EDIT4, s);
+	float eage = atof( s );
+
+
+	age.texureEnhancePrototype(x,eage);
 }
 
 

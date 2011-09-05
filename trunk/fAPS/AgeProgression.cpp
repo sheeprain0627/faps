@@ -16,11 +16,13 @@ Ageprogression::~Ageprogression(void)
 }
 
 //define number of images takein as database
+
+int ageLimit=70;
 const int NO_IMAGES=4;
-int ageLimit=80;
 
 //create the age prototype
-void Ageprogression ::texureEnhancePrototype(float p){		
+void Ageprogression ::texureEnhancePrototype(float p,int age){	
+	ageLimit=age;
 	IplImage* imgRed[NO_IMAGES];
     IplImage* imgGreen[NO_IMAGES];
     IplImage* imgBlue[NO_IMAGES];
@@ -61,9 +63,9 @@ void Ageprogression ::texureEnhancePrototype(float p){
                 theSumGreen+=cvGetReal2D(imgGreen[i], y, x);
                 theSumBlue+=cvGetReal2D(imgBlue[i], y, x);
             }
-            theSumRed = (float)theSumRed/3.0f;
-            theSumGreen = (float)theSumGreen/3.0f;
-            theSumBlue = (float)theSumBlue/3.0f;
+            theSumRed = theSumRed/NO_IMAGES;
+            theSumGreen = theSumGreen/NO_IMAGES;
+            theSumBlue = theSumBlue/NO_IMAGES;
             cvSetReal2D(imgResultRed, y, x, theSumRed);
             cvSetReal2D(imgResultGreen, y, x, theSumGreen);
             cvSetReal2D(imgResultBlue, y, x, theSumBlue);
@@ -121,12 +123,12 @@ void Ageprogression ::texureEnhancePrototype(float p){
 
             for(int i=0;i<NO_IMAGES;i++)
             {
-				//avaraged database image
+				// database image
                 double  theRealRed=cvGetReal2D(imgRed[i], y, x);
                 double  theRealGreen=cvGetReal2D(imgGreen[i], y, x);
                 double theRealBlue=cvGetReal2D(imgBlue[i], y, x);
 
-				//smoothened avaraged database image
+				//smoothened  database image
 			    double	theSmoothRed=cvGetReal2D(imgRedSmooth[i], y, x);
 			    double	theSmoothGreen=cvGetReal2D(imgGreenSmooth[i], y, x);
 			    double	theSmoothBlue=cvGetReal2D(imgBlueSmooth[i], y, x);
@@ -147,7 +149,7 @@ void Ageprogression ::texureEnhancePrototype(float p){
     }
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
     cvSaveImage("Ageprogression\\1_murali.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
-	//cvShowImage("Texure-Enhanced-prototype", imgResultD);
+	cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	//cvWaitKey(0);
 
 }
