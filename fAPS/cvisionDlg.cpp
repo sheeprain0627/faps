@@ -47,7 +47,7 @@ END_MESSAGE_MAP()
 CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CcvisionDlg::IDD, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON2);
+	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON3);
 }
 
 void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
