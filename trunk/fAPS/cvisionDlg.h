@@ -72,5 +72,7 @@ class CcvisionDlg : public CDialogEx
 		afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 		bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
+		CSliderCtrl m_zoomSlider;
+		afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };
 #endif
