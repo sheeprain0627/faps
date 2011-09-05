@@ -44,4 +44,5 @@ class MyTabThree : public CDialog
 		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 		
 		bool SBitdraw(CDC *pDC, UINT nIDResource, int i) ;
+		afx_msg void OnBnClickedButton7();
 };
