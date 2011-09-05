@@ -123,7 +123,6 @@
     <None Include="res\FACEJ.jpg" />
     <None Include="res\faps-Img.bmp" />
     <None Include="res\icon.ico" />
-    <None Include="res\icon1.ico" />
     <None Include="res\newImage.bmp" />
     <None Include="res\pil111.bmp" />
     <None Include="res\Static-Image.bmp" />
