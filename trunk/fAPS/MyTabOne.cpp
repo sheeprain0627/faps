@@ -348,7 +348,7 @@ void MyTabOne::OnBnClickedButton5()
 {
 
 	//call matlab image warping function
-	//mlfFaceWarp();
+	mlfFaceWarp();
 
 	//histogram matching for Database
 
