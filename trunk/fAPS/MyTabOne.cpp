@@ -347,13 +347,51 @@ void MyTabOne::OnBnClickedButton4()
 void MyTabOne::OnBnClickedButton5()
 {
 
+	//call matlab image warping function
+	//mlfFaceWarp();
+
+	//histogram matching for Database
+
+	/*MyTabThree three;
+	int ageGrp = 30;
+	int noOfImages = 4;	// no of Images in the each age group
+	char filename[30];
+	char filenamehist[30];
+	Mat histEqu;
+	ifstream images("db\\NoOfImage.txt", ios::in);
+	int img[7];
 	
+	if(images == NULL) {
+	}
+
+	else {
+
+		for(int i = 7; i < 9; i++) {		// Age intervels
+
+			images >> noOfImages; 
+			ageGrp = 10 * i;
+			for(int j =0; j < noOfImages; j++) {
+		
+				sprintf(filename, "Ageprogression\\%d\\%d.jpg", ageGrp,(j+1));
+
+				Mat src=cvLoadImage("Ageprogression\\histeq1.jpg");			// template Image
+				Mat dst=cvLoadImage(filename);
+				Mat src_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);	// threshold area
+				Mat dst_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
+
+				histEqu = three.histMatchRGB(dst,dst_mask,src,src_mask);		//histogram fitting function
+
+				sprintf(filenamehist, "Ageprogression\\%d\\hist%d.jpg", ageGrp,(j+1));
+				imwrite(filenamehist, histEqu);									//storing the results
+			}
+
+		}
+	}*/
+		
+
 	
 
 
-
-//call matlab image warping function
-mlfFaceWarp();
 //Sleep(100);
 
 //Call the library termination function 
