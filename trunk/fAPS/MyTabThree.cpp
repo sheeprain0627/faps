@@ -52,8 +52,8 @@ BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
 	ON_BN_CLICKED(IDC_saveface, &MyTabThree::OnBnClickedsaveface)
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabThree::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabThree::OnBnClickedNew)
-	ON_BN_CLICKED(IDC_BUTTON6, &MyTabThree::OnBnClickedButton6)
 	ON_WM_ERASEBKGND()
+	ON_BN_CLICKED(IDC_BUTTON8, &MyTabThree::OnBnClickedButton8)
 END_MESSAGE_MAP()
 
 
@@ -659,7 +659,7 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 	_tmp = _tmp / maxVal;
 }
 
-void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) {
+Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) {
 #ifdef BTM_DEBUG
 	namedWindow("original source",CV_WINDOW_AUTOSIZE);
 	imshow("original source",src);
@@ -735,7 +735,9 @@ void MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, con
 	waitKey(BTM_WAIT_TIME);
 #endif
 
-	res.copyTo(src);
+	//es.copyTo(src);
+
+	return res;
 }
 
 
@@ -744,10 +746,10 @@ void MyTabThree::OnBnClickedNew()
 {
 
 	// TODO: Add your control notification handler code here
-	Mat src=cvLoadImage("Ageprogression\\img4E.bmp");
-	Mat dst=cvLoadImage("Ageprogression\\retinex2.jpg");
-	Mat src_mask = cvLoadImage("Ageprogression\\white.bmp",0);
-	Mat dst_mask = cvLoadImage("Ageprogression\\white.bmp",0);
+	Mat src=cvLoadImage("Ageprogression\\FACEE2.bmp");
+	Mat dst=cvLoadImage("Ageprogression\\cut.bmp");
+	Mat src_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
+	Mat dst_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
 
 
 	histMatchRGB(dst,dst_mask,src,src_mask);
@@ -758,14 +760,7 @@ void MyTabThree::OnBnClickedNew()
 
 
 
-void MyTabThree::OnBnClickedButton6()
-{
 
-
-	//	facedetect.loadFaceImages();
-
-
-}
 
 
 BOOL MyTabThree::OnEraseBkgnd(CDC* pDC)
@@ -826,4 +821,22 @@ bool MyTabThree::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 	}
 	return true;
 
+}
+
+
+/*void MyTabThree::OnBnClickedButton7()
+{
+
+	IplImage*  prototype = cvLoadImage("Ageprogression\\1_murali11.bmp");
+	IplImage*  actualImage = cvLoadImage("Ageprogression\\1_murali11.bmp");
+
+}*/
+
+
+void MyTabThree::OnBnClickedButton8()
+{
+	IplImage*  prototype = cvLoadImage("Ageprogression\\1_murali11.bmp");
+	IplImage*  actualImage = cvLoadImage("Ageprogression\\1_murali11.bmp");
+
+	
 }
