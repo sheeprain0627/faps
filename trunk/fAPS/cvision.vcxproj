@@ -66,6 +66,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_core220d.lib;opencv_highgui220d.lib;C:\OpenCV2.2\lib\opencv_core220d.lib;C:\OpenCV2.2\lib\opencv_highgui220d.lib;C:\OpenCV2.2\lib\opencv_video220d.lib;opengl32.lib;glu32.lib;C:\OpenCV2.2\lib\opencv_ml220d.lib;C:\OpenCV2.2\lib\opencv_legacy220d.lib;C:\OpenCV2.2\lib\opencv_imgproc220d.lib;opencv_objdetect220d.lib;opencv_video220d.lib;opencv_legacy220d.lib;opencv_gpu220d.lib;opencv_flann220d.lib;opencv_ffmpeg220d.lib;opencv_features2d220d.lib;opencv_contrib220d.lib;opencv_calib3d220d.lib;opencv_ml220d.lib;mclmcrrt.lib;facewarp.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\FaceWarpMatlab;C:\Program Files\MATLAB\R2008a\extern\lib\win32\microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <HeapReserveSize>
+      </HeapReserveSize>
+      <HeapCommitSize>10000000000</HeapCommitSize>
+      <StackCommitSize>800000000</StackCommitSize>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -149,10 +153,10 @@
     <ClInclude Include="MyTabTwo.h" />
     <ClInclude Include="OpenGLControl.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="StartDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tdsloader.h" />
+    <ClInclude Include="WaitDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ageprogression.cpp" />
@@ -166,12 +170,12 @@
     <ClCompile Include="MyTabThree.cpp" />
     <ClCompile Include="MyTabTwo.cpp" />
     <ClCompile Include="OpenGLControl.cpp" />
-    <ClCompile Include="StartDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Tdsloader.cpp" />
+    <ClCompile Include="WaitDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="cvision.rc" />

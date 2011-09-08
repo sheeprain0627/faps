@@ -139,10 +139,10 @@
     <ClInclude Include="metrixCalculation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StartDlg.h">
+    <ClInclude Include="detectFaceComponets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="detectFaceComponets.h">
+    <ClInclude Include="WaitDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -183,10 +183,10 @@
     <ClCompile Include="metrixCalculation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StartDlg.cpp">
+    <ClCompile Include="detectFaceComponets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="detectFaceComponets.cpp">
+    <ClCompile Include="WaitDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
