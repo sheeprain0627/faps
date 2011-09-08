@@ -17,7 +17,6 @@
 #include "MyTabThree.h"
 #include "detectFaceComponets.h"
 #include "resource.h"
-#include "WaitDlg.h"
 #include "Ageprogression.h"
 
 //to avoid the VS2020 +matlab bug
