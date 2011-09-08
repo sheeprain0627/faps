@@ -142,9 +142,6 @@
     <ClInclude Include="detectFaceComponets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WaitDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvision.cpp">
@@ -184,9 +181,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="detectFaceComponets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WaitDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
