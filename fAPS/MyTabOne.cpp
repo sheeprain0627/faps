@@ -16,7 +16,9 @@
 #include "metrixCalculation.h"
 #include "MyTabThree.h"
 #include "detectFaceComponets.h"
-
+#include "resource.h"
+#include "WaitDlg.h"
+#include "Ageprogression.h"
 
 //to avoid the VS2020 +matlab bug
 #include <yvals.h>
@@ -348,12 +350,21 @@ void MyTabOne::OnBnClickedButton5()
 {
 
 	//call matlab image warping function
+
+
+	WaitDlg* dlgLoadingDlg = new WaitDlg();
+	//dlgLoadingDlg->SetMessage(p_szModelFilePath);
+	dlgLoadingDlg->Create(IDD_DIALOG5,NULL);
+	dlgLoadingDlg->ShowWindow(IDD_DIALOG5);
+
+
 	mlfFaceWarp();
+	
 
 	//histogram matching for Database
 
-	/*MyTabThree three;
-	int ageGrp = 30;
+	MyTabThree three;
+	int ageGrp = 80;
 	int noOfImages = 4;	// no of Images in the each age group
 	char filename[30];
 	char filenamehist[30];
@@ -366,7 +377,14 @@ void MyTabOne::OnBnClickedButton5()
 
 	else {
 
-		for(int i = 7; i < 9; i++) {		// Age intervels
+		int width, height;
+		width = xCoordinate[16] - xCoordinate[15];
+		height =  yCoordinate[18] - yCoordinate[19];
+		unsigned char* l_text;				
+
+		
+
+		for(int i = 3; i < 9; i++) {		// Age intervels
 
 			images >> noOfImages; 
 			ageGrp = 10 * i;
@@ -374,21 +392,58 @@ void MyTabOne::OnBnClickedButton5()
 		
 				sprintf(filename, "Ageprogression\\%d\\%d.jpg", ageGrp,(j+1));
 
-				Mat src=cvLoadImage("Ageprogression\\histeq1.jpg");			// template Image
-				Mat dst=cvLoadImage(filename);
-				Mat src_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);	// threshold area
-				Mat dst_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
+				
+				Mat src;	//=cvLoadImage("Ageprogression\\2_murali.bmp");			// template Image
+				Mat dst;	//=cvLoadImage(filename);
+				Mat src_mask;		//= cvLoadImage("Ageprogression\\whiteDB.bmp",0);	// threshold area
+				Mat dst_mask;		// = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
 
+				IplImage* imgSrc = cvLoadImage("Ageprogression\\2_murali.bmp",1);
+				IplImage* imgDst = cvLoadImage(filename,1);
+
+				l_text = (byte *) malloc(width*height);
+
+				for(int z = 0; z<width*height;z++) {
+					l_text[z] = 255;
+				}
+				//memset(l_text, 255, 3*width*height);
+
+
+				IplImage* isrc_mask = cvCreateImage(cvSize(width, height), 8, 3);
+				cvSetData(isrc_mask, l_text, width*3);
+
+				
+				IplImage* idst_mask = cvCreateImage(cvSize(width, height), 8, 3);
+				cvSetData(idst_mask, l_text, width*3);
+
+
+				cvSetImageROI(imgSrc, cvRect(xCoordinate[15], yCoordinate[19],width, height));
+				cvSetImageROI(imgDst, cvRect(xCoordinate[15], yCoordinate[19],width, height));
+
+				src = imgSrc;
+				dst = imgDst;
+				src_mask = isrc_mask;
+				dst_mask = idst_mask;
+				
 				histEqu = three.histMatchRGB(dst,dst_mask,src,src_mask);		//histogram fitting function
 
+				Ageprogression age;
+				IplImage* srcImg = cvLoadImage(filename);
+
+				IplImage* histMat = &(IplImage)histEqu;
+				
+				IplImage* dbImg = cvOverlayImage(srcImg, histMat, cvPoint(xCoordinate[15], yCoordinate[19]), cvScalar(0.5,0.5,0.5,0.5), cvScalar(0.5,0.5,0.5,0.5));
+
 				sprintf(filenamehist, "Ageprogression\\%d\\hist%d.jpg", ageGrp,(j+1));
-				imwrite(filenamehist, histEqu);									//storing the results
+				cvSaveImage(filenamehist, dbImg);
+				free(l_text);
+				//imwrite(filenamehist, histEqu);									//storing the results
 			}
-
+			
 		}
-	}*/
+	}
 		
-
+	dlgLoadingDlg->CloseWindow();
 	
 
 
@@ -412,6 +467,28 @@ void MyTabOne::OnBnClickedButton5()
 	
 	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[a+4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[a+4]+2)/(source->height));	changeVU1(u1,v1);
 	
+}
+
+IplImage* MyTabOne ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
+{
+ int x,y,i;
+
+  for(x=0;x < overlay->width -10;x++)
+    {
+        if(x+location.x>=src->width) continue;
+        for(y=0;y < overlay->height -10;y++)
+        {
+            if(y+location.y>=src->height) continue;
+            CvScalar source = cvGet2D(src, y+location.y, x+location.x);
+            CvScalar over = cvGet2D(overlay, y, x);
+            CvScalar merged;
+            for(i=0;i<4;i++)
+            merged.val[i] = (S.val[i]*source.val[i]+D.val[i]*over.val[i]);
+            cvSet2D(src, y+location.y, x+location.x, merged);
+        }
+    }
+
+  return src;
 }
 
 int MyTabOne::getfwidth(){
