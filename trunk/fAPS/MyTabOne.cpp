@@ -352,10 +352,7 @@ void MyTabOne::OnBnClickedButton5()
 	//call matlab image warping function
 
 
-	WaitDlg* dlgLoadingDlg = new WaitDlg();
-	//dlgLoadingDlg->SetMessage(p_szModelFilePath);
-	dlgLoadingDlg->Create(IDD_DIALOG5,NULL);
-	dlgLoadingDlg->ShowWindow(IDD_DIALOG5);
+	
 
 
 	mlfFaceWarp();
@@ -443,7 +440,6 @@ void MyTabOne::OnBnClickedButton5()
 		}
 	}
 		
-	dlgLoadingDlg->CloseWindow();
 	
 
 
