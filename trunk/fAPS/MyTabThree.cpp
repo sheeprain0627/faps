@@ -397,7 +397,7 @@ void MyTabThree::OnBnClickedApplyage()
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
-	age.testApplyIbsdt(x);
+	age.applyIbsdt(x);
 
 
 	// TODO: Add your control notification handler code here
