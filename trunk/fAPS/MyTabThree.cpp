@@ -554,9 +554,9 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 	imshow("original query",dst);
 #endif
 
-	namedWindow("original source",CV_WINDOW_AUTOSIZE);
+	//namedWindow("original source",CV_WINDOW_AUTOSIZE);
 	//imshow("original source",src);
-	namedWindow("original query",CV_WINDOW_AUTOSIZE);
+	//namedWindow("original query",CV_WINDOW_AUTOSIZE);
 	//imshow("original query",dst);
 
 	vector<Mat> chns;
@@ -609,7 +609,7 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 	Mat res;
 	merge(chns,res);
 
-	namedWindow("matched",CV_WINDOW_AUTOSIZE);
+	//namedWindow("matched",CV_WINDOW_AUTOSIZE);
 	//("matched",res);
 	//imwrite("Ageprogression\\hist.jpg", res);
 	//show_histogram("matched", res, "gray");
