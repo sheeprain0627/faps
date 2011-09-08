@@ -31,7 +31,7 @@ class MyTabThree : public CDialog
 		afx_msg void OnBnClickedButton2();
 		void show_histogram(char* window_title, IplImage* src, char* channel_name);
 		afx_msg void OnBnClickedButton3();
-		IplImage* histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1);
+		double* histeq(IplImage* src, IplImage* dst);	//, IplImage* src1, IplImage* dst1);
 		afx_msg void OnBnClickedApplyage();
 		afx_msg void OnBnClickedsaveface();
 		afx_msg void OnBnClickedButton4();
