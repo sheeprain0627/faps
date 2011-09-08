@@ -53,6 +53,8 @@ class MyTabOne : public CDialog
 		afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 		afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 
+		IplImage* MyTabOne ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D);
+
 		bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
 		afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 //		afx_msg void OnDeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
