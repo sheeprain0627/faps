@@ -200,13 +200,16 @@ void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel
 }
 
 
-IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplImage* dst1)
+double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplImage* dst1)
 {
 
 	int hist[256];
 	int density[256];
 	IplImage* hsv, * h, * s, * v;
 	IplImage* hsv1, * h1, * s1, * v1;
+	double* parameter;
+	double para[4];
+	parameter = para;
 
 	for (int i = 0;i < 256; i++) {
 		hist[i] = 0;
@@ -283,76 +286,11 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 
 		stDeviation1 = sqrt(variance1);
 
-		//int min = 0, max = 0;
-
-		//fitted dynamic range into two segma
-
-		/*for (int j = 0; j < src->height; j++){
-
-		for(int x = 0; x<src->width; x++){
-
-		grayLevel = cvGetReal2D(v, j, x);
-		grayLevel1 = cvGetReal2D(v1, j, x);
-
-		min = (int)mean - (int)(stDeviation*0.3);
-		max = (int)mean + (int)(stDeviation*0.3);
-
-		if(grayLevel > min || grayLevel < max ) {
-
-
-		if(grayLevel == min){
-		grayLevel = (int)mean1 - (int)stDeviation1;
-		}
-
-		else {
-		grayLevel = ((grayLevel - min) * (int)stDeviation1) / (int)stDeviation + (((int)mean1) + (int)stDeviation1);
-		}
-
-
-		}
-
-		cvSetReal2D(v, j, x, grayLevel);
-
-		/*newhist = (grayLevel - mean) / (stDeviation);
-		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-		//aggreHIst = (newhist + newhist1)/2.0;
-
-		//aggreHIst = (aggreHIst*(stDeviation+stDeviation1)/2.0) + ((mean +mean1)/2.0);
-
-		//newhist = fvalue;
-		if(min > newhist) 
-		min = newhist;
-
-		if(min1 > newhist1)
-		min1 = newhist1;
-
-		if(max < newhist) 
-		max = newhist;
-
-		if(max1 < newhist1) 
-		max1 = newhist1;
-
-		if(min2 > aggreHIst)
-		min2 = aggreHIst;
-
-		if(max2 < aggreHIst) 
-		max2 = aggreHIst;
-
-
-		if((newhist1 < 0) || (newhist < 0)) {
-
-		//newhist = abs(newhist);
-		//cvSetReal2D(v, j, x, newhist);
-		//cvSetReal2D(v1, j, x, newhist1);
-
-		} else {
-		//newhist += 100;
-		//cvSetReal2D(v, j, x, newhist);
-		//cvSetReal2D(v1, j, x, newhist1);
-		}
-		*/
-		//}
-		//}
+		para[0] = variance;
+		para[1] = stDeviation;
+		para[2] = variance1;
+		para[3] = stDeviation1;
+		
 
 		/*for (int j = 0;j < src->height; j++) {
 
@@ -410,28 +348,7 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		}
 		*/
 
-		double retinex = 0.0;
-		double funct = 0.0, coef = 0.0;
-		for (int j = 0;j < src->height; j++) {
-
-			for(int x = 0; x < src->width; x++) {
-
-				grayLevel = cvGetReal2D(v, j, x);
-
-				coef = (x*x + j*j)/(25);
-				funct =exp(coef);
-				retinex = log10f(grayLevel) - log10f(grayLevel * funct);
-
-				retinex = pow(10, retinex);
-				cvSetReal2D(v, j, x, retinex);
-
-
-			}
-
-		}
-		//cvEqualizeHist(v, v);
-
-		cvMerge(h, s, v, NULL, hsv);
+		/*cvMerge(h, s, v, NULL, hsv);
 		cvCvtColor(hsv, src1, CV_HSV2BGR);
 		show_histogram("NewHist", src1, "gray");
 		cvShowImage("one",src1);
@@ -442,42 +359,12 @@ IplImage* MyTabThree::histeq(IplImage* src, IplImage* dst, IplImage* src1, IplIm
 		cvCvtColor(hsv1, dst1, CV_HSV2BGR);
 		show_histogram("AggreHist1", dst1, "gray");
 		cvShowImage("two",dst1);
-		//cvSaveImage("res//texture.bmp", dst1);
+		//cvSaveImage("res//texture.bmp", dst1);*/
 		//cvSmooth();
 	}
-	else if (src->nChannels == 1)
-		//cvEqualizeHist(src, dst);
+	//return dst;
 
-		if (hsv) cvReleaseImage(&hsv);
-	if (h) cvReleaseImage(&h);
-	if (s) cvReleaseImage(&s);
-	if (v) cvReleaseImage(&v);
-
-	/*IplImage* image_32F = cvCreateImage(cvGetSize(src),IPL_DEPTH_32F,1);
-
-	//now convert the 8bit Image into 32bit floating points
-	cvCvtScale(src,image_32F);
-
-
-	//to store given mean and varian		src	CXX0017: Error: symbol "src" not found	
-
-	CvScalar mean,std_deviation;
-
-
-	//calculate mean and standard deviation
-	cvAvgSdv(image_32F, &mean, &std_deviation);
-
-
-	//cvNormalize(image_32F,dst,0,1,CV_MINMAX,0);
-	cvConvertScale(image_32F, image_32F, (1/mean.val[0]), 0);
-
-	//cvDiv(NULL,image_32F,image_32F,s);
-
-	cvSaveImage("energy_normalized.jpg",image_32F);
-
-	//cvAddS(src, value, CvArr* dst, const CvArr* mask=NULL);
-	*/
-	return dst;
+	return parameter;
 
 
 
@@ -496,7 +383,7 @@ void MyTabThree::OnBnClickedButton3()
 	IplImage* src1 = cvLoadImage("res\\FACEJ.jpg");
 	IplImage* dst1 = cvLoadImage("res\\FACEJ.jpg");
 
-	IplImage* xx= histeq(src, dst, src1, dst1);
+	double* xx= histeq(src, dst);	//, src1, dst1);
 
 	//cvShowImage("src", src);
 	//cvShowImage("dst", xx);
@@ -510,7 +397,7 @@ void MyTabThree::OnBnClickedApplyage()
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
-	age.applyIbsdt(x);
+	age.testApplyIbsdt(x);
 
 
 	// TODO: Add your control notification handler code here
@@ -668,9 +555,9 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 #endif
 
 	namedWindow("original source",CV_WINDOW_AUTOSIZE);
-	imshow("original source",src);
+	//imshow("original source",src);
 	namedWindow("original query",CV_WINDOW_AUTOSIZE);
-	imshow("original query",dst);
+	//imshow("original query",dst);
 
 	vector<Mat> chns;
 	split(src,chns);
@@ -723,8 +610,8 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 	merge(chns,res);
 
 	namedWindow("matched",CV_WINDOW_AUTOSIZE);
-	imshow("matched",res);
-	imwrite("Ageprogression\\hist.jpg", res);
+	//("matched",res);
+	//imwrite("Ageprogression\\hist.jpg", res);
 	//show_histogram("matched", res, "gray");
 
 	//waitKey(BTM_WAIT_TIME);
@@ -746,15 +633,21 @@ void MyTabThree::OnBnClickedNew()
 {
 
 	// TODO: Add your control notification handler code here
-	Mat src=cvLoadImage("Ageprogression\\FACEE2.bmp");
-	Mat dst=cvLoadImage("Ageprogression\\cut.bmp");
-	Mat src_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
-	Mat dst_mask = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
+	Mat src=cvLoadImage("res\\FACEE2.bmp");
+
+
+	Mat dst=cvLoadImage("res\\15.jpg");
+	Mat src_mask = cvLoadImage("res\\white.bmp",0);
+	Mat dst_mask = cvLoadImage("res\\white.bmp",0);
 
 
 	histMatchRGB(dst,dst_mask,src,src_mask);
 
+	IplImage* img = &(IplImage)src;
+	cvShowImage("aaaaaaaaaa", img);
 
+	Mat xxx = img;
+	imshow("convert", xxx);
 }
 
 
