@@ -18,6 +18,7 @@ using namespace cv;
 #define HISTMATCH_EPSILON 0.000001
 
 // MyTabThree dialog
+Tdsloader tds;
 Ageprogression age;
 detectFaceComponets facedetect;
 
@@ -105,6 +106,15 @@ void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 
 	float x = (float)(curret - 20) / 30;
 	changeContrast(x);
+
+	float y = (float)((curret-20) *0.3 / 30);
+	CString s;
+	GetDlgItemText(IDC_EDIT4, s);
+	
+	
+	int eage = atof( s );
+
+	tds.changecheek(y,eage);
 
 	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
 	// TODO: Add your control notification handler code here
@@ -195,7 +205,6 @@ void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel
 		cvLine(canvas, pt1, pt2, colors[channel], 1, 8, 0);
 	}
 
-	cvShowImage(window_title, canvas);
 	cvReleaseImage(&img);
 }
 
@@ -235,8 +244,7 @@ double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplI
 		cvSplit(hsv1, h1, s1, v1, NULL);
 		show_histogram("oldHistSRC", src, "gray");
 		show_histogram("oldHistDST", dst, "gray");
-		cvShowImage("src", src);
-		cvShowImage("dst", dst);
+		
 		//cvThreshHist
 
 		int grayLevel = 0, n = 0, grayLevel1 = 0, n1 = 0;
@@ -291,76 +299,7 @@ double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplI
 		para[2] = variance1;
 		para[3] = stDeviation1;
 		
-
-		/*for (int j = 0;j < src->height; j++) {
-
-		for(int x = 0; x < src->width; x++) {
-
-		grayLevel = cvGetReal2D(v, j, x);
-		grayLevel1 = cvGetReal2D(v1, j, x);
-
-		newhist = (grayLevel - mean) / (stDeviation);
-		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-		aggreHIst = (newhist + newhist1);
-
-		aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + ((mean + mean1)));
-
-		if(min1 > aggreHIst)
-		min1 = aggreHIst;
-
-		if(max1 < aggreHIst) 
-		max1 = aggreHIst;
-
-		//cvSetReal2D(v1, j, x, aggreHIst);
-		}
-		}
-
-		for (int j = 0; j < src->height; j++) {
-
-		for(int x = 0; x < src->width; x++) {
-
-		grayLevel = cvGetReal2D(v, j, x);
-		//grayLevel -= 80; 
-		grayLevel1 = cvGetReal2D(v1, j, x);
-		//grayLevel1 +=30;
-		//aggreHIst = (grayLevel + grayLevel1)/2;
-
-		newhist = (grayLevel - mean) / (stDeviation);
-		newhist1 = (grayLevel1 - mean1) / (stDeviation1);
-		aggreHIst = (newhist + newhist1);
-
-		aggreHIst = ((aggreHIst * sqrt((stDeviation * stDeviation) + (stDeviation1 * stDeviation1))) + 
-		((mean + mean1))) * 255 / (abs(min1) + max1);
-
-		if(aggreHIst < 0) {
-		aggreHIst = abs(aggreHIst);
-		cvSetReal2D(v1, j, x, aggreHIst);
-		cvSetReal2D(v, j, x, grayLevel);
-
-		} else {
-
-		cvSetReal2D(v, j, x, grayLevel);			
-		cvSetReal2D(v1, j, x, aggreHIst);
-		}
-
-
-		}
-		}
-		*/
-
-		/*cvMerge(h, s, v, NULL, hsv);
-		cvCvtColor(hsv, src1, CV_HSV2BGR);
-		show_histogram("NewHist", src1, "gray");
-		cvShowImage("one",src1);
-		//cvSaveImage("res//texture11.bmp", dst1);
-
-
-		cvMerge(h1, s1, v1, NULL, hsv1);
-		cvCvtColor(hsv1, dst1, CV_HSV2BGR);
-		show_histogram("AggreHist1", dst1, "gray");
-		cvShowImage("two",dst1);
-		//cvSaveImage("res//texture.bmp", dst1);*/
-		//cvSmooth();
+		
 	}
 	//return dst;
 
@@ -395,10 +334,19 @@ void MyTabThree::OnBnClickedButton3()
 void MyTabThree::OnBnClickedApplyage()
 {
 	CString s;
-	GetDlgItemText(IDC_EDIT1, s);
-	float x = atof( s );
-	age.applyIbsdt(x);
+	GetDlgItemText(IDC_EDIT4, s);
+	
+	
+	
+	int eage = atof( s );
+	if(eage<=80 && eage>=30)
+	{
+	age.texureEnhancePrototype(2.0,eage);
+	age.applyIbsdt(2.0);
+	}
 
+	else
+		MessageBox("Please enter the correct age group, Eg: 10, 20, . . , 80","Input Error . . .",MB_ICONEXCLAMATION |MB_OK);
 
 	// TODO: Add your control notification handler code here
 }
@@ -480,9 +428,7 @@ void MyTabThree::OnBnClickedButton4()
 
 
 	cvCvtColor(convert, result, CV_HSV2BGR);
-	cvShowImage("Result", result);
-	cvShowImage("original", frame);
-
+	
 	cvSaveImage("Enhresult.jpg",result);
 	cvWaitKey(0);
 	cvDestroyWindow("original");
@@ -496,18 +442,7 @@ void MyTabThree::OnBnClickedButton4()
 void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf) {
 	Mat _t = _i.reshape(1,1);
 
-	/*Mat _tm;
-	mask.copyTo(_tm);
-	CvPoint pt;
-	_tm = _tm.reshape(1,1);
-	for(int p=0; p < _t.cols; p++) {
-	uchar tm = _tm.at<uchar>(0,p);
-	int itm = tm;
-	if(itm > 0) {
-	uchar c = _t.at<uchar>(0,p);
-	h[c] += 1.0;
-	}
-	}*/
+	
 
 	// Get the histogram with or without the mask
 	if (true) {
@@ -553,11 +488,6 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 	namedWindow("original query",CV_WINDOW_AUTOSIZE);
 	imshow("original query",dst);
 #endif
-
-	//namedWindow("original source",CV_WINDOW_AUTOSIZE);
-	//imshow("original source",src);
-	//namedWindow("original query",CV_WINDOW_AUTOSIZE);
-	//imshow("original query",dst);
 
 	vector<Mat> chns;
 	split(src,chns);

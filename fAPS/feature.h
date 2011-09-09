@@ -15,6 +15,8 @@ public:
  void changeLeftEye(obj_type_ptr pObject,float aggesmntVal);
 void changeRightEye(obj_type_ptr pObject,float aggesmntVal);
 
+void changeCheek(obj_type_ptr pObject, float val);
+
 
 float calculateGradiant(float y, float x, float change);
 };

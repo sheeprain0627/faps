@@ -95,6 +95,9 @@
     <None Include="res\icon.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\Tab_Texts\text-age.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">

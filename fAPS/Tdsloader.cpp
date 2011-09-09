@@ -410,45 +410,40 @@ void display(){
 	glFlush(); // This force the execution of OpenGL commands
 }
 
+void Tdsloader::changecheek(float val,int age){
+	if(val>0){
+
+	switch (age)
+{
+case 30: val=0;
+    break;
+case 40: val=val*.1;
+    break;
+case 50: val=val*.4;
+    break;
+	case 60: val=val*.6;
+    break;
+	case 70: val=val*.9;
+    break;
+	case 80: val=val;
+    break;
+default: val=0;
+    break;
+}
+
+	featureInstance.changeCheek(&object, val);
+	}
+
+	
+}
+
+
 void modify(float x, CString selctVal){
 	featureInstance.set3Dobject(&object);
 
 	featureInstance.changeNose(&object,noseChangeVal);
 	featureInstance.changeMouth(&object,mouthChangeVal);
-	//featureInstance.changeLeftEye(&object,leftEyeChangeVal);
-	//featureInstance.changeRightEye(&object,rightEyeChangeVal);
-	/*
-	if(selctVal == "Nose")
-	{s
-	featureInstance.changeNose(&object,noseChangeVal);
-	}
-	else if(selctVal == "Mouth")
-	{
-	featureInstance.changeMouth(&object,mouthChangeVal);
-	}
-	if(selctVal == "LeftEye")
-	{
-	featureInstance.changeLeftEye(&object,leftEyeChangeVal);
-	}
-	if(selctVal == "RightEye")
-	{
-	featureInstance.changeRightEye(&object,rightEyeChangeVal);
-	}
-
-	else
-	{
-	//do nothing
-	}
-	//
-	*/
-
-	//for(int i=498;i<630;i++){
-
-
-	//object.vertex[i].x=x;object.vertex[i].y=x;object.vertex[i].z=x;
-	//}
-	//object.vertex[500].x=x;object.vertex[500].y=x;object.vertex[500].z=x;
-	//display(GL_TRIANGLES);
+	
 
 }
 
@@ -631,27 +626,6 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 
 
 
-	/*IplImage* img11;
-	IplImage* img_new;
-
-	img_new = cvLoadImage("K:\\FAPS-Images\\3Dsloader-640-480\\FACEM.bmp");
-	cvNamedWindow("Lap",1);
-	img11 = cvCreateImage(cvSize(101,32),8 , 3);
-
-	cvSetData(img11,l_text ,303);
-	cvShowImage("Lap", img11);	
-
-	cvWaitKey();*/
-
-
-	//img_new = cvCreateImage(cvSize(101,32), IPL_DEPTH_8U, 3);
-	//cvSmooth( img11, img_new, CV_GAUSSIAN, 7, 7 );
-	//cvSmooth( img11, img_new, CV_MEDIAN, 7, 7 );
-
-	//cvResize(img11,img_new,1);
-	//cvLaplace(img11, img_new, 3);
-	//cvShowImage("smooth", img_new);
-
 
 	fclose(l_file); // Closes the file stream
 
@@ -792,4 +766,9 @@ void WriteBmp(char* name,int W,int H,int Bpp,int* data)
 	fwrite(&Bmi.bmiHeader,sizeof(BITMAPINFOHEADER),1,image);
 	fwrite(data,sz,1,image);
 	fclose(image);
+}
+
+void resetModel(){
+	object=ori_object;
+
 }

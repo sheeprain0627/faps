@@ -148,11 +148,6 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("      Critical Points      "));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
 	
-	/*rectPage.left	+= 2;
-	rectPage.top	+= 0;
-	rectPage.right	-= 4;
-	rectPage.bottom -= 4;*/
-
 	//tab 3 designs 
 	m_pDlgPage3->MoveWindow(rectPage);
 	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));	
@@ -400,9 +395,5 @@ bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 void CcvisionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
-	 /*if(pScrollBar->NM_RELEASEDCAPTURE) { 
-	//int CurPos = m_zoomSlider.GetPos();
-	scaleTex();
-	 }*/
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }

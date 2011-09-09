@@ -6,6 +6,7 @@ class Tdsloader
 public:
 	Tdsloader(void);
 	~Tdsloader(void);
+	void changecheek(float val,int age);
 };
 
 /*
@@ -94,7 +95,7 @@ void drawBox();
 
 void captureImage();
 void WriteBmp(char* name,int W,int H,int Bpp,int* data);	 //writes the data into a .bmp image and saves it
-
+void resetModel();
 void test();
 
 extern int num_texture;
