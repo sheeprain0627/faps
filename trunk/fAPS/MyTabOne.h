@@ -5,6 +5,7 @@
 #include "resource.h"
 #include "afxwin.h"
 #include "highgui.h"
+#include "afxcmn.h"
 class MyTabOne : public CDialog
 {
 	DECLARE_DYNAMIC(MyTabOne)
@@ -61,6 +62,8 @@ class MyTabOne : public CDialog
 		afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 		CStatic m_text1;
 		CStatic m_text2;
+		static UINT MyThreadProc(LPVOID pParam);
+		CProgressCtrl warpWait;
 };
 
 int* getXCriticalPoints();

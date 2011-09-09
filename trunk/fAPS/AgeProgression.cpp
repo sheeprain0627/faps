@@ -18,7 +18,7 @@ Ageprogression::~Ageprogression(void)
 //define number of images takein as database
 
 int ageLimit=70;
-const int NO_IMAGES=4;
+const int NO_IMAGES=3;
 
 //create the age prototype
 void Ageprogression ::texureEnhancePrototype(float p,int age){	
@@ -149,7 +149,7 @@ void Ageprogression ::texureEnhancePrototype(float p,int age){
     }
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
     cvSaveImage("Ageprogression\\1_murali.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
-	cvShowImage("Texure-Enhanced-prototype", imgResultD);
+	//cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	//cvWaitKey(0);
 
 }
@@ -281,24 +281,7 @@ for(int y=0;y<imgSize_Standard.height;y++)
 		  float b3=(float)((cy14-cy13)/2);
 		  float ck3=((float)((a3+cx12-x)*(a3+cx12-x)))/(a3*a3)+((float)((cy13+b3-y)*(cy13+b3-y)))/(b3*b3);
 			
-		  /*
-				double	theTemFinalRed;
-			    double	theTemFinalGreen;
-			    double	theTemFinalBlue;
-		  float a1=20; float b1=7;
-		  float ck1=((float)((20+26-x)*(20+26-x)))/(a1*a1)+((float)((66+7-y)*(66+7-y)))/(b1*b1);
-		  float a2=20; float b2=8;
-		  float ck2=((float)((20+104-x)*(20+104-x)))/(a2*a2)+((float)((65+8-y)*(65+8-y)))/(b2*b2);
-		  float a3=30; float b3=11;
-		  float ck3=((float)((30+57-x)*(30+57-x)))/(a3*a3)+((float)((143+11-y)*(143+11-y)))/(b3*b3);
-				if (((x>=26)&&(x<=66)&&(y>=66)&&(ck1<=1.0)&&(y<=80))||((x>=104)&&(x<=144)&&(y>=65)&&(ck2<=1.0)&&(y<=81))||((x>=57)&&(x<=117)&&(y>=143)&&(ck3<=1.0)&&(y<=165))){
-					theTemFinalRed=cvGetReal2D(imgRed_input, y, x);
-			    	theTemFinalGreen=cvGetReal2D(imgGreen_input, y, x);
-			    	theTemFinalBlue=cvGetReal2D(imgBlue_input, y, x);}
-				
-			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
-			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
-			   	theTemFinalBlue=theSoomthFinalBlue_Input*theRealBlue_Prototype/theSmoothBlue_Prototype;*/
+		  
 		  if ((((ck4<=1.0)&&(x>=cx16)&&(x<=cx17)&&(y>=cy16)&&(y<=cy20))||((x>=cx16)&&(x<=cx17)&&(y>=cy21)&&(y<=cy16)))&& (!(((x>=cx1)&&(x<=cx4)&&(y>=cy2)&&(ck1<=1.0)&&(y<=cy3))||((x>=cx5)&&(x<=cx8)&&(y>=cy6)&&(ck2<=1.0)&&(y<=cy7))||((x>=cx12)&&(x<=cx15)&&(y>=cy13)&&(ck3<=1.0)&&(y<=cy14))))) {
 			   	theTemFinalRed=theSoomthlRed_Input*theRealRed_Prototype/theSmoothRed_Prototype;
 			   	theTemFinalGreen=theSoomthFinalGreen_Input*theRealGreen_Prototype/theSmoothGreen_Prototype;
@@ -319,26 +302,23 @@ for(int y=0;y<imgSize_Standard.height;y++)
     }
 
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
-    cvNamedWindow("IBSDT");
-    cvShowImage("IBSDT", imgResultD);
     cvSaveImage("Ageprogression\\IBSDT.bmp",imgResultD);
 
 	IplImage* black = cvLoadImage("Ageprogression\\black.bmp");
-	//cvOverlayImage(black, imgResultD, cvPoint(35, 55), cvScalar(0.5,0.5,0.5,0.5), cvScalar(0.5,0.5,0.5,0.5));
-	//mergeImage(black,imgResultD,30,30);
-	//cvSaveImage("Ageprogression\\newimage.bmp",black);
+	
 	
 	LoadImage2("Ageprogression\\IBSDT.bmp", 255, 0, 1);
-	//cvWaitKey(0);
-	//;
-
-
-
+	
 }
 
+
+//*****************set sigma value *****************//
 void Ageprogression ::setSigma(float q){
 	sigma=q;
 }
+
+
+//********************merge two images***************//
 
 void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int y) {
     for (int ix=0; x<source->width; x++) {
@@ -353,6 +333,7 @@ void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int 
 }
 
 
+//*******************method use in merge two images **************//
 void Ageprogression ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
 {
  int x,y,i;

@@ -16,7 +16,7 @@
 #include "metrixCalculation.h"
 #include "MyTabThree.h"
 #include "detectFaceComponets.h"
-#include "resource.h"
+#include "windows.h"
 #include "Ageprogression.h"
 
 //to avoid the VS2020 +matlab bug
@@ -57,6 +57,7 @@ IplImage* dbImage;
 int criticalPoints1[] = {900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
 int criticalPoints2[] = {913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
 int a = 15;
+CWinThread *pMatThread;
 
 
 IplImage *selectedImg,*temp;
@@ -99,6 +100,7 @@ void MyTabOne::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, m_picture, m_PicCtrl);
+	DDX_Control(pDX, IDC_PROGRESSWarpWait, warpWait);
 }
 
 
@@ -120,95 +122,6 @@ END_MESSAGE_MAP()
 
 
 
-/*void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
-{
-		
-	int X, Y;
-	X = point.x;
-	Y = point.y;
-
-	pt = cvPoint(X - 315, Y - 66);
-
-	CString str1;
-	str1.Format("%d", X);
-
-	CString str2;
-	str2.Format("%d", Y);
-	//MessageBox("X:" + str1+  "Y:" + str2,"Right",MB_ICONSTOP|MB_OK);
-	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
-		MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
-	if(selectedImg!=NULL){
-				releaseImg(selectedImg,pt.x,pt.y);
-					selectedImg=NULL;
-			}
-	}
-	
-	/*int poiX, poiY;
-	int X, Y;
-	X = point.x;
-	Y = point.y;
-
-	pt = cvPoint(X - 315, Y - 66);
-	
-	CString str1;
-	str1.Format("%d", X);
-
-	CString str2;
-	str2.Format("%d", Y);
-	if ((nFlags & MK_LBUTTON) == MK_LBUTTON) {
-
-		if(load == true ) {
-
-
-			//MessageBox("X:" + str1+  "Y:" + str2,"aaaaaaaaaaaa",MB_ICONSTOP|MB_OK);
-			countImage++;
-			//MessageBox(NULL,"X:" + str1 +"  Y:"+ str2 , "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-			
-			img0[countImage] = cvCloneImage(img0[countImage - 1]);
-		
-			cvCircle(img0[countImage], pt, 1, CV_RGB(0, 255, 0), -1, 8,0);
-
-			cvSaveImage(savePath, img0[countImage]);
-
-			CImage img;
-			img.Load(savePath);
-			m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
-			xCoordinate[countImage - 1] = pt.x;
-			yCoordinate[countImage - 1] = pt.y;
-
-			globalCoordinateX[countImage - 1] = pt.x;
-			globalCoordinateY[countImage - 1] = pt.y;
-
-			if(countImage >= 4 && countImage < 8)
-				SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
-				//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-			if(countImage < 11 && countImage >= 8)
-				SetDlgItemTextA(IDC_EDIT1, "Please Click NOSE critical points");
-				//MessageBox("Please Click NOSE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-			if(countImage >= 11)
-				SetDlgItemTextA(IDC_EDIT1, "Please Click MOUTH critical points");
-				//MessageBox("Please Click MOUTH critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-		
-			if(countImage == 16) {
-						
-			}
-
-		}
-	}	
-
-	
-  	if (nFlags == WM_LBUTTONDOWN) {
-		MessageBox("bbbbbb","Sorry, this is not a 24 Bit Bitmap.",MB_ICONSTOP|MB_OK);
-	}
-	
-	CWnd::OnLButtonDown(nFlags, point);
-
-}
-*/
-
 void mouseHandler(int event, int x, int y, int flags, void *param) {
 
         switch(event) {
@@ -216,7 +129,7 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
         case CV_EVENT_LBUTTONDOWN:
                 pt = cvPoint(x, y);
                 cvCircle(dbImage, pt, 1, CV_RGB(0,255,0), 1, 8,0);
-                cvShowImage(name, dbImage);
+                ///cvShowImage(name, dbImage);
                 globalCoordinateX[countDb] = x;
                 globalCoordinateY[countDb] = y;
                 countDb++;
@@ -248,7 +161,7 @@ void mouseHandler(int event, int x, int y, int flags, void *param) {
 
 void MyTabOne::OnBnClickedButton1()
 {
-		
+		resetModel();		// reset the 3d model vith default alues
 
 	this -> DragAcceptFiles(true);
 
@@ -281,13 +194,13 @@ void MyTabOne::OnBnClickedButton1()
 
 		
                 
-        cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
+        //cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
 
         cvSetMouseCallback( name, mouseHandler, NULL );
         dbImage = cvLoadImage(path);
-        cvShowImage(name, dbImage);
+        //cvShowImage(name, dbImage);
 
-		cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
+		//cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
 	
 		//cvShowImage("image", img0[countImage]);
 	
@@ -303,34 +216,6 @@ void MyTabOne::OnBnClickedButton1()
 }
 
 
-/*void MyTabOne::OnBnClickedButton2()
-{
-	countImage -= 1;
-	cvSaveImage(savePath, img0[countImage]);
-	
-	CImage img;
-	img.Load(savePath);
-	m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
-	
-	if(countImage < 5)
-		SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
-	
-	if(countImage >= 5 && countImage < 9)
-		SetDlgItemTextA(IDC_EDIT1, "Please Click RIGHT EYE critical points");
-			//MessageBox("Please Click RIGHT EYE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-	if(countImage < 12 && countImage >= 9)
-		SetDlgItemTextA(IDC_EDIT1, "Please Click NOSE critical points");
-		//MessageBox("Please Click NOSE critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-	if(countImage >= 12)
-		SetDlgItemTextA(IDC_EDIT1, "Please Click MOUTH critical points");
-		//MessageBox("Please Click MOUTH critical points!!!!!!", "Click Critical Points Selection",  MB_OK | MB_ICONEXCLAMATION);
-
-	
-	
-}*/
-
 
 void MyTabOne::OnBnClickedButton3()
 {
@@ -345,19 +230,29 @@ void MyTabOne::OnBnClickedButton4()
 }
 
 
-void MyTabOne::OnBnClickedButton5()
+
+UINT MyTabOne::MyThreadProc(LPVOID pParam)
 {
 
+   mlfFaceWarp();
+   
+		 
+
+	
+    return 0;
+}
+
+void MyTabOne::OnBnClickedButton5()
+{
+	
+
+	
+	
+
 	//call matlab image warping function
-
-
 	
 
-
-	mlfFaceWarp();
-	
-
-	//histogram matching for Database
+//histogram matching for Database
 
 	MyTabThree three;
 	int ageGrp = 80;
@@ -397,9 +292,9 @@ void MyTabOne::OnBnClickedButton5()
 				IplImage* imgSrc = cvLoadImage("Ageprogression\\2_murali.bmp",1);
 				IplImage* imgDst = cvLoadImage(filename,1);
 
-				l_text = (byte *) malloc(width*height);
+				l_text = (byte *) malloc(3*width*height);
 
-				for(int z = 0; z<width*height;z++) {
+				for(int z = 0; z<3*width*height;z++) {
 					l_text[z] = 255;
 				}
 				//memset(l_text, 255, 3*width*height);
@@ -440,7 +335,7 @@ void MyTabOne::OnBnClickedButton5()
 	}
 		
 	
-
+	
 
 //Sleep(100);
 
@@ -625,7 +520,7 @@ void MyTabOne::cropPic(){
 	cvReleaseImage(&img1);
 
 	//adjust the texture
-	IplImage *source = cvLoadImage("res\\b.bmp");
+	IplImage *source = cvLoadImage("Ageprogression\\2_murali.bmp");
 	float u1 = ((float)(xCoordinate[0] + 10)) / (source->width);	
 	float v1  =(1 + (float)((source->height - yCoordinate[0] + 2)) / (source->height));
 
@@ -647,13 +542,6 @@ void MyTabOne::OnBnClickedSetface()
 
 
 
-
-
-	//float a=(source->width)*(0.821289-0.1818449)/(xCoordinate[1]-xCoordinate[0]);
-	//float b=(source->width)*(0.1818449*xCoordinate[1]-0.821289*xCoordinate[0])/(xCoordinate[1]-xCoordinate[0]);
-
-	//IplImage *source = cvLoadImage( "res\\b.bmp");	float u1=((float)xCoordinate[4])/(source->width);	float v1=(1+(float)(source->height-yCoordinate[4]+2)/(source->height));	changeVU1(u1,v1);
-	
 	LoadImage("Ageprogression\\2_murali.bmp", 255, 0, 1);
 
 
@@ -661,9 +549,20 @@ void MyTabOne::OnBnClickedSetface()
 	CString selectedString = "selctVal";
 	modify(x, selectedString);
 
-	//changeVU(xCoordinate,yCoordinate,criticalPoints1);
-	//aa.WritePixelsToFile(cvLoadImage("res\\a.bmp", 1),"pixelVal.txt");
-//	aa.CalFundermentalMatrix();
+
+	warpWait.SetRange(0, 200);
+
+
+	// Make some progress...
+	
+	  
+pMatThread=AfxBeginThread(MyThreadProc,this);
+
+
+for(int i=0;i<200;i++ ){	Sleep(100);	 warpWait.SetPos(i);}
+//ForSingleObject( pMatThread->m_hThread, INFINITE );
+ //warpWait.SetPos(100);
+
 }
 
 void MyTabOne::resizePic1(){
@@ -767,7 +666,7 @@ void MyTabOne::showImage(){
 		m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 
 		//SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
-	cvShowImage("image", img2);
+	//cvShowImage("image", img2);
 	cvReleaseImage(&img2);
 }
 
@@ -800,7 +699,7 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 			cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 1.0, 1.0, 0, 1, CV_AA);
 			cvPutText(temp,buffer ,cvPoint(pt.x+2,pt.y+2), &font, cvScalar(255, 255, 255, 0)); 
 			
-			cvShowImage("image", temp);
+			//cvShowImage("image", temp);
 			//cvCircle(temp, pt, 1, CV_RGB(0, 255, 0), -1, 8,0);
 			cvSaveImage(savePath, temp);
 
@@ -903,16 +802,14 @@ const char* name = "Histogram Equalization";
 	cvMerge(imgRed1, imgGreen1, imgBlue1, NULL, out);
 
 	// Show original
-	cvNamedWindow( "Original", 1) ;
-	cvShowImage( "Original", img );
+	//cvNamedWindow( "Original", 1) ;
+	//cvShowImage( "Original", img );
 
 	// Perform histogram equalization
 	//cvEqualizeHist( img, out );
 
 	// Show histogram equalized
-	cvNamedWindow( name, 1) ;
-	cvShowImage( name, out );
-
+	
 	cvWaitKey();
 
 	cvReleaseImage( &img );
@@ -1002,11 +899,6 @@ for (int j = 0; j < 3; j ++)
 	IplImage *img_out= cvCloneImage(src);
     cvWarpPerspective(src, img_out, mmat);
 
-	cvNamedWindow("ori",1);
-cvShowImage("ori",src);
-
-	cvNamedWindow("wrppedImg",1);
-cvShowImage("wrppedImg",img_out);
 
 
 }

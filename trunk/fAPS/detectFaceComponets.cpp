@@ -123,10 +123,10 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 
 		  else
 	{
-		 for(int i=9;i<11;i++){ 
-		pointsArry[i].x=defaultXCoordinate[i];
-		pointsArry[i].y=defaultYCoordinate[i];
-		 }
+		 pointsArry[9].x=pointsArry[8].x-20;
+		pointsArry[9].y=pointsArry[8].y+50;
+		pointsArry[10].x=pointsArry[8].x+20;
+		pointsArry[10].y=pointsArry[8].y+50;
 		  }	
 	  
 }
@@ -168,6 +168,8 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 
 			  CvPoint eyepoint[8];
 
+
+//*************** generating the points position of the detected components*****************//
 if(eye){
 		 eyepoint[0]= cvPoint(eye->x , eye->y + eye->height/2);
 		 eyepoint[1]= cvPoint(eye->x + eye->width/6, eye->y + eye->height*1/4);
@@ -184,7 +186,12 @@ if(eye){
 		 }
 
 		 pointsArry[8].x=nosepoint1.x+r->x;
-		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);	
+		 pointsArry[8].y=nosepoint1.y+r->y + (r->height/5.5);
+
+		 defaultXCoordinate[9]=pointsArry[8].x-20;
+		 defaultYCoordinate[9]=pointsArry[8].y+50;
+		 defaultXCoordinate[10]=pointsArry[8].x+20;
+		 defaultYCoordinate[10]=pointsArry[8].y+50;
 		  ///////////////////
 
 
@@ -203,6 +210,7 @@ else
 
 }
 
+//********************* detect the facial features*******************//
 
 void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img,int img_no)
 {
@@ -264,6 +272,14 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 		 pointsArry[22].y=facepoint8.y;
 		
        
+
+		for(int i=11;i<15;i++){ 		
+			defaultYCoordinate[i]=pointsArry[19].y-50;
+		 }
+
+
+
+
         detectEyes(img,r);
         /* reset region of interest */
         cvResetImageROI(img);
@@ -311,14 +327,7 @@ void detectFaceComponets::loadFaceImages(IplImage *img)
         //return -1;
         }
    
-    //for(int j=1;j<4;j++)
-    //{
-
-         //sprintf(image,"res\\%d.bmp",2);
-       
-        
-       
-        if(!img)
+       if(!img)
         {
         printf("Could not load image file and trying once again: %s\n",image);
         }

@@ -1,20 +1,18 @@
 #include "StdAfx.h"
 #include "metrixCalculation.h"
 #include <stdio.h>
-//#include <cvcam.h>   
+  
 #include <cv.h>   
 #include "highgui.h"   
-//#include <stdio.h>   
 #include <vector>   
 #include <math.h> 
 #include <iostream>
-//#include <cv.h>
+
 
 float **metrixCalculation::MatrixMultiplication(float **a, float **b){
 	
 
- // int a[3][3] , b[3][3] , c[3][3];
-	//float **c;
+ 
 	float **c= new float*[3];
 
 	for(int i=0; i<3;i++)
@@ -23,14 +21,7 @@ c[i]= new float[3];
 	}
 
   int i , j , k;
- // cout<<"Enter Matrix A";
-  //for( i = 0 ; i < 3 ; i++)
-    // for( j = 0 ; j < 3 ; j++)
-      //  cin>>a[i][j];
- // cout<<"Enter Matrix B";
- // for( i = 0 ; i < 3 ; i++)
-    // for( j = 0 ; j < 3 ; j++)
-      //  cin>>b[i][j];
+ 
   for( i = 0 ; i < 3 ; i++)
      for( j = 0 ; j < 3 ; j++)
      {
@@ -38,23 +29,17 @@ c[i]= new float[3];
         for( k = 0 ;k < 3 ; k++)
            c[i][j] += a[i][k]*b[k][j];
      }
- // cout<<"The resultant matrix is ";
- // for( i = 0 ; i < 3 ; i++)
-  //{
-    // for( j = 0 ; j < 3 ; j++)
-       // cout<<a[i][j]<<" ";
-     //cout<<endl;
- // }
+ 
 
 	  return c;
 }
 
-
+//*******************matirx multiplication****************//
 
 float **metrixCalculation::MatrixInversion(float **A, int order)
 {
     
-	//float **Y;
+	
 	float **Y= new float*[3];
 
 	for(int i=0; i<3;i++)
@@ -141,10 +126,8 @@ double metrixCalculation::CalcDeterminant( float **mat, int order)
         // the recusion is here!
 
         det += (i%2==1?-1.0:1.0) * mat[0][i] * CalcDeterminant(minor,order-1);
-        //det += pow( -1.0, i ) * mat[0][i] * CalcDeterminant( minor,order-1 );
     }
 
-    // release memory
     for(int i=0;i<order-1;i++)
         delete [] minor[i];
     delete [] minor;
@@ -321,8 +304,7 @@ for (int j = 0; j < 3; j ++)
 
  
 //cvPerspectiveTransform( src, img_out, fundamental_matrix);
-cvNamedWindow("ajith",1);
-cvShowImage("ajith",img_out);
+
 
      /*release the file pointer.*/
  fclose(file);
@@ -426,10 +408,6 @@ cvWarpAffine( src, img_out, affine_mat );
 
 //cvPerspectiveTransform( src, img_out, fundamental_matrix);
 //cvWarpPerspective( src, img_out, fundamental_matrix,CV_INTER_LINEAR ,cvScalarAll( 0 )  );
-cvNamedWindow("ori",1);
-cvShowImage("ori",src);
-cvNamedWindow("wrppedImg",1);
-cvShowImage("wrppedImg",img_out);
 
 //WritePixelsToFile(dst,"output1",fundamental_matrix);
 

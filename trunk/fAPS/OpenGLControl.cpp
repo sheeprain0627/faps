@@ -193,55 +193,7 @@ void COpenGLControl::oglDrawScene(void)
 {
 	
 	display();
-		
 	
-	/*
-	
-
-	//FaceModel fm=new FaceModel();	fm.display();
-
-   // Wireframe Mode
-   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-   glBegin(GL_QUADS);
-      // Top Side
-      glVertex3f( 1.0f, 1.0f,  1.0f);
-      glVertex3f( 1.0f, 1.0f, -1.0f);
-      glVertex3f(-1.0f, 1.0f, -1.0f);
-      glVertex3f(-1.0f, 1.0f,  1.0f);
-
-      // Bottom Side
-      glVertex3f(-1.0f, -1.0f, -1.0f);
-      glVertex3f( 1.0f, -1.0f, -1.0f);
-      glVertex3f( 1.0f, -1.0f,  1.0f);
-      glVertex3f(-1.0f, -1.0f,  1.0f);
-
-      // Front Side
-      glVertex3f( 1.0f,  1.0f, 1.0f);
-      glVertex3f(-1.0f,  1.0f, 1.0f);
-      glVertex3f(-1.0f, -1.0f, 1.0f);
-      glVertex3f( 1.0f, -1.0f, 1.0f);
-
-      // Back Side
-      glVertex3f(-1.0f, -1.0f, -1.0f);
-      glVertex3f(-1.0f,  1.0f, -1.0f);
-      glVertex3f( 1.0f,  1.0f, -1.0f);
-      glVertex3f( 1.0f, -1.0f, -1.0f);
-
-      // Left Side
-      glVertex3f(-1.0f, -1.0f, -1.0f);
-      glVertex3f(-1.0f, -1.0f,  1.0f);
-      glVertex3f(-1.0f,  1.0f,  1.0f);
-      glVertex3f(-1.0f,  1.0f, -1.0f);
-
-      // Right Side
-      glVertex3f( 1.0f,  1.0f,  1.0f);
-      glVertex3f( 1.0f, -1.0f,  1.0f);
-      glVertex3f( 1.0f, -1.0f, -1.0f);
-      glVertex3f( 1.0f,  1.0f, -1.0f);
-   glEnd();  
-
-   */
 }
 
 

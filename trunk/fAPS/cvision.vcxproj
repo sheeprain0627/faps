@@ -66,8 +66,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_core220d.lib;opencv_highgui220d.lib;C:\OpenCV2.2\lib\opencv_core220d.lib;C:\OpenCV2.2\lib\opencv_highgui220d.lib;C:\OpenCV2.2\lib\opencv_video220d.lib;opengl32.lib;glu32.lib;C:\OpenCV2.2\lib\opencv_ml220d.lib;C:\OpenCV2.2\lib\opencv_legacy220d.lib;C:\OpenCV2.2\lib\opencv_imgproc220d.lib;opencv_objdetect220d.lib;opencv_video220d.lib;opencv_legacy220d.lib;opencv_gpu220d.lib;opencv_flann220d.lib;opencv_ffmpeg220d.lib;opencv_features2d220d.lib;opencv_contrib220d.lib;opencv_calib3d220d.lib;opencv_ml220d.lib;mclmcrrt.lib;facewarp.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\FaceWarpMatlab;C:\Program Files\MATLAB\R2008a\extern\lib\win32\microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <HeapReserveSize>
-      </HeapReserveSize>
       <HeapCommitSize>10000000000</HeapCommitSize>
       <StackCommitSize>800000000</StackCommitSize>
     </Link>
@@ -137,6 +135,7 @@
     <None Include="res\Tab_Texts\step2.bmp" />
     <None Include="res\Tab_Texts\tab_header.bmp" />
     <None Include="res\Tab_Texts\temp.bmp" />
+    <None Include="res\Tab_Texts\text-age.bmp" />
     <None Include="res\wringle.bmp" />
     <None Include="res\Wtexture.bmp" />
   </ItemGroup>
