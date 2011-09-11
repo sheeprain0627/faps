@@ -242,15 +242,16 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
     
         r = ( CvRect* )cvGetSeqElem( faces, 0 );
 
+		if(r){
 		/* draw points on overall face*/
-		 CvPoint facepoint1= cvPoint(r->x , r->y + r->height/2);
-		 CvPoint facepoint2= cvPoint(r->x + r->width, r->y + r->height/2);
+		 CvPoint facepoint1= cvPoint(r->x + r->width*1/16, r->y + r->height/2);
+		 CvPoint facepoint2= cvPoint(r->x + r->width*15/16, r->y + r->height/2);
 		 CvPoint facepoint3= cvPoint(r->x + r->width/2, r->y + r->height/5);
 		 CvPoint facepoint4= cvPoint(r->x + r->width/2, r->y + r->height*9/8);
 		  CvPoint facepoint5= cvPoint(r->x + r->width*1/8, r->y );
 		 CvPoint facepoint6= cvPoint(r->x + r->width*7/8, r->y );
-		  CvPoint facepoint7= cvPoint(r->x + r->width*2/8, r->y + r->height);
-		 CvPoint facepoint8= cvPoint(r->x + r->width*6/8, r->y + r->height);
+		  CvPoint facepoint7= cvPoint(r->x + r->width*1/8, r->y + r->height*7/8);
+		 CvPoint facepoint8= cvPoint(r->x + r->width*7/8, r->y + r->height*7/8);
 		  ///////////////////
 
 		 pointsArry[15].x=facepoint1.x;
@@ -278,24 +279,31 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 		 }
 
 
-
-
-        detectEyes(img,r);
+		detectEyes(img,r);
         /* reset region of interest */
         cvResetImageROI(img);
         detectNose(img,r);
         cvResetImageROI(img);
         detectMouth(img,r);
         cvResetImageROI(img);
+
+		}
+		else{
+
+			for(int i=0;i<23;i++){
+			pointsArry[i].x=defaultXCoordinate[i];
+			pointsArry[i].y=defaultYCoordinate[i];
+			//return 0;
+			}
+		}
+
+
+        
     
     /* reset region of interest */
       cvResetImageROI(img);
 
-      if(faces->total>0)
-        {
-            //sprintf(image,"D:\\face_output\\%d.jpg",img_no);
-            cvSaveImage( "Ageprogression\\pil.bmp", img );
-        }
+      
 }
 
 

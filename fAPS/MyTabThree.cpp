@@ -333,6 +333,7 @@ void MyTabThree::OnBnClickedButton3()
 
 void MyTabThree::OnBnClickedApplyage()
 {
+	agebar.SetPos(20);
 	CString s;
 	GetDlgItemText(IDC_EDIT4, s);
 	
