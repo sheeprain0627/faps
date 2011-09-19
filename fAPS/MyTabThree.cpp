@@ -110,8 +110,8 @@ void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 	float y = (float)((curret-20) *0.3 / 30);
 	CString s;
 	GetDlgItemText(IDC_EDIT4, s);
-	
-	
+
+
 	int eage = atof( s );
 
 	tds.changecheek(y,eage);
@@ -244,7 +244,7 @@ double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplI
 		cvSplit(hsv1, h1, s1, v1, NULL);
 		show_histogram("oldHistSRC", src, "gray");
 		show_histogram("oldHistDST", dst, "gray");
-		
+
 		//cvThreshHist
 
 		int grayLevel = 0, n = 0, grayLevel1 = 0, n1 = 0;
@@ -298,8 +298,8 @@ double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplI
 		para[1] = stDeviation;
 		para[2] = variance1;
 		para[3] = stDeviation1;
-		
-		
+
+
 	}
 	//return dst;
 
@@ -336,14 +336,14 @@ void MyTabThree::OnBnClickedApplyage()
 	agebar.SetPos(20);
 	CString s;
 	GetDlgItemText(IDC_EDIT4, s);
-	
-	
-	
+
+
+
 	int eage = atof( s );
 	if(eage<=80 && eage>=30)
 	{
-	age.texureEnhancePrototype(2.0,eage);
-	age.applyIbsdt(2.0);
+		age.texureEnhancePrototype(2.0,eage);
+		age.applyIbsdt(2.0);
 	}
 
 	else
@@ -429,7 +429,7 @@ void MyTabThree::OnBnClickedButton4()
 
 
 	cvCvtColor(convert, result, CV_HSV2BGR);
-	
+
 	cvSaveImage("Enhresult.jpg",result);
 	cvWaitKey(0);
 	cvDestroyWindow("original");
@@ -443,7 +443,7 @@ void MyTabThree::OnBnClickedButton4()
 void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf) {
 	Mat _t = _i.reshape(1,1);
 
-	
+
 
 	// Get the histogram with or without the mask
 	if (true) {
@@ -648,19 +648,11 @@ bool MyTabThree::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 }
 
 
-/*void MyTabThree::OnBnClickedButton7()
-{
-
-	IplImage*  prototype = cvLoadImage("Ageprogression\\1_murali11.bmp");
-	IplImage*  actualImage = cvLoadImage("Ageprogression\\1_murali11.bmp");
-
-}*/
-
 
 void MyTabThree::OnBnClickedButton8()
 {
 	IplImage*  prototype = cvLoadImage("Ageprogression\\1_murali11.bmp");
 	IplImage*  actualImage = cvLoadImage("Ageprogression\\1_murali11.bmp");
 
-	
+
 }

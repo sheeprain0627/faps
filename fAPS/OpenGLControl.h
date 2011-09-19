@@ -18,7 +18,7 @@ public:
 	void oglInitialize(void);
 	void oglDrawScene(void);
 	void drewScreen();
-	
+
 	afx_msg void OnDraw(CDC *pDC);
 	void oglCreate(CRect rect,CWnd *parent);
 	COpenGLControl(void);
@@ -26,37 +26,37 @@ public:
 
 
 
-	public:
-      /******************/
-      /* PUBLIC MEMBERS */
-      /******************/
-      // Timer
-      UINT_PTR m_unpTimer;
-	  // View information variables
-		float	 m_fLastX;
-		float	 m_fLastY;
-		float	 m_fPosX;
-		float	 m_fPosY;
-		float	 m_fZoom;
-		float	 m_fRotX;
-		float	 m_fRotY;
-		bool	 m_bIsMaximized;
-		 
-		//int		m_type;
+public:
+	/******************/
+	/* PUBLIC MEMBERS */
+	/******************/
+	// Timer
+	UINT_PTR m_unpTimer;
+	// View information variables
+	float	 m_fLastX;
+	float	 m_fLastY;
+	float	 m_fPosX;
+	float	 m_fPosY;
+	float	 m_fZoom;
+	float	 m_fRotX;
+	float	 m_fRotY;
+	bool	 m_bIsMaximized;
 
-   private:
-      /*******************/
-      /* PRIVATE MEMBERS */
-      /*******************/
-      // Window information
-      CWnd    *hWnd;
-      HDC     hdc;
-      HGLRC   hrc;
-      int     m_nPixelFormat;
-      CRect   m_rect;
-      CRect   m_oldWindow;
-      CRect   m_originalRect;
-	  
+	//int		m_type;
+
+private:
+	/*******************/
+	/* PRIVATE MEMBERS */
+	/*******************/
+	// Window information
+	CWnd    *hWnd;
+	HDC     hdc;
+	HGLRC   hrc;
+	int     m_nPixelFormat;
+	CRect   m_rect;
+	CRect   m_oldWindow;
+	CRect   m_originalRect;
+
 
 public:
 	DECLARE_MESSAGE_MAP()

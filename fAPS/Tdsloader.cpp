@@ -240,6 +240,8 @@ void changeMode(GLenum mode){
 void reset()
 {
 	object=ori_object;
+	glDisable (GL_TEXTURE_2D);
+	//changeContrast(1);
 }
 
 
@@ -413,28 +415,28 @@ void display(){
 void Tdsloader::changecheek(float val,int age){
 	if(val>0){
 
-	switch (age)
-{
-case 30: val=0;
-    break;
-case 40: val=val*.1;
-    break;
-case 50: val=val*.4;
-    break;
-	case 60: val=val*.6;
-    break;
-	case 70: val=val*.9;
-    break;
-	case 80: val=val;
-    break;
-default: val=0;
-    break;
-}
+		switch (age)
+		{
+		case 30: val=0;
+			break;
+		case 40: val=val*.1;
+			break;
+		case 50: val=val*.3;
+			break;
+		case 60: val=val*.5;
+			break;
+		case 70: val=val*.7;
+			break;
+		case 80: val=val*.8;
+			break;
+		default: val=0;
+			break;
+		}
 
-	featureInstance.changeCheek(&object, val);
+		featureInstance.changeCheek(&object, val);
 	}
 
-	
+
 }
 
 
@@ -443,7 +445,7 @@ void modify(float x, CString selctVal){
 
 	featureInstance.changeNose(&object,noseChangeVal);
 	featureInstance.changeMouth(&object,mouthChangeVal);
-	
+
 
 }
 
@@ -650,7 +652,7 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 	return (num_texture); // Returns the current texture OpenGL ID
 }
 
-
+//for origianl face
 void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
 	opath=path;
@@ -661,6 +663,8 @@ void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
 }//
 
+
+//for binding face
 void LoadImage2(CString path,int tlevel,int blevel,float clevel){
 	//CString path2="res//ww.bmp";
 	tpath=path;
@@ -770,5 +774,7 @@ void WriteBmp(char* name,int W,int H,int Bpp,int* data)
 
 void resetModel(){
 	object=ori_object;
+	//glDisable (GL_TEXTURE_2D);
+	changeContrast(0);
 
 }

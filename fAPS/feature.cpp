@@ -39,7 +39,7 @@ void feature::set3Dobject(obj_type_ptr pObject){
 
 //**************spring model deformation of ****************//
 void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
-	
+
 	int highVal[12]={472,506,540,575,609,647,686,724,760,797,835,873};
 	int lowVal[12]=	{464,497,530,565,600,637,676,716,752,790,829,869};
 	int highMid[12]={469,503,536,570,605,643,682,721,757,794,833,872};
@@ -55,27 +55,27 @@ void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
 
 
 	for(int i=0;i<12;i++){
-	
 
-	float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[highMid[i]].x, (aggesmntVal/(i+1)));
-	float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -((aggesmntVal)/(i+1)));
-	//y1y2=(pObject->vertex[472].x + 0.06 - pObject->vertex[469].x);
-	//x1x2=(pObject->vertex[472].x - pObject->vertex[469].x);
-	//c=pObject->vertex[469].x;
 
-	for(int j=(highMid[i]+1); j<=highVal[i];j++){
+		float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[highMid[i]].x, (aggesmntVal/(i+1)));
+		float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -((aggesmntVal)/(i+1)));
+		//y1y2=(pObject->vertex[472].x + 0.06 - pObject->vertex[469].x);
+		//x1x2=(pObject->vertex[472].x - pObject->vertex[469].x);
+		//c=pObject->vertex[469].x;
 
-		pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
-		//pObject->vertex[471].x=gradiant1*(pObject->vertex[highval-1].x);
-		//pObject->vertex[470].x=gradiant1*(pObject->vertex[highval-2].x);
-	}
+		for(int j=(highMid[i]+1); j<=highVal[i];j++){
 
-	for(int k=(lowVal[i]);k<lowMid[i];k++){
-		//pObject->vertex[467].x=gradiant2*(pObject->vertex[467].x);
-		pObject->vertex[k].x=gradiant2*(ori_pObject.vertex[k].x);
-		//pObject->vertex[465].x=gradiant2*(pObject->vertex[465].x);
-		//pObject->vertex[464].x=gradiant2*(pObject->vertex[464].x);
-}
+			pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
+			//pObject->vertex[471].x=gradiant1*(pObject->vertex[highval-1].x);
+			//pObject->vertex[470].x=gradiant1*(pObject->vertex[highval-2].x);
+		}
+
+		for(int k=(lowVal[i]);k<lowMid[i];k++){
+			//pObject->vertex[467].x=gradiant2*(pObject->vertex[467].x);
+			pObject->vertex[k].x=gradiant2*(ori_pObject.vertex[k].x);
+			//pObject->vertex[465].x=gradiant2*(pObject->vertex[465].x);
+			//pObject->vertex[464].x=gradiant2*(pObject->vertex[464].x);
+		}
 
 	}
 }
@@ -89,25 +89,25 @@ void feature::changeMouth(obj_type_ptr pObject,float aggesmntVal){
 	int lowMid[12]=	{193,283,253,223,313,343};
 
 	for(int i=0;i<6;i++){
-	
 
-	float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[highMid[i]].x, (aggesmntVal/(i+1)));
-	float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -(aggesmntVal/(i+1)));
-	
-	for(int j=(highMid[i]+1); j<=highVal[i];j++){
 
-		pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
-		
+		float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[highMid[i]].x, (aggesmntVal/(i+1)));
+		float gradiant2=calculateGradiant(pObject->vertex[lowVal[i]].x, pObject->vertex[lowMid[i]].x, -(aggesmntVal/(i+1)));
+
+		for(int j=(highMid[i]+1); j<=highVal[i];j++){
+
+			pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
+
+		}
+
+		for(int k=(lowVal[i]);k<lowMid[i];k++){
+
+			pObject->vertex[k].x=gradiant2*(ori_pObject.vertex[k].x);
+
+		}
+
 	}
 
-	for(int k=(lowVal[i]);k<lowMid[i];k++){
-		
-		pObject->vertex[k].x=gradiant2*(ori_pObject.vertex[k].x);
-		
-}
-
-	}
-	
 }
 
 // ****************change left eye coordinates ***********************//
@@ -115,17 +115,17 @@ void feature::changeLeftEye(obj_type_ptr pObject, float aggesmntVal){
 	int highVal[5]={860,900,946,987,1030}; // 
 	int lowVal[5]=	{863,902,950,997,1041};
 
-	
+
 	for(int i=0;i<5;i++){
-	
 
-	float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[lowVal[i]].x, (-aggesmntVal/(i+1)));
-	
 
-	for(int j=(lowVal[i]-1); j>=highVal[i];j--){
+		float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[lowVal[i]].x, (-aggesmntVal/(i+1)));
 
-		pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
-	}
+
+		for(int j=(lowVal[i]-1); j>=highVal[i];j--){
+
+			pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
+		}
 	}
 }
 
@@ -136,15 +136,15 @@ void feature::changeRightEye(obj_type_ptr pObject, float aggesmntVal){
 	int lowVal[5]=	{879,918,965,1003,1046};
 
 	for(int i=0;i<5;i++){
-	
 
-	float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[lowVal[i]].x, (aggesmntVal/(i+1)));
-	
-	for(int j=(lowVal[i]+1); j<=highVal[i];j++){
 
-		pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
-		
-	}
+		float gradiant1=calculateGradiant(pObject->vertex[highVal[i]].x, pObject->vertex[lowVal[i]].x, (aggesmntVal/(i+1)));
+
+		for(int j=(lowVal[i]+1); j<=highVal[i];j++){
+
+			pObject->vertex[j].x=gradiant1*(ori_pObject.vertex[j].x);
+
+		}
 	}
 }
 
@@ -152,7 +152,7 @@ void feature::changeRightEye(obj_type_ptr pObject, float aggesmntVal){
 
 void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 
-	
+
 	int values_11[3]={107,108,109};
 	int values_10[3]={129,130,131};
 	int values_9[3]={152,153,154};
@@ -202,77 +202,77 @@ void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 	//float aggesmntVal=0.2;
 	printf("pls enter the cheek changing value\t");
 	///scanf("%f",&aggesmntVal);
-	
+
 
 	for(int j=0; j<7;j++){
 
-		
+
 		pObject->vertex[values2[j]].z=ori_pObject.vertex[values2[j]].z - aggesmntVal *4/8 ;
 		pObject->vertex[values3[j]].z=ori_pObject.vertex[values3[j]].z - aggesmntVal *4/8 ;
-		
-		
+
+
 	}
 
 
 	for(int j=0; j<7;j++){
 
-		
+
 		pObject->vertex[c1values2[j]].z=ori_pObject.vertex[c1values2[j]].z - aggesmntVal *4/8 ;
 		pObject->vertex[c1values3[j]].z=ori_pObject.vertex[c1values3[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 
 	for(int j=0; j<6;j++){
 		pObject->vertex[values1[j]].z=ori_pObject.vertex[values1[j]].z - aggesmntVal*4/8 ;
 
 		pObject->vertex[values4[j]].z=ori_pObject.vertex[values4[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 
-	
+
 	for(int j=0; j<6;j++){
 		pObject->vertex[c1values1[j]].z=ori_pObject.vertex[c1values1[j]].z - aggesmntVal*4/8 ;
 
 		pObject->vertex[c1values4[j]].z=ori_pObject.vertex[c1values4[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 	for(int j=0; j<5;j++){
-	
+
 		pObject->vertex[values0[j]].z=ori_pObject.vertex[values0[j]].z - aggesmntVal *4/8 ;
 		pObject->vertex[values5[j]].z=ori_pObject.vertex[values5[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 
 	for(int j=0; j<5;j++){
-	
+
 		pObject->vertex[c1values0[j]].z=ori_pObject.vertex[c1values0[j]].z - aggesmntVal *4/8 ;
 		pObject->vertex[c1values5[j]].z=ori_pObject.vertex[c1values5[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 
 
 	for(int j=0; j<4;j++){
 
-	
+
 		pObject->vertex[values_1[j]].z=ori_pObject.vertex[values_1[j]].z - aggesmntVal *4/8 ;
-		
+
 		pObject->vertex[values6[j]].z=ori_pObject.vertex[values6[j]].z - aggesmntVal *4/8 ;
-		
+
 	}
 
-	
+
 	for(int j=0; j<4;j++){
 
-	
+
 		pObject->vertex[c1values_1[j]].z=ori_pObject.vertex[c1values_1[j]].z - aggesmntVal*4/8 ;
-		
+
 		pObject->vertex[c1values6[j]].z=ori_pObject.vertex[c1values6[j]].z - aggesmntVal*4/8 ;
-		
+
 	}
 
 	for(int j=0; j<3;j++){
 
-		
+
 		pObject->vertex[values7[j]].z=ori_pObject.vertex[values7[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[values_2[j]].z=ori_pObject.vertex[values_2[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[values_9[j]].z=ori_pObject.vertex[values_9[j]].z - aggesmntVal*4/8 ;
@@ -287,9 +287,9 @@ void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 		pObject->vertex[c1values_9[j]].z=ori_pObject.vertex[c1values_9[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values_10[j]].z=ori_pObject.vertex[c1values_10[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values_11[j]].z=ori_pObject.vertex[c1values_11[j]].z - aggesmntVal*4/8 ;
-		
+
 	}
-	
+
 	for(int j=0; j<2;j++){
 
 		pObject->vertex[values_8[j]].z=ori_pObject.vertex[values_8[j]].z - aggesmntVal*4/8 ;
@@ -297,26 +297,26 @@ void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 		pObject->vertex[values_4[j]].z=ori_pObject.vertex[values_4[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[values_3[j]].z=ori_pObject.vertex[values_3[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[values8[j]].z=ori_pObject.vertex[values8[j]].z - aggesmntVal*4/8 ;
-		
+
 	}
 
 	for(int j=0; j<2;j++){
 
-		
+
 		pObject->vertex[c1values_8[j]].z=ori_pObject.vertex[c1values_8[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values_7[j]].z=ori_pObject.vertex[c1values_7[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values_4[j]].z=ori_pObject.vertex[c1values_4[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values_3[j]].z=ori_pObject.vertex[c1values_3[j]].z - aggesmntVal*4/8 ;
 		pObject->vertex[c1values8[j]].z=ori_pObject.vertex[c1values8[j]].z - aggesmntVal*4/8 ;
-		
+
 	}
 
 	for(int j=45; j<=100;j++){
 
 		pObject->vertex[j].z=ori_pObject.vertex[j].z - aggesmntVal/2;
-		
+
 	}
-	
+
 	pObject->vertex[c1values_5[0]].z=ori_pObject.vertex[c1values_5[0]].z - aggesmntVal*4/8 ;
 	pObject->vertex[c1values_6[0]].z=ori_pObject.vertex[c1values_6[0]].z - aggesmntVal*4/8 ;
 	pObject->vertex[values_5[0]].z=ori_pObject.vertex[values_5[0]].z - aggesmntVal*4/8 ;
@@ -326,7 +326,7 @@ void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 //********************use to appply linear interpolation****************//
 
 float feature::calculateGradiant(float changingVertex, float nonChangingVertex, float changeVal){
-//float gradiant;
+	//float gradiant;
 
 	float y1y2;
 	float x1x2;
@@ -334,5 +334,5 @@ float feature::calculateGradiant(float changingVertex, float nonChangingVertex, 
 	y1y2=(changingVertex + changeVal - nonChangingVertex);
 	x1x2=(changingVertex - nonChangingVertex);
 
-return y1y2/x1x2;
+	return y1y2/x1x2;
 }

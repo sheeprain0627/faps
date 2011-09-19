@@ -13,7 +13,7 @@
 
 IMPLEMENT_DYNAMIC(MyTabTwo, CDialog)
 
-MyTabTwo::MyTabTwo(CWnd* pParent /*=NULL*/)
+	MyTabTwo::MyTabTwo(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabTwo::IDD, pParent)
 {
 
@@ -45,12 +45,12 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON8, &MyTabTwo::OnBnClickedButton8)
 	ON_BN_CLICKED(IDC_UP, &MyTabTwo::OnBnClickedUp)
 	ON_BN_CLICKED(IDC_MoveUp, &MyTabTwo::OnBnClickedMoveup)
-	
+
 	ON_BN_CLICKED(IDC_MoveRight, &MyTabTwo::OnBnClickedMoveright)
 	ON_BN_CLICKED(IDC_MoveDown, &MyTabTwo::OnBnClickedMovedown)
 	ON_BN_CLICKED(IDC_Zoom, &MyTabTwo::OnBnClickedZoom)
-	
-	
+
+
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabTwo::OnBnClickedButton4)
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
@@ -65,7 +65,7 @@ void MyTabTwo::OnBnClickedRadio1()
 	//modify();
 	//display(c);
 	//COpenGLControl::m_type=GL_POINTS;
-changeMode(GL_POINTS);
+	changeMode(GL_POINTS);
 	// TODO: Add your control notification handler code here
 }
 
@@ -73,7 +73,7 @@ changeMode(GL_POINTS);
 void MyTabTwo::OnBnClickedRadio2()
 {
 	//COpenGLControl::m_type=GL_TRIANGLES;
-changeMode(GL_TRIANGLES);
+	changeMode(GL_TRIANGLES);
 
 	// TODO: Add your control notification handler code here
 }
@@ -89,25 +89,25 @@ void MyTabTwo::OnBnClickedButton2()
 	float x = atof( s );
 
 	//int nIndex = IDC_COMBO1.GetCurSel();
-   CString selectedString;
-  // string strText;
-  // int  cmbBoxindex=myCombo.GetItemData(IDC_COMBO1);
-   int cmbindex=myCombo.GetCurSel();
-   myCombo.GetLBText(cmbindex,selectedString);
-   //myCombo.getlb
-//m_cmbBox.GetLBText(m_cmbBox.GetCurSel() ,strCBText);
-  // GetLBText(IDC_COMBO1,s);
-   // m_cbExample.GetLBText( nIndex, strCBText);
+	CString selectedString;
+	// string strText;
+	// int  cmbBoxindex=myCombo.GetItemData(IDC_COMBO1);
+	int cmbindex=myCombo.GetCurSel();
+	myCombo.GetLBText(cmbindex,selectedString);
+	//myCombo.getlb
+	//m_cmbBox.GetLBText(m_cmbBox.GetCurSel() ,strCBText);
+	// GetLBText(IDC_COMBO1,s);
+	// m_cbExample.GetLBText( nIndex, strCBText);
 
 
 
-   ///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
 	/*
 	modify(x,selectedString);
 
 	*/
 	/////////////////////////////////////////////////////////////////////////////////
-		
+
 	// TODO: Add your control notification handler code here
 }
 
@@ -120,7 +120,7 @@ void MyTabTwo::OnBnClickedButton3()
 void MyTabTwo::OnBnClickedButton9()
 {
 
-makeLine();
+	makeLine();
 	// TODO: Add your control notification handler code here
 }
 
@@ -139,9 +139,9 @@ void MyTabTwo::OnEnChangeEdit3()
 	CString s;
 	GetDlgItemText(IDC_EDIT3, s);
 	float x = atof( s );
-	
+
 	changeContrast(x);
-	
+
 }
 
 
@@ -156,13 +156,13 @@ void MyTabTwo::OnBnClickedSplit1()
 /*
 void MyTabTwo::OnCbnSelchangeCombo1()
 {
-	//  CComboBox  m_cbExample;
+//  CComboBox  m_cbExample;
 
-	  //int nIndex = m_cbExample.GetCurSel();
-   // CString strCBText;
-   // m_cbExample.GetLBText( nIndex, strCBText);
-	
-	// TODO: Add your control notification handler code here
+//int nIndex = m_cbExample.GetCurSel();
+// CString strCBText;
+// m_cbExample.GetLBText( nIndex, strCBText);
+
+// TODO: Add your control notification handler code here
 }
 */
 
@@ -215,7 +215,7 @@ void MyTabTwo::OnBnClickedZoom()
 
 BOOL MyTabTwo::OnEraseBkgnd(CDC* pDC)
 {
-	
+
 
 	SBitdraw(pDC, IDB_TABBACKGRND, 1);
 	return true;//CDialog::OnEraseBkgnd(pDC);
@@ -223,53 +223,53 @@ BOOL MyTabTwo::OnEraseBkgnd(CDC* pDC)
 
 bool MyTabTwo::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
-            CBitmap* m_bitmap;
-            m_bitmap=new CBitmap();
-            m_bitmap->LoadBitmap(nIDResource);
-            if(!m_bitmap->m_hObject)
-                        return true;
-			CRect rect;
-            GetClientRect(&rect);
-            CDC dc;
-            dc.CreateCompatibleDC(pDC);    
-            dc.SelectObject(m_bitmap);
-            int bmw, bmh ;
-            BITMAP bmap;
-            m_bitmap->GetBitmap(&bmap);
-            bmw = bmap.bmWidth;
-            bmh = bmap.bmHeight;
-            int xo=0, yo=0;
-            switch(i){
-            case 1:
-            	pDC->StretchBlt(xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0,bmw,bmh, SRCCOPY);
-                break;
-            case 2:
-                if(bmw < rect.Width())
-                    xo = (rect.Width() - bmw)/2;
-                else 
-                    xo=0;
-                if(bmh < rect.Height())
-                    yo = (rect.Height()-bmh)/2;
-                else
-                    yo=0;
-                pDC->BitBlt (xo, yo, rect.Width(),
-                            rect.Height(), &dc,
-                            0, 0, SRCCOPY);
-                break;
-             case 3:
-                for (yo = 0; yo < rect.Height(); yo += bmh)
-                {
-                    for (xo = 0; xo < rect.Width(); xo += bmw)
-                    {
-                        pDC->BitBlt (xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0, SRCCOPY);
-                    }
-                }
-            }
-            return true;
- 
+	CBitmap* m_bitmap;
+	m_bitmap=new CBitmap();
+	m_bitmap->LoadBitmap(nIDResource);
+	if(!m_bitmap->m_hObject)
+		return true;
+	CRect rect;
+	GetClientRect(&rect);
+	CDC dc;
+	dc.CreateCompatibleDC(pDC);    
+	dc.SelectObject(m_bitmap);
+	int bmw, bmh ;
+	BITMAP bmap;
+	m_bitmap->GetBitmap(&bmap);
+	bmw = bmap.bmWidth;
+	bmh = bmap.bmHeight;
+	int xo=0, yo=0;
+	switch(i){
+	case 1:
+		pDC->StretchBlt(xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0,bmw,bmh, SRCCOPY);
+		break;
+	case 2:
+		if(bmw < rect.Width())
+			xo = (rect.Width() - bmw)/2;
+		else 
+			xo=0;
+		if(bmh < rect.Height())
+			yo = (rect.Height()-bmh)/2;
+		else
+			yo=0;
+		pDC->BitBlt (xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0, SRCCOPY);
+		break;
+	case 3:
+		for (yo = 0; yo < rect.Height(); yo += bmh)
+		{
+			for (xo = 0; xo < rect.Width(); xo += bmw)
+			{
+				pDC->BitBlt (xo, yo, rect.Width(),
+					rect.Height(), &dc,
+					0, 0, SRCCOPY);
+			}
+		}
+	}
+	return true;
+
 }
 
