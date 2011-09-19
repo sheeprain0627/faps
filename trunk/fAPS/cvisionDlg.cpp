@@ -13,18 +13,18 @@
 
 class CAboutDlg : public CDialogEx
 {
-	public:
-		CAboutDlg();
+public:
+	CAboutDlg();
 
 	// Dialog Data
-		enum { IDD = IDD_ABOUTBOX };
+	enum { IDD = IDD_ABOUTBOX };
 
-	protected:
-		virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	// Implementation
-	protected:
-		DECLARE_MESSAGE_MAP()
+protected:
+	DECLARE_MESSAGE_MAP()
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -65,7 +65,7 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
-//	ON_WM_ERASEBKGND()
+	//	ON_WM_ERASEBKGND()
 	ON_WM_DRAWITEM()
 	ON_WM_ERASEBKGND()
 	ON_WM_HSCROLL()
@@ -77,7 +77,7 @@ END_MESSAGE_MAP()
 BOOL CcvisionDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	
+
 	CRect rect;
 
 	// Get size and position of the picture control
@@ -93,7 +93,7 @@ BOOL CcvisionDlg::OnInitDialog()
 	//m_oglWindow.OnTimer();
 	//m_oglWindow.m_type=GL_POINTS;
 	m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
-	
+
 	// Add "About..." menu item to system menu.
 
 	// IDM_ABOUTBOX must be in the system command range.
@@ -122,7 +122,7 @@ BOOL CcvisionDlg::OnInitDialog()
 
 	//********* Included tab initialization********//
 
-	
+
 	CRect	rectPage, rectPage1;
 
 	m_pDlgPage1	= new MyTabOne;
@@ -136,18 +136,18 @@ BOOL CcvisionDlg::OnInitDialog()
 
 	m_TabCtrl.GetWindowRect(rectPage);
 	m_TabCtrl.ScreenToClient(rectPage);
-	
+
 	rectPage.left	+= 2;
 	rectPage.top	+= 22;
 	rectPage.right	-= 4;
 	rectPage.bottom	-= 4;
-	
+
 	m_pDlgPage1->MoveWindow(rectPage);
 	m_pDlgPage2->MoveWindow(rectPage);
-	
+
 	m_TabCtrl.AddPage(m_pDlgPage1, _T("      Critical Points      "));
 	m_TabCtrl.AddPage(m_pDlgPage2, _T("Edit 3D"));
-	
+
 	//tab 3 designs 
 	m_pDlgPage3->MoveWindow(rectPage);
 	m_TabCtrl.AddPage(m_pDlgPage3, _T("Age Progression"));	
@@ -175,7 +175,7 @@ BOOL CcvisionDlg::OnInitDialog()
 	fnt.Detach();*/
 
 	///////**************Font finished*************************/////////
-	
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -183,7 +183,7 @@ void CcvisionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
-		
+
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
 
@@ -241,7 +241,7 @@ void CcvisionDlg::OnBnClickedOk()
 
 void CcvisionDlg::OnBnClickedButton1()
 {
-	
+
 }
 
 
@@ -278,51 +278,51 @@ void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	if((nIDCtl==IDOK) || (nIDCtl==IDCANCEL))         //checking for the button 
 
-    {
-    CDC dc;
-    RECT rect;
-    dc.Attach(lpDrawItemStruct ->hDC);   // Get the Button DC to CDC
-
-    
-    rect = lpDrawItemStruct->rcItem;     //Store the Button rect to our local rect.
-
-    
-    dc.Draw3dRect(&rect,RGB(255,255,255),RGB(0,0,0)); 
-
-    dc.FillSolidRect(&rect,RGB(0,0,0));//Here you can define the required color to appear on the Button.
-
- 
-    UINT state=lpDrawItemStruct->itemState;  //This defines the state of the Push button either pressed or not. 
+	{
+		CDC dc;
+		RECT rect;
+		dc.Attach(lpDrawItemStruct ->hDC);   // Get the Button DC to CDC
 
 
-    if((state & ODS_SELECTED))
-    {
-        dc.DrawEdge(&rect,EDGE_SUNKEN,BF_RECT);
-
-    }
-    else
-    {
-        dc.DrawEdge(&rect,EDGE_RAISED,BF_RECT);
-    }
-
-    dc.SetBkColor(RGB(0,00,0));   //Setting the Text Background color
-
-    dc.SetTextColor(RGB(255,255,255));     //Setting the Text Color
-	//dc.SetText
+		rect = lpDrawItemStruct->rcItem;     //Store the Button rect to our local rect.
 
 
+		dc.Draw3dRect(&rect,RGB(255,255,255),RGB(0,0,0)); 
 
-    TCHAR buffer[MAX_PATH];           //To store the Caption of the button.
+		dc.FillSolidRect(&rect,RGB(0,0,0));//Here you can define the required color to appear on the Button.
 
-    ZeroMemory(buffer,MAX_PATH );     //Intializing the buffer to zero
 
-        ::GetWindowText(lpDrawItemStruct->hwndItem,buffer,MAX_PATH); //Get the Caption of Button Window 
+		UINT state=lpDrawItemStruct->itemState;  //This defines the state of the Push button either pressed or not. 
 
-    
-    dc.DrawText(buffer,&rect,DT_CENTER|DT_VCENTER|DT_SINGLELINE);//Redraw the  Caption of Button Window 
 
-    
-    dc.Detach();  // Detach the Button DC
+		if((state & ODS_SELECTED))
+		{
+			dc.DrawEdge(&rect,EDGE_SUNKEN,BF_RECT);
+
+		}
+		else
+		{
+			dc.DrawEdge(&rect,EDGE_RAISED,BF_RECT);
+		}
+
+		dc.SetBkColor(RGB(0,00,0));   //Setting the Text Background color
+
+		dc.SetTextColor(RGB(255,255,255));     //Setting the Text Color
+		//dc.SetText
+
+
+
+		TCHAR buffer[MAX_PATH];           //To store the Caption of the button.
+
+		ZeroMemory(buffer,MAX_PATH );     //Intializing the buffer to zero
+
+		::GetWindowText(lpDrawItemStruct->hwndItem,buffer,MAX_PATH); //Get the Caption of Button Window 
+
+
+		dc.DrawText(buffer,&rect,DT_CENTER|DT_VCENTER|DT_SINGLELINE);//Redraw the  Caption of Button Window 
+
+
+		dc.Detach();  // Detach the Button DC
 
 	}
 
@@ -334,61 +334,61 @@ void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 {
-	
+
 	SBitdraw(pDC, IDB_BACKGROUND, 1);
 	return true;//CDialog::OnEraseBkgnd(pDC);
 }
 
 bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
-            CBitmap* m_bitmap;
-            m_bitmap=new CBitmap();
-            m_bitmap->LoadBitmap(nIDResource);
-            if(!m_bitmap->m_hObject)
-                        return true;
-			CRect rect;
-            GetClientRect(&rect);
-            CDC dc;
-            dc.CreateCompatibleDC(pDC);    
-            dc.SelectObject(m_bitmap);
-            int bmw, bmh ;
-            BITMAP bmap;
-            m_bitmap->GetBitmap(&bmap);
-            bmw = bmap.bmWidth;
-            bmh = bmap.bmHeight;
-            int xo=0, yo=0;
-            switch(i){
-            case 1:
-            	pDC->StretchBlt(xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0,bmw,bmh, SRCCOPY);
-                break;
-            case 2:
-                if(bmw < rect.Width())
-                    xo = (rect.Width() - bmw)/2;
-                else 
-                    xo=0;
-                if(bmh < rect.Height())
-                    yo = (rect.Height()-bmh)/2;
-                else
-                    yo=0;
-                pDC->BitBlt (xo, yo, rect.Width(),
-                            rect.Height(), &dc,
-                            0, 0, SRCCOPY);
-                break;
-             case 3:
-                for (yo = 0; yo < rect.Height(); yo += bmh)
-                {
-                    for (xo = 0; xo < rect.Width(); xo += bmw)
-                    {
-                        pDC->BitBlt (xo, yo, rect.Width(),
-                                    rect.Height(), &dc,
-                                    0, 0, SRCCOPY);
-                    }
-                }
-            }
-            return true;
- 
+	CBitmap* m_bitmap;
+	m_bitmap=new CBitmap();
+	m_bitmap->LoadBitmap(nIDResource);
+	if(!m_bitmap->m_hObject)
+		return true;
+	CRect rect;
+	GetClientRect(&rect);
+	CDC dc;
+	dc.CreateCompatibleDC(pDC);    
+	dc.SelectObject(m_bitmap);
+	int bmw, bmh ;
+	BITMAP bmap;
+	m_bitmap->GetBitmap(&bmap);
+	bmw = bmap.bmWidth;
+	bmh = bmap.bmHeight;
+	int xo=0, yo=0;
+	switch(i){
+	case 1:
+		pDC->StretchBlt(xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0,bmw,bmh, SRCCOPY);
+		break;
+	case 2:
+		if(bmw < rect.Width())
+			xo = (rect.Width() - bmw)/2;
+		else 
+			xo=0;
+		if(bmh < rect.Height())
+			yo = (rect.Height()-bmh)/2;
+		else
+			yo=0;
+		pDC->BitBlt (xo, yo, rect.Width(),
+			rect.Height(), &dc,
+			0, 0, SRCCOPY);
+		break;
+	case 3:
+		for (yo = 0; yo < rect.Height(); yo += bmh)
+		{
+			for (xo = 0; xo < rect.Width(); xo += bmw)
+			{
+				pDC->BitBlt (xo, yo, rect.Width(),
+					rect.Height(), &dc,
+					0, 0, SRCCOPY);
+			}
+		}
+	}
+	return true;
+
 }
 
 

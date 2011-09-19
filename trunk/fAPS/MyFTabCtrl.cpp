@@ -9,7 +9,7 @@
 
 IMPLEMENT_DYNAMIC(MyFTabCtrl, CTabCtrl)
 
-MyFTabCtrl::MyFTabCtrl()
+	MyFTabCtrl::MyFTabCtrl()
 {
 	m_nPageCount = 0;
 }
