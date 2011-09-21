@@ -148,7 +148,7 @@ void Ageprogression ::texureEnhancePrototype(float p,int age){
 		}
 	}
 	cvMerge(imgResultRedTem, imgResultGreenTem, imgResultBlueTem, NULL, imgResultD);
-	cvSaveImage("Ageprogression\\1_murali.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
+	cvSaveImage("Ageprogression\\1_output.bmp",imgResultD); //Texure-Enhanced-prototype.bmp
 	//cvShowImage("Texure-Enhanced-prototype", imgResultD);
 	//cvWaitKey(0);
 
@@ -158,7 +158,7 @@ void Ageprogression ::texureEnhancePrototype(float p,int age){
 void Ageprogression ::applyIbsdt(float q){
 
 
-	IplImage* AgePrototype = cvLoadImage("Ageprogression\\1_murali.bmp");
+	IplImage* AgePrototype = cvLoadImage("Ageprogression\\1_output.bmp");
 	IplImage* imgRed_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
 	IplImage* imgGreen_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
 	IplImage* imgBlue_Prototype = cvCreateImage(cvGetSize(AgePrototype), 8, 1);
@@ -167,7 +167,7 @@ void Ageprogression ::applyIbsdt(float q){
 	cvReleaseImage(&AgePrototype);
 
 
-	IplImage* input = cvLoadImage("Ageprogression\\2_murali.bmp");
+	IplImage* input = cvLoadImage("Ageprogression\\2_output.bmp");
 	IplImage* imgRed_input = cvCreateImage(cvGetSize(input), 8, 1);
 	IplImage* imgGreen_input = cvCreateImage(cvGetSize(input), 8, 1);
 	IplImage* imgBlue_input = cvCreateImage(cvGetSize(input), 8, 1);
@@ -180,14 +180,14 @@ void Ageprogression ::applyIbsdt(float q){
 	{ 
 		char infilename_face[30];
 		char outfilename_face[50];
-		sprintf(infilename_face, "Ageprogression\\%d_murali.bmp", (i+1));   
+		sprintf(infilename_face, "Ageprogression\\%d_output.bmp", (i+1));   
 		IplImage* in_face = cvLoadImage(infilename_face);
 		IplImage* out_face = cvCreateImage( cvGetSize(in_face), IPL_DEPTH_8U, 3 ); 
 		cvSmooth(in_face, out_face, CV_GAUSSIAN, 7, 7,q, 0);
-		sprintf(outfilename_face, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
+		sprintf(outfilename_face, "Ageprogression\\%d_smooth_output.bmp", (i+1));
 		cvSaveImage(outfilename_face, out_face);
 		//cvNamedWindow("Gaussian Smooth", 1 );
-		//cvShowImage("Gaussian Smooth", out_murali);
+		//cvShowImage("Gaussian Smooth", out_output);
 		//cvWaitKey(0);
 	} 
 
@@ -199,9 +199,9 @@ void Ageprogression ::applyIbsdt(float q){
 	//split of smoothened images into RGB segment
 	for(int i=0;i<2;i++)
 	{
-		char otfilename_murali[50];
-		sprintf(otfilename_murali, "Ageprogression\\%d_smooth_murali.bmp", (i+1));
-		IplImage* imgSmoothed = cvLoadImage(otfilename_murali);
+		char otfilename_output[50];
+		sprintf(otfilename_output, "Ageprogression\\%d_smooth_output.bmp", (i+1));
+		IplImage* imgSmoothed = cvLoadImage(otfilename_output);
 		imgRedSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);
 		imgGreenSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);
 		imgBlueSmoothed[i] = cvCreateImage(cvGetSize(imgSmoothed), 8, 1);

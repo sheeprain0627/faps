@@ -7,7 +7,7 @@ base_points = vec2mat([x y],2);
 %read the folders and images
 [folder images] = textread('db\folder.txt', '%d %d', 6 );
 
-In = imread('Ageprogression\2_murali.bmp');
+In = imread('Ageprogression\2_output.bmp');
 siz=size(In);
 %read targer img coordiants
 
