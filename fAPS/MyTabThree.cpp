@@ -42,19 +42,14 @@ void MyTabThree::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(MyTabThree, CDialog)
-	ON_BN_CLICKED(IDC_BUTTON1, &MyTabThree::OnBnClickedButton1)
+	
 	ON_BN_CLICKED(IDC_Pick, &MyTabThree::OnBnClickedPick)
-	ON_BN_CLICKED(IDC_LoadTexture, &MyTabThree::OnBnClickedLoadtexture)
+	
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_AgeBar, &MyTabThree::OnNMCustomdrawAgebar)
-	ON_EN_CHANGE(IDC_EDIT1, &MyTabThree::OnEnChangeEdit1)
-	ON_BN_CLICKED(IDC_BUTTON2, &MyTabThree::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &MyTabThree::OnBnClickedButton3)
+	ON_EN_CHANGE(IDC_EDIT1, &MyTabThree::OnEnChangeEdit1)	
 	ON_BN_CLICKED(IDC_ApplyAge, &MyTabThree::OnBnClickedApplyage)
-	ON_BN_CLICKED(IDC_saveface, &MyTabThree::OnBnClickedsaveface)
-	ON_BN_CLICKED(IDC_BUTTON4, &MyTabThree::OnBnClickedButton4)
-	ON_BN_CLICKED(IDC_BUTTON5, &MyTabThree::OnBnClickedNew)
-	ON_WM_ERASEBKGND()
-	ON_BN_CLICKED(IDC_BUTTON8, &MyTabThree::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_saveface, &MyTabThree::OnBnClickedsaveface)	
+	ON_WM_ERASEBKGND()	
 END_MESSAGE_MAP()
 
 
@@ -130,26 +125,6 @@ void MyTabThree::OnEnChangeEdit1()
 	float p = atof( s );
 	age.setSigma(p);
 
-}
-
-
-void MyTabThree::OnBnClickedButton2()
-{
-	IplImage* img11;
-	IplImage* img_new;
-
-	img_new = cvLoadImage("Ageprogression\\1.bmp");
-	cvNamedWindow("Lap", 1);
-	//img11 = cvCreateImage(cvSize(101,32),8 , 3);
-
-	show_histogram("Lap", img_new, "red");
-	//cvSetData(img11,l_text ,303);
-	//cvShowImage("Lap", img11);	
-
-	cvWaitKey();
-
-
-	// TODO: Add your control notification handler code here
 }
 
 
@@ -647,12 +622,3 @@ bool MyTabThree::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 }
 
-
-
-void MyTabThree::OnBnClickedButton8()
-{
-	IplImage*  prototype = cvLoadImage("Ageprogression\\1_murali11.bmp");
-	IplImage*  actualImage = cvLoadImage("Ageprogression\\1_murali11.bmp");
-
-
-}

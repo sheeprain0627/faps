@@ -216,11 +216,11 @@ void init(){
 
 
 	//read and load 3ds data to memeory
-	Load3DS (&object,"spaceship.3ds");
+	Load3DS (&object,"res//facemodel.3ds");
 
 	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
-	opath="res//pil111.bmp";
+	opath="res//facetemplete.bmp";
 	tpath="res//black.bmp";
 	object.id_texture=LoadBitmap(opath,255,0,1);		//adjust the conrst level for age progress : 0-1
 	object.id_texture2=LoadBitmap(tpath,255,0,0);

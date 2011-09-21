@@ -244,14 +244,6 @@ UINT MyTabOne::MyThreadProc(LPVOID pParam)
 
 void MyTabOne::OnBnClickedButton5()
 {
-
-
-
-
-
-	//call matlab image warping function
-
-
 	//histogram matching for Database
 
 	MyTabThree three;
@@ -284,12 +276,12 @@ void MyTabOne::OnBnClickedButton5()
 				sprintf(filename, "Ageprogression\\%d\\%d.jpg", ageGrp,(j+1));
 
 
-				Mat src;	//=cvLoadImage("Ageprogression\\2_murali.bmp");			// template Image
+				Mat src;	//=cvLoadImage("Ageprogression\\2_output.bmp");			// template Image
 				Mat dst;	//=cvLoadImage(filename);
 				Mat src_mask;		//= cvLoadImage("Ageprogression\\whiteDB.bmp",0);	// threshold area
 				Mat dst_mask;		// = cvLoadImage("Ageprogression\\whiteDB.bmp",0);
 
-				IplImage* imgSrc = cvLoadImage("Ageprogression\\2_murali.bmp",1);
+				IplImage* imgSrc = cvLoadImage("Ageprogression\\2_output.bmp",1);
 				IplImage* imgDst = cvLoadImage(filename,1);
 
 				l_text = (byte *) malloc(3*width*height);
@@ -484,8 +476,8 @@ void MyTabOne::cropPic(){
 	/* always reset the Region of Interest */
 	cvResetImageROI(img1);
 
-	cvSaveImage("Ageprogression\\2_murali.bmp", img2);
-	//cvSaveImage( "Ageprogression\\2_murali.bmp", img2 );
+	cvSaveImage("Ageprogression\\2_output.bmp", img2);
+	//cvSaveImage( "Ageprogression\\2_output.bmp", img2 );
 
 
 	ofstream crifile;
@@ -503,7 +495,7 @@ void MyTabOne::cropPic(){
 	cvReleaseImage(&img1);
 
 	//adjust the texture
-	IplImage *source = cvLoadImage("Ageprogression\\2_murali.bmp");
+	IplImage *source = cvLoadImage("Ageprogression\\2_output.bmp");
 	float u1 = ((float)(xCoordinate[0] + 10)) / (source->width);	
 	float v1  =(1 + (float)((source->height - yCoordinate[0] + 2)) / (source->height));
 
@@ -518,14 +510,7 @@ void MyTabOne::OnBnClickedSetface()
 	resizePic();
 	cropPic();
 
-	/* Call the MCR and library initialization functions */
-
-
-
-
-
-
-	LoadImage("Ageprogression\\2_murali.bmp", 255, 0, 1);
+	LoadImage("Ageprogression\\2_output.bmp", 255, 0, 1);
 
 
 	float x = 8.6;
