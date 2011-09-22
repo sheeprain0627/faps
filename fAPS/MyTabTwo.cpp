@@ -34,23 +34,12 @@ void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_RADIO1, &MyTabTwo::OnBnClickedRadio1)
 	ON_BN_CLICKED(IDC_RADIO2, &MyTabTwo::OnBnClickedRadio2)
-	ON_BN_CLICKED(IDC_BUTTON2, &MyTabTwo::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &MyTabTwo::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON9, &MyTabTwo::OnBnClickedButton9)
-	ON_BN_CLICKED(IDC_BUTTON10, &MyTabTwo::OnBnClickedButton10)
-	ON_EN_CHANGE(IDC_EDIT3, &MyTabTwo::OnEnChangeEdit3)
-	//ON_EN_CHANGE(IDC_EDIT1, &MyTabTwo::OnEnChangeEdit1)
-	//ON_BN_CLICKED(IDC_SPLIT1, &MyTabTwo::OnBnClickedSplit1)
-	//ON_CBN_SELCHANGE(IDC_COMBO1, &MyTabTwo::OnCbnSelchangeCombo1)
-	ON_BN_CLICKED(IDC_BUTTON8, &MyTabTwo::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON2, &MyTabTwo::OnBnClickedButton2)	
 	ON_BN_CLICKED(IDC_UP, &MyTabTwo::OnBnClickedUp)
 	ON_BN_CLICKED(IDC_MoveUp, &MyTabTwo::OnBnClickedMoveup)
-
 	ON_BN_CLICKED(IDC_MoveRight, &MyTabTwo::OnBnClickedMoveright)
 	ON_BN_CLICKED(IDC_MoveDown, &MyTabTwo::OnBnClickedMovedown)
 	ON_BN_CLICKED(IDC_Zoom, &MyTabTwo::OnBnClickedZoom)
-
-
 	ON_BN_CLICKED(IDC_BUTTON4, &MyTabTwo::OnBnClickedButton4)
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
@@ -112,68 +101,6 @@ void MyTabTwo::OnBnClickedButton2()
 }
 
 
-void MyTabTwo::OnBnClickedButton3()
-{
-	reset();// TODO: Add your control notification handler code here
-}
-
-void MyTabTwo::OnBnClickedButton9()
-{
-
-}
-
-
-void MyTabTwo::OnBnClickedButton10()
-{		test();
-
-}
-
-
-
-
-void MyTabTwo::OnEnChangeEdit3()
-{
-
-	CString s;
-	GetDlgItemText(IDC_EDIT3, s);
-	float x = atof( s );
-
-	changeContrast(x);
-
-}
-
-
-
-
-
-void MyTabTwo::OnBnClickedSplit1()
-{
-	// TODO: Add your control notification handler code here
-}
-
-/*
-void MyTabTwo::OnCbnSelchangeCombo1()
-{
-//  CComboBox  m_cbExample;
-
-//int nIndex = m_cbExample.GetCurSel();
-// CString strCBText;
-// m_cbExample.GetLBText( nIndex, strCBText);
-
-// TODO: Add your control notification handler code here
-}
-*/
-
-
-void MyTabTwo::OnBnClickedButton8()
-{
-	CString s;
-	GetDlgItemText(IDC_EDIT2, s);
-	int x = atoi( s );
-	
-}
-
-
 void MyTabTwo::OnBnClickedUp()
 {
 	// TODO: Add your control notification handler code here
@@ -184,8 +111,6 @@ void MyTabTwo::OnBnClickedMoveup()
 {
 	move('u');
 }
-
-
 
 
 void MyTabTwo::OnBnClickedMoveright()

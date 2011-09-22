@@ -27,15 +27,9 @@ public:
 	afx_msg void OnBnClickedRadio1();
 	afx_msg void OnBnClickedRadio2();
 	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
-	afx_msg void OnBnClickedButton9();
-	afx_msg void OnBnClickedButton10();
-	afx_msg void OnEnChangeEdit3();
-	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnBnClickedSplit1();
 	afx_msg void OnCbnSelchangeCombo1();
 	CComboBox myCombo;
-	afx_msg void OnBnClickedButton8();
 	CSliderCtrl agebar;
 	CEdit contrat;
 	afx_msg void OnBnClickedUp();
