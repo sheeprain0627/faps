@@ -5,22 +5,30 @@
 #include "Tdsloader.h"
 #include "MyTabOne.h"
 
-
+/*!
+	 constructor of Ageprogression
+*/
 
 Ageprogression::Ageprogression(void)
 {
 }
+/*!
+	 destructor of Ageprogression
+*/
 
 Ageprogression::~Ageprogression(void)
 {
 }
+
 
 //define number of images takein as database
 
 int ageLimit=70;
 const int NO_IMAGES=3;
 
-//create the age prototype
+/*!
+create the age prototype
+*/
 void Ageprogression ::texureEnhancePrototype(float p,int age){	
 	ageLimit=age;
 	IplImage* imgRed[NO_IMAGES];
@@ -154,7 +162,12 @@ void Ageprogression ::texureEnhancePrototype(float p,int age){
 
 }
 
-//apply the age prototype with input image
+/*!
+apply the age prototype with input image
+\param q an float argument.
+\sa setSigma(float q), mergeImage(IplImage* target, IplImage* source, int x, int y)
+*/
+
 void Ageprogression ::applyIbsdt(float q){
 
 
@@ -312,13 +325,17 @@ void Ageprogression ::applyIbsdt(float q){
 }
 
 
-//*****************set sigma value *****************//
+/*!
+	set sigma value
+	*/
 void Ageprogression ::setSigma(float q){
 	sigma=q;
 }
 
 
-//********************merge two images***************//
+/*!
+merge two images
+*/
 
 void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int y) {
 	for (int ix=0; x<source->width; x++) {
@@ -333,7 +350,9 @@ void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int 
 }
 
 
-//*******************method use in merge two images **************//
+/*!
+method use in merge two images
+*/
 void Ageprogression ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
 {
 	int x,y,i;
