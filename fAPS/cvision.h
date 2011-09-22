@@ -1,6 +1,6 @@
-
-// cvision.h : main header file for the PROJECT_NAME application
-//
+/*
+* cvision.h : main header file for the PROJECT_NAME application
+*/
 
 #pragma once
 
@@ -10,23 +10,28 @@
 
 #include "resource.h"		// main symbols
 
-
-// CcvisionApp:
-// See cvision.cpp for the implementation of this class
-//
+	/*! 
+	/CcvisionApp:
+	/ sa cvision.cpp for the implementation of this class
+	*/
 
 class CcvisionApp : public CWinApp
 {
 public:
 	CcvisionApp();
 
-	// Overrides
+	/* 
+	* Overrides
+	*/
+	
 public:
 	virtual BOOL InitInstance();
 
-	// Implementation
+	/* 
+	* Implementation
+	*/ 
 
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CcvisionApp theApp;
+extern CcvisionApp theApp; /*!< extern  CcvisionApp value theApp. */

@@ -11,8 +11,11 @@
 #endif
 
 #include "resource.h"		// main symbol
-// cvisionDlg.h : header file
-//
+
+/*
+* cvisionDlg.h : header file
+*/
+
 
 #pragma once
 #include "afxwin.h"
@@ -26,28 +29,44 @@
 // CcvisionDlg dialog
 class CcvisionDlg : public CDialogEx
 {
-	// Construction
+	/*!
+	 constructor
+	\param a CDataExchangeCWnd argument.
+	*/
 public:
 	CcvisionDlg(CWnd* pParent = NULL);	// standard constructor
 
 
+	/*
+	*Dialog Data
+	*/
+	enum { IDD = IDD_CVISION_DIALOG };  /*!< Enum value IDD. */
 
-	// Dialog Data
-	enum { IDD = IDD_CVISION_DIALOG };
-
-	MyTabOne*	m_pDlgPage1;
-	MyTabTwo*	m_pDlgPage2;
-	MyTabThree*	m_pDlgPage3;
+	MyTabOne*	m_pDlgPage1;		/*!< MyTabOne value m_pDlgPage1. */
+	MyTabTwo*	m_pDlgPage2;		/*!< MyTabTwo value m_pDlgPage2. */
+	MyTabThree*	m_pDlgPage3;		/*!< MyTabThree value m_pDlgPage3. */
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-
-
-	// Implementation
+	/*!
+	 DDX/DDV support
+	\param a CDataExchange argument.
+	*/
+	virtual void DoDataExchange(CDataExchange* pDX);	
+	
+	/*
+	* Implementation
+	*/
 protected:
-	HICON m_hIcon;
+	HICON m_hIcon;		/*!< HICON value m_hIcon. */
 
-	// Generated message map functions
+	/* 
+	*Generated message map functions
+	*/
+
+
+	/*!
+	 init dialog to add whatever to main dialog
+	*/
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
