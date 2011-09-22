@@ -28,7 +28,10 @@ const int NO_IMAGES=3;
 
 /*!
 create the age prototype
+\param q an float argument of sigma value
+\param age an int argument as age group.
 */
+
 void Ageprogression ::texureEnhancePrototype(float p,int age){	
 	ageLimit=age;
 	IplImage* imgRed[NO_IMAGES];
@@ -327,7 +330,8 @@ void Ageprogression ::applyIbsdt(float q){
 
 /*!
 	set sigma value
-	*/
+	\param q an float argument as sigma value.
+*/
 void Ageprogression ::setSigma(float q){
 	sigma=q;
 }
@@ -335,6 +339,10 @@ void Ageprogression ::setSigma(float q){
 
 /*!
 merge two images
+\param target an IplImage argument as target image to merge
+\param source an IplImage as source image
+\param x an int argument as starting point of x
+\param y an int argument as starting poing of y.
 */
 
 void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int y) {
@@ -352,6 +360,11 @@ void Ageprogression ::mergeImage(IplImage* target, IplImage* source, int x, int 
 
 /*!
 method use in merge two images
+\param src an IplImage as source image
+\param overlay IplImage as the image which gets overlayed on source image 
+\param location a CvPoint as giving location to overlay
+\param s a CvScalar
+\param D a CvScalar.
 */
 void Ageprogression ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
 {
