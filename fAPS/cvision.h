@@ -18,17 +18,21 @@
 class CcvisionApp : public CWinApp
 {
 public:
+	/*! 
+	 Constructor
+	*/
 	CcvisionApp();
 
-	/* 
-	* Overrides
-	*/
+	
 	
 public:
+	/*! 
+	 Overrides
+	*/
 	virtual BOOL InitInstance();
 
-	/* 
-	* Implementation
+	/*! 
+	 Implementation
 	*/ 
 
 	DECLARE_MESSAGE_MAP()
