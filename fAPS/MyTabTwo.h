@@ -1,7 +1,9 @@
 #pragma once
 #include "Tdsloader.h"
 
-// MyTabTwo dialog
+/*
+*  MyTabTwo dialog
+*/
 #include "resource.h"
 #include "afxwin.h"
 #include "afxcmn.h"
