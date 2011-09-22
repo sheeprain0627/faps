@@ -6,6 +6,9 @@
 #include "Tdsloader.h"
 //#include "MAIN.H"
 
+/*
+* openGL controller for 3d
+*/
 
 class COpenGLControl :	public CWnd
 {
