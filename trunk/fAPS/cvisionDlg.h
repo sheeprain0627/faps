@@ -74,22 +74,21 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
-	CButton m_Button1;
+	CButton m_Button1; /*!< CButton value m_button1. */
 
 private :
-	COpenGLControl m_oglWindow;
-	CBitmapButton btnBmpOK, btnBmpCancel, btnBmpHelp;
+	COpenGLControl m_oglWindow;		/*!< COpenGLControl value m_oglWindow. */
+	CBitmapButton btnBmpOK, btnBmpCancel, btnBmpHelp;		/*!< CBitmapButton value btnBmpOK. */
 
 
 public:
-	MyFTabCtrl m_TabCtrl;
-	CBitmap m_background;
-
+	MyFTabCtrl m_TabCtrl;	/*!< MyFTabCtrl value m_TabCtrl. */
+	CBitmap m_background;	/*!< CBitmap value m_background. */
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
-	CSliderCtrl m_zoomSlider;
+	CSliderCtrl m_zoomSlider;	/*!< CSliderCtrl value m_zoomSlider. */
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };
 #endif

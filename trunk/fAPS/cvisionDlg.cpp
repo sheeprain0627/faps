@@ -9,7 +9,9 @@
 #include "resource.h"
 #include "OpenGLControl.h"
 
-// CAboutDlg dialog used for App About
+/*
+*CAboutDlg dialog used for App About
+*/
 
 class CAboutDlg : public CDialogEx
 {
@@ -27,9 +29,16 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
+/*!
+	 constructor of CAboutDlg
+*/
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
 {
 }
+
+/*!
+	 control handler of CAboutDlg
+*/
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -40,10 +49,10 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CcvisionDlg dialog
-
-
-
+/*!
+	 constructor of CcvisionDlg
+	 \param parent a CWnd arguement.
+*/
 
 CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CcvisionDlg::IDD, pParent)
@@ -51,6 +60,11 @@ CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON3);
 }
 
+/*!
+	 control handler of CcvisionDlg
+	 handles tab control
+	 handles slider control
+*/
 void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
@@ -65,14 +79,16 @@ BEGIN_MESSAGE_MAP(CcvisionDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CcvisionDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcvisionDlg::OnBnClickedButton1)
-	//	ON_WM_ERASEBKGND()
 	ON_WM_DRAWITEM()
 	ON_WM_ERASEBKGND()
 	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
-// CcvisionDlg message handlers
+/*!
+CcvisionDlg message handlers
+\return boolean
+*/
 
 BOOL CcvisionDlg::OnInitDialog()
 {
@@ -90,8 +106,6 @@ BOOL CcvisionDlg::OnInitDialog()
 	m_oglWindow.oglCreate(rect, this);
 
 	// Setup the OpenGL Window's timer to render
-	//m_oglWindow.OnTimer();
-	//m_oglWindow.m_type=GL_POINTS;
 	m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 
 	// Add "About..." menu item to system menu.
@@ -163,22 +177,12 @@ BOOL CcvisionDlg::OnInitDialog()
 	///////////////************tab finished***************//////////////
 
 
-	///////*************Font size of Text in edit ctrl***********///////////
-
-	/*CFont fnt;
-	fnt.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-	ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-	DEFAULT_PITCH, "Cambria");
-	m_pDlgPage1->GetDlgItem(IDC_EDIT1)->SetFont(&fnt);
-	m_pDlgPage1->SetDlgItemTextA(IDC_EDIT1, "Critical Points Selection Below:");
-
-	fnt.Detach();*/
-
-	///////**************Font finished*************************/////////
-
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
+/*!
+	 OnSysCommand
+*/
 void CcvisionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
@@ -193,10 +197,12 @@ void CcvisionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 }
 
 
+/*!
+ If you add a minimize button to your dialog, you will need the code below
+to draw the icon.  For MFC applications using the document/view model,
+this is automatically done for you by the framework
+*/
 
-// If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework
 
 void CcvisionDlg::OnPaint()
 {
@@ -223,14 +229,19 @@ void CcvisionDlg::OnPaint()
 	}
 }
 
-// The system calls this function to obtain the cursor to display while the user drags
-//  the minimized window.
+/*!
+ The system calls this function to obtain the cursor to display while the user drags
+ the minimized window.
+ */
 HCURSOR CcvisionDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
 
+/*!
+handler to OnBnClickedOk
+*/
 
 void CcvisionDlg::OnBnClickedOk()
 {
@@ -238,42 +249,19 @@ void CcvisionDlg::OnBnClickedOk()
 	CDialogEx::OnOK();
 }
 
-
+/*!
+handler to button one
+*/
 void CcvisionDlg::OnBnClickedButton1()
 {
 
 }
 
-
-//////////********Background Image Of main dialog*********////////////
-
-//BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
-//{
-//	CRect rect;
-//		GetClientRect(&rect);
-//		CDC dc;
-//		dc.CreateCompatibleDC(pDC);
-//		m_background.LoadBitmapA(IDB_BACKGROUND);
-//		CBitmap* pOldBitmap = dc.SelectObject(&m_background);
-//
-//
-//		BITMAP bmap;
-//		
-//		m_background.GetBitmap(&bmap);
-//		pDC->StretchBlt(0, 0, rect.Width(),rect.Height(), &dc,0, 0,bmap.bmWidth,bmap.bmHeight, SRCCOPY);
-//
-//		
-//		dc.SelectObject(pOldBitmap);
-//
-//	return true;	//CDialogEx::OnEraseBkgnd(pDC);
-//}
-
-
-/////////**************Backgrnd Finished******************/////////////////////
-
-
-//////////*************Button Colour*******************///////////////////////
-
+/*!
+OndrawItem handler to change the color of buttons
+\param nIDCtl as contrl ID
+\param lpDrawItemStruct
+*/
 void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	if((nIDCtl==IDOK) || (nIDCtl==IDCANCEL))         //checking for the button 
@@ -332,6 +320,11 @@ void CcvisionDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 ///////////////////***********Button Finished**************////////////////////////
 
+/*!
+to change background color
+\param pDC as CDC
+*/
+
 BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 {
 
@@ -339,6 +332,12 @@ BOOL CcvisionDlg::OnEraseBkgnd(CDC* pDC)
 	return true;//CDialog::OnEraseBkgnd(pDC);
 }
 
+/*!
+to change background color of each controls
+\param pDC as CDC
+\param nIDResource contrl ID of the item
+\param i as position of the backgrnd
+*/
 bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
 	CBitmap* m_bitmap;
@@ -391,7 +390,9 @@ bool CcvisionDlg::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 }
 
-
+/*!
+OnHScroll
+*/
 
 void CcvisionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
