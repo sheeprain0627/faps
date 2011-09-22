@@ -51,9 +51,8 @@ bool load = false;
 bool matlabCon=false;
 
 IplImage* dbImage;
-//count = 1;
-//int globalCoordinateX[100];
-//int globalCoordinateY[100];
+
+
 int criticalPoints1[] = {900,950,864,907,913,964,873,920,871,465,472,277,343,194,289};
 int criticalPoints2[] = {913,964,873,920,900,950,864,907,871,472,465,289,343,194,277};
 int a = 15;
@@ -66,18 +65,14 @@ IplImage* findImg(int x,int y);
 int globalCoordinateX[100] ;
 int globalCoordinateY[100] ;
 
-
-
-//int xCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 87,  120,  122,147, 37, 195, 119, 117  };
-//int yCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
 int xCoordinate[23];
 int yCoordinate[23];
-//CvPoint *points=m_picture
+
 
 int noOfControlPoints = 23;
 int selPoint = -1;
 
-// MyTabOne dialog
+
 
 IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
 
@@ -96,6 +91,10 @@ MyTabOne::~MyTabOne()
 {
 }
 
+/*!
+	 control handlers
+*/
+
 void MyTabOne::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -106,22 +105,20 @@ void MyTabOne::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(MyTabOne, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &MyTabOne::OnBnClickedButton1)
-	//ON_BN_CLICKED(IDC_BUTTON2, &MyTabOne::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &MyTabOne::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON4, &MyTabOne::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON5, &MyTabOne::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_SetFace, &MyTabOne::OnBnClickedSetface)
 	ON_WM_MOUSEMOVE()
-	//	ON_WM_RBUTTONDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_ERASEBKGND()
-	//	ON_WM_DELETEITEM()
 	ON_WM_DRAWITEM()
 END_MESSAGE_MAP()
 
 
 
+/*!
+	 mouse event handler for openCV
+*/
 void mouseHandler(int event, int x, int y, int flags, void *param) {
 
 	switch(event) {
@@ -194,41 +191,18 @@ void MyTabOne::OnBnClickedButton1()
 
 
 
-		//cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
-
 		cvSetMouseCallback( name, mouseHandler, NULL );
 		dbImage = cvLoadImage(path);
-		//cvShowImage(name, dbImage);
-
-		//cvNamedWindow("image", CV_WINDOW_AUTOSIZE);
-
-		//cvShowImage("image", img0[countImage]);
-
 		showImage();	//defined inside the class
 
-		//LoadImage(savePath, 255, 0, 1); //sent the pathe of image to opengl window    //ajith
-
-
-
-
+		
 	}
 
 }
 
-
-
-void MyTabOne::OnBnClickedButton3()
-{
-
-
-}
-
-
-void MyTabOne::OnBnClickedButton4()
-{
-	// TODO: Add your control notification handler code here
-}
-
+/*!
+	 thread to face wraping process
+*/
 
 
 UINT MyTabOne::MyThreadProc(LPVOID pParam)
@@ -327,12 +301,12 @@ void MyTabOne::OnBnClickedButton5()
 	}
 
 
-
-
-	//Sleep(100);
-
-	//Call the library termination function 
 }
+
+
+/*!
+	 to merge two images paste one on to another
+*/
 
 IplImage* MyTabOne ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
 {
@@ -365,7 +339,10 @@ int MyTabOne::getfHeight(){
 	return (yCoordinate[a + 3] - yCoordinate[a + 2]);
 }
 
-//resize the picture for the setFace
+/*!
+	resize the picture for the setFace to database
+*/
+
 void MyTabOne::resizePic(){
 	// Create an IplImage object *image 
 	IplImage *source = cvLoadImage( path);
@@ -406,7 +383,10 @@ void MyTabOne::resizePic(){
 
 }
 
-//resize the picture for the database collection
+/*!
+	resize the picture for the database collection
+*/
+
 void MyTabOne::resizePicDB(){
 
 	IplImage *source = cvLoadImage(path);
@@ -533,6 +513,9 @@ void MyTabOne::OnBnClickedSetface()
 
 }
 
+/*!
+	resize the picture for the setFace to database
+*/
 void MyTabOne::resizePic1(){
 
 	for (int i = 0;i < 3;i++) {
@@ -573,7 +556,9 @@ void MyTabOne::cropPic1(){
 	cvReleaseImage(&img1);
 }
 
-
+/*!
+find the appropriate image to select
+*/
 IplImage* MyTabOne::findImg(int x,int y){
 	IplImage *img = img0[countImage];
 
@@ -617,6 +602,9 @@ void MyTabOne::releaseImg(IplImage *a,int x,int y){
 	selPoint=-1;
 }
 
+/*!
+show image in the picture control after move each point
+*/
 
 void MyTabOne::showImage(){
 	IplImage *img2 = img0[countImage];
@@ -635,17 +623,17 @@ void MyTabOne::showImage(){
 	img.Load(savePath);
 	m_PicCtrl.SetBitmap((HBITMAP)img.Detach());
 
-	//SetDlgItemTextA(IDC_EDIT1, "Please Click LEFT EYE critical points");
-	//cvShowImage("image", img2);
 	cvReleaseImage(&img2);
 }
 
+/*!
+to handle OnMouseMove event in dialogs
+*/
 
 
 void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
-
+	
 	if((selPoint!=-1)&&(selectedImg!=NULL)){			
 		int poiX, poiY;
 		int X, Y;
@@ -682,7 +670,9 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 	}
 }
 
-
+/*!
+to handle OnLButtonDown event in dialogs
+*/
 void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	int poiX, poiY;
@@ -711,6 +701,9 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 	CDialog::OnLButtonDown(nFlags, point);
 }
 
+/*!
+to handle OnLButtonUp event in dialogs
+*/
 
 void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 {
@@ -748,6 +741,9 @@ int* getYCriticalPoints(){
 	return yCoordinate;
 }
 
+/*!
+histogram equalization
+*/
 void MyTabOne::HistogramEqualization(){
 	const char* name = "Histogram Equalization";
 	IplImage *img = cvLoadImage("res//Untitled.bmp", 3);
@@ -778,6 +774,9 @@ void MyTabOne::HistogramEqualization(){
 }
 
 
+/*!
+to change background color
+*/
 
 BOOL MyTabOne::OnEraseBkgnd(CDC* pDC)
 {
@@ -786,6 +785,9 @@ BOOL MyTabOne::OnEraseBkgnd(CDC* pDC)
 	return true;	//CDialog::OnEraseBkgnd(pDC);
 }
 
+/*!
+adding color to button controls
+*/
 
 bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
@@ -839,7 +841,9 @@ bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 }
 
-//Changing the Background colour of the Button
+/*!
+Changing the Background colour of the Button
+*/
 
 void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {

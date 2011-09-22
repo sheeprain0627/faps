@@ -1,7 +1,9 @@
 #pragma once
 
 
-// MyTabOne dialog
+/*
+* MyTabOne dialog represents tab 1
+*/
 #include "resource.h"
 #include "afxwin.h"
 #include "highgui.h"
@@ -11,29 +13,42 @@ class MyTabOne : public CDialog
 	DECLARE_DYNAMIC(MyTabOne)
 
 public:
-	MyTabOne(CWnd* pParent = NULL);   // standard constructor
+	MyTabOne(CWnd* pParent = NULL);   
 	virtual ~MyTabOne();
 
 	// Dialog Data
-	enum { IDD = IDD_DIALOG1 };
+	enum { IDD = IDD_DIALOG1 };		/*!< Enum value IDD. */
 
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	/*!
+	 DDX/DDV support
+	\param a CDataExchange argument.
+	*/
+	virtual void DoDataExchange(CDataExchange* pDX);    
 
 	DECLARE_MESSAGE_MAP()
 
 public:
-	//afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	//afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	//afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	
+	/*!
+	 to load the image
+	*/
 	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
-	afx_msg void OnBnClickedButton4();
-	CStatic m_PicCtrl;
+
+	/*!
+	 histogram matching for Database
+	*/
 	afx_msg void OnBnClickedButton5();
+
+	/*!
+	 getting width
+	*/
 	int getfwidth();
+
+	/*!
+	 getting height
+	*/
 	int getfHeight();
 	void resizePic();
 	void cropPic();
@@ -57,12 +72,13 @@ public:
 
 	bool SBitdraw(CDC *pDC, UINT nIDResource, int i);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	//		afx_msg void OnDeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
+
 	CStatic m_text1;
 	CStatic m_text2;
 	static UINT MyThreadProc(LPVOID pParam);
 	CProgressCtrl warpWait;
+	CStatic m_PicCtrl;
 };
 
 int* getXCriticalPoints();
