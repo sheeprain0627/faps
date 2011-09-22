@@ -9,16 +9,26 @@
 
 IMPLEMENT_DYNAMIC(MyFTabCtrl, CTabCtrl)
 
+/*!
+constructor of MyFTabCtrl
+*/
 	MyFTabCtrl::MyFTabCtrl()
 {
 	m_nPageCount = 0;
 }
 
+/*!
+destructor of MyFTabCtrl
+*/
 MyFTabCtrl::~MyFTabCtrl()
 {
 }
 
-
+/*!
+to add a page to dialog
+\param pPageWnd as CWnd of Dialog
+\param lpTitle as LPTSTR of title of tab control
+*/
 void MyFTabCtrl::AddPage(CWnd *pPageWnd, LPTSTR lpTitle)
 {
 	TCITEM	itemPage;
@@ -31,6 +41,11 @@ void MyFTabCtrl::AddPage(CWnd *pPageWnd, LPTSTR lpTitle)
 	m_nPageCount == 0?pPageWnd->ShowWindow(SW_SHOW) : pPageWnd->ShowWindow(SW_HIDE);
 	m_nPageCount++;
 }
+
+/*!
+to show current page
+\param nShowState as UNIT of control ID
+*/
 
 void MyFTabCtrl::ShowCurPage(UINT nShowState)
 {
@@ -56,18 +71,22 @@ END_MESSAGE_MAP()
 
 
 
-
+/*!
+hadling on select changes
+*/
 void MyFTabCtrl::OnTcnSelchanging(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	ShowCurPage(SW_HIDE);
-	// TODO: Add your control notification handler code here
+	
 	*pResult = 0;
 }
 
-
+/*!
+hadling on select changes
+*/
 void MyFTabCtrl::OnTcnSelchange(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	ShowCurPage(SW_SHOW);
-	// TODO: Add your control notification handler code here
+	
 	*pResult = 0;
 }
