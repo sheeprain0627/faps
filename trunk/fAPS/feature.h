@@ -1,5 +1,7 @@
 #pragma once
-
+/*
+* defining features of face in 3D model
+*/
 #include "Tdsloader.h"
 class feature
 {
