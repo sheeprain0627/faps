@@ -4,7 +4,9 @@
 #include "highgui.h"
 using namespace cv;
 
-// MyTabThree dialog
+/*
+* tab 3 dialog class
+*/
 
 class MyTabThree : public CDialog
 {
