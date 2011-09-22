@@ -1,7 +1,15 @@
+//!  OpenGL controller class. 
+/*!
+  Discribe how the OpenGl 3D rendering scene should be designed and how it's integrated with MFC dialogs.
+*/
+
+
 #include "StdAfx.h"
 #include "OpenGLControl.h"
 
-
+/*!
+	 Define the OpenGL 3d scene. Position of the 3d object, zoom level and camera view
+*/
 
 COpenGLControl::COpenGLControl(void)
 {
@@ -32,11 +40,12 @@ END_MESSAGE_MAP()
 
 void COpenGLControl::OnPaint()
 {
-	//CPaintDC dc(this); // device context for painting
-	// TODO: Add your message handler code here
-	// Do not call CWnd::OnPaint() for painting messages
 	ValidateRect(NULL);
 }
+
+/*!
+	 Create a rectangle area in MFC dialog and assign the palce to OpenGL secen
+*/
 
 void COpenGLControl::oglCreate(CRect rect, CWnd *parent)
 {
@@ -47,19 +56,29 @@ void COpenGLControl::oglCreate(CRect rect, CWnd *parent)
 	// Set initial variables' values
 	m_oldWindow    = rect;
 	m_originalRect = rect;
-
 	hWnd = parent;
 }
+
+
+/*!
+	 Load the OpenGL 3D scene when the apllication starts
+*/
 int COpenGLControl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	// TODO:  Add your specialized creation code here
+	/*!
+	 Initialize the 3D scene
+   */
 	oglInitialize();
-
 	return 0;
 }
+
+
+/*!
+	 Initialize the OpenGL 3d scene compenents. 
+*/
 
 void COpenGLControl::oglInitialize(void)
 {
@@ -106,6 +125,8 @@ void COpenGLControl::oglInitialize(void)
 	OnDraw(NULL);
 }
 
+
+
 void COpenGLControl::OnDraw(CDC *pDC)
 {
 	glLoadIdentity();
@@ -113,8 +134,6 @@ void COpenGLControl::OnDraw(CDC *pDC)
 	glTranslatef(m_fPosX, m_fPosY, 0.0f);
 	glRotatef(m_fRotX, 0.0f, 1.0f, 0.0f);
 	glRotatef(m_fRotY, 1.0f, 0.0f, 0.0f);
-
-	// TODO: Camera controls.
 }
 
 void COpenGLControl::OnTimer(UINT_PTR nIDEvent)
@@ -140,10 +159,12 @@ void COpenGLControl::OnTimer(UINT_PTR nIDEvent)
 	default:
 		break;
 	}
-	// TODO: Add your message handler code here and/or call default
-
 	CWnd::OnTimer(nIDEvent);
 }
+
+/*!
+	 Draw the 3D object in OpenGL scene 
+*/
 
 void COpenGLControl::drewScreen(){
 
@@ -152,7 +173,6 @@ void COpenGLControl::drewScreen(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw OpenGL scene
-	// fm.display();
 	oglDrawScene();
 
 	// Swap buffers
@@ -165,7 +185,6 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
 
-	// TODO: Add your message handler code here
 	if (0 >= cx || 0 >= cy || nType == SIZE_MINIMIZED) return;
 
 	// Map the OpenGL coordinates.
@@ -187,24 +206,26 @@ void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 }
 
 
-
+/*!
+	 Display the 3D object in OpenGL scene
+*/
 
 void COpenGLControl::oglDrawScene(void)
 {
-
 	display();
-
 }
 
 
+
+/*!
+Handling the mouse movements on OpenGL scene
+\param nFlags Indicates whether various virtual keys are down. This parameter can be any combination of the following values
+\param point Specifies the x- and y-coordinate of the cursor. These coordinates are always relative to the upper-left corner of the window.
+*/
+
 void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
-	//display(GL_POINTS);
-
-	//modify();
-
-
+	
 	int diffX = (int)(point.x - m_fLastX);
 	int diffY = (int)(point.y - m_fLastY);
 	m_fLastX  = (float)point.x;
@@ -246,10 +267,13 @@ void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
 	CWnd::OnMouseMove(nFlags, point);
 }
 
+/*!
+Handling the mouse wheel movement on OpenGL scene
+\param nFlags Indicates whether various virtual keys are down. This parameter can be any combination of the following values
+\param point Specifies the x- and y-coordinate of the cursor. These coordinates are always relative to the upper-left corner of the window.
+*/
 
 BOOL COpenGLControl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	// TODO: Add your message handler code here and/or call default
-
 	return CWnd::OnMouseWheel(nFlags, zDelta, pt);
 }
