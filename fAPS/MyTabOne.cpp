@@ -1,5 +1,6 @@
-// MyTabOne.cpp : implementation file
-//
+/*
+* MyTabOne.cpp : implementation file
+*/
 
 #include "stdafx.h"
 #include "MyTabOne.h"
@@ -76,6 +77,10 @@ int selPoint = -1;
 
 IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
 
+
+/*!
+	 constructor of tab1
+*/
 	MyTabOne::MyTabOne(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabOne::IDD, pParent)
 {
@@ -87,6 +92,9 @@ IMPLEMENT_DYNAMIC(MyTabOne, CDialog)
 	}
 }
 
+/*!
+	 destructor of tab 1
+*/
 MyTabOne::~MyTabOne()
 {
 }
@@ -428,8 +436,10 @@ void MyTabOne::resizePicDB(){
 	cvReleaseImage(&source);
 }
 
+/*!
+	crop the picture for the setFace
+*/
 
-//crop the picture for the setFace
 void MyTabOne::cropPic(){
 
 	/* load image */
@@ -484,6 +494,9 @@ void MyTabOne::cropPic(){
 	changeXYZ(xCoordinate, yCoordinate, criticalPoints1);
 }
 
+/*!
+crop the picture for the setFace
+*/
 
 void MyTabOne::OnBnClickedSetface()
 {
@@ -534,6 +547,9 @@ void MyTabOne::resizePic1(){
 	}
 }
 
+/*!
+crop the picture 
+*/
 void MyTabOne::cropPic1(){
 
 	int x0 = xCoordinate[0];
@@ -582,8 +598,9 @@ IplImage* MyTabOne::findImg(int x,int y){
 	return img;
 }
 
-
-//release the selected point from image
+/*!
+release the selected point from image
+*/
 void MyTabOne::releaseImg(IplImage *a,int x,int y){
 	IplImage *img1 = cvCloneImage(a);
 	cvRectangle(img1, 
@@ -733,9 +750,16 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 }
 
+/*!
+getting X critical points
+*/
 int* getXCriticalPoints(){
 	return xCoordinate;
 }
+
+/*!
+getting Y critical points
+*/
 
 int* getYCriticalPoints(){
 	return yCoordinate;

@@ -62,9 +62,7 @@ public:
 	void MyTabOne::releaseImg(IplImage *a,int x,int y);
 	void MyTabOne::showImage();
 	void HistogramEqualization();		
-	void tempCrop();
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	//		afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 
@@ -74,11 +72,11 @@ public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 
-	CStatic m_text1;
-	CStatic m_text2;
-	static UINT MyThreadProc(LPVOID pParam);
-	CProgressCtrl warpWait;
-	CStatic m_PicCtrl;
+	CStatic m_text1;	/*!< CStatic value m_text1. */
+	CStatic m_text2;	/*!< CStatic value m_text2. */
+	static UINT MyThreadProc(LPVOID pParam);	
+	CProgressCtrl warpWait;	/*!< CProgressCtrl value warpWait. */
+	CStatic m_PicCtrl;		/*!< CStatic value m_PicCtrl. */
 };
 
 int* getXCriticalPoints();
