@@ -330,7 +330,15 @@ void MyTabThree::OnBnClickedApplyage()
 
 void MyTabThree::OnBnClickedsaveface()
 {
-	captureImage();
+	CFileDialog saveDlg(FALSE, ".bmp", NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST, "Bitmap Files(*.bmp)|*.bmp||",this);
+
+	saveDlg.m_ofn.lpstrTitle = _T("Save Image");
+
+	if (saveDlg.DoModal() == IDOK) {
+		CString spath = saveDlg.GetPathName();
+
+	captureImage(spath.GetBuffer(spath.GetLength()));
+	}
 	// TODO: Add your control notification handler code here
 }
 
