@@ -406,11 +406,6 @@ void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 		}
 	}
 
-	//cvWarpPerspective( src, dst, fundamental_matrix);
-	//IplImage *xformed1=cvCreateImage(cvGetSize(src), 8, 1);
-
-
-	//IplImage *xformed1 = cvCreateImage( xformed_size, IPL_DEPTH_8U, 3 );
 	CvMat* perspective_mat=cvCreateMat(3,3,CV_32FC1);;
 
 	cvmSet(perspective_mat,0,0,2);
@@ -445,6 +440,4 @@ void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 	cvGetAffineTransform( srcTri, dstTri, affine_mat );
 	cvWarpAffine( src, img_out, affine_mat );
 
-
-	
 }
