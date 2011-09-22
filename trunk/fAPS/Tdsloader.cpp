@@ -726,7 +726,7 @@ void drawBox(){
 
 
 //captures the current image and fill it in current data
-void captureImage() 
+void captureImage(char *spath) 
 {
 	int width=300;
 	int height=400;
@@ -734,7 +734,7 @@ void captureImage()
 	BYTE* currentData=(BYTE *)malloc(width*height*4);
 	glPixelStorei(GL_PACK_ALIGNMENT, 4); 
 	glReadPixels(0,0,width,height,GL_BGRA_EXT,GL_UNSIGNED_BYTE,currentData);
-	WriteBmp("output//output.bmp",width,height,32,(int *)currentData);
+	WriteBmp(spath,width,height,32,(int *)currentData);
 }
 
 //writes the data into a .bmp image and saves it
