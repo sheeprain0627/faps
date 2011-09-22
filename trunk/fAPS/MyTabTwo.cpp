@@ -120,8 +120,6 @@ void MyTabTwo::OnBnClickedButton3()
 void MyTabTwo::OnBnClickedButton9()
 {
 
-	makeLine();
-	// TODO: Add your control notification handler code here
 }
 
 
@@ -172,8 +170,7 @@ void MyTabTwo::OnBnClickedButton8()
 	CString s;
 	GetDlgItemText(IDC_EDIT2, s);
 	int x = atoi( s );
-	markVertex(x);
-	// TODO: Add your control notification handler code here
+	
 }
 
 
