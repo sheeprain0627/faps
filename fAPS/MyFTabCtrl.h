@@ -1,7 +1,9 @@
 #pragma once
 
 
-// MyFTabCtrl
+/*
+* the controller for the tab
+*/
 
 class MyFTabCtrl : public CTabCtrl
 {
