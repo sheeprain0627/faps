@@ -8,7 +8,7 @@
 class MyFTabCtrl : public CTabCtrl
 {
 	DECLARE_DYNAMIC(MyFTabCtrl)
-	int		m_nPageCount;
+	int		m_nPageCount;	/*!< int value m_nPageCount of no of pages. */
 
 public:
 	MyFTabCtrl();
