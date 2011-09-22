@@ -1,15 +1,14 @@
-// MyTabTwo.cpp : implementation file
-//
+//!  tab 2 controller class
+/*!
+  contrll the functionalities of tab2
+*/
 
 #include "stdafx.h"
 #include "MyTabTwo.h"
 #include "afxdialogex.h"
 #include "OpenGLControl.h"
 #include <sstream>
-//#include "Tdsloader"
 
-//hh
-// MyTabTwo dialog
 
 IMPLEMENT_DYNAMIC(MyTabTwo, CDialog)
 
@@ -26,7 +25,6 @@ MyTabTwo::~MyTabTwo()
 void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//DDX_Control(pDX, IDC_COMBO1, myCombo);	
 	DDX_Control(pDX, IDC_EDIT3, contrat);
 }
 
@@ -35,7 +33,6 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_BN_CLICKED(IDC_RADIO1, &MyTabTwo::OnBnClickedRadio1)
 	ON_BN_CLICKED(IDC_RADIO2, &MyTabTwo::OnBnClickedRadio2)
 	ON_BN_CLICKED(IDC_BUTTON2, &MyTabTwo::OnBnClickedButton2)	
-	ON_BN_CLICKED(IDC_UP, &MyTabTwo::OnBnClickedUp)
 	ON_BN_CLICKED(IDC_MoveUp, &MyTabTwo::OnBnClickedMoveup)
 	ON_BN_CLICKED(IDC_MoveRight, &MyTabTwo::OnBnClickedMoveright)
 	ON_BN_CLICKED(IDC_MoveDown, &MyTabTwo::OnBnClickedMovedown)
@@ -44,90 +41,76 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
-
-// MyTabTwo message handlers
-
+/*
+* Methodthat chage the 3d model mode to GL_POINTS
+*/
 
 void MyTabTwo::OnBnClickedRadio1()
-{
-	//MessageBox("Points");
-	//modify();
-	//display(c);
-	//COpenGLControl::m_type=GL_POINTS;
+{	
 	changeMode(GL_POINTS);
-	// TODO: Add your control notification handler code here
 }
 
+
+/*
+* Methodthat chage the 3d model mode to GL_TRIANGLES
+*/
 
 void MyTabTwo::OnBnClickedRadio2()
 {
-	//COpenGLControl::m_type=GL_TRIANGLES;
 	changeMode(GL_TRIANGLES);
-
-	// TODO: Add your control notification handler code here
 }
+
+
 
 
 void MyTabTwo::OnBnClickedButton2()
 {
-	//IDC_EDIT1 aa;
-	//MyTabTwo bb;
-
 	CString s;
 	GetDlgItemText(IDC_EDIT1, s);
 	float x = atof( s );
 
-	//int nIndex = IDC_COMBO1.GetCurSel();
 	CString selectedString;
-	// string strText;
-	// int  cmbBoxindex=myCombo.GetItemData(IDC_COMBO1);
 	int cmbindex=myCombo.GetCurSel();
 	myCombo.GetLBText(cmbindex,selectedString);
-	//myCombo.getlb
-	//m_cmbBox.GetLBText(m_cmbBox.GetCurSel() ,strCBText);
-	// GetLBText(IDC_COMBO1,s);
-	// m_cbExample.GetLBText( nIndex, strCBText);
-
-
-
-	///////////////////////////////////////////////////////////////////////////////////
-	/*
-	modify(x,selectedString);
-
-	*/
-	/////////////////////////////////////////////////////////////////////////////////
-
-	// TODO: Add your control notification handler code here
 }
 
-
-void MyTabTwo::OnBnClickedUp()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
+/*
+* Method that move the texture up in the 3d model
+*/
 void MyTabTwo::OnBnClickedMoveup()
 {
 	move('u');
 }
 
-
+/*
+* Method that move the texture right in the 3d model
+*/
 void MyTabTwo::OnBnClickedMoveright()
 {
 	move('r');
 }
 
+/*
+* Method that move the texture down in the 3d model
+*/
 
 void MyTabTwo::OnBnClickedMovedown()
 {
 	move('d');
 }
 
+/*
+* Method that move the texture left in the 3d model
+*/
+
 void MyTabTwo::OnBnClickedButton4()
 {
-	move('l');// TODO: Add your control notification handler code here
+	move('l');
 }
+
+/*
+* Method that zoom the the 3d model
+*/
 
 void MyTabTwo::OnBnClickedZoom()
 {
@@ -137,10 +120,8 @@ void MyTabTwo::OnBnClickedZoom()
 
 BOOL MyTabTwo::OnEraseBkgnd(CDC* pDC)
 {
-
-
 	SBitdraw(pDC, IDB_TABBACKGRND, 1);
-	return true;//CDialog::OnEraseBkgnd(pDC);
+	return true;
 }
 
 bool MyTabTwo::SBitdraw(CDC *pDC, UINT nIDResource, int i) 

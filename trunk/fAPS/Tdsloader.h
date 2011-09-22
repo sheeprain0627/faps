@@ -1,4 +1,11 @@
 #pragma once
+
+
+//!  3ds file readed class 
+/*!
+  Read the 3ds files and process it. It contains all the methods that are used to process the 3ds file and the face texture.
+*/
+
 #include <GL/glut.h>
 
 class Tdsloader
@@ -8,23 +15,6 @@ public:
 	~Tdsloader(void);
 	void changecheek(float val,int age);
 };
-
-/*
- * ---------------- www.spacesimulator.net --------------
- *   ---- Space simulators and 3d engine tutorials ----
- *
- * Author: Damiano Vitulli
- *
- * This program is released under the BSD licence
- * By using this program you agree to licence terms on spacesimulator.net copyright page
- *
- *
- * Tutorial 4: 3d engine - 3ds models loader
- * 
- * File header: tutorial4.h
- *  
- */
-
 
 
 /**********************************************************
@@ -38,7 +28,7 @@ public:
 
 
 
-//GLenum m_type=GL_POINTS;
+
 // Our vertex type
 typedef struct{
     float x,y,z;
