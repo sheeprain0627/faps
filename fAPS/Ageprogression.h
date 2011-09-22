@@ -12,13 +12,6 @@ public:
 	~Ageprogression(void);
 	void texureEnhancePrototype(float p,int age);
 
-	/*!
-	\param q an float argument.
-	\sa setSigma(float q), mergeImage(IplImage* target, IplImage* source, int x, int y)
-	*/
-		
-		
-
 	void applyIbsdt(float q);
 
 	void setSigma(float q);
