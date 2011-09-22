@@ -1,5 +1,9 @@
 #include <cv.h>
 #include <cvaux.h>
+
+/*
+* to calculate matrix in shape warping
+*/
 class metrixCalculation{
 
 public:
