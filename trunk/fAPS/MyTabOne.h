@@ -43,11 +43,13 @@ public:
 
 	/*!
 	 getting width
+	 \return int as width
 	*/
 	int getfwidth();
 
 	/*!
 	 getting height
+	 \return int as heightS
 	*/
 	int getfHeight();
 	void resizePic();

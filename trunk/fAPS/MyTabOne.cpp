@@ -313,7 +313,12 @@ void MyTabOne::OnBnClickedButton5()
 
 
 /*!
-	 to merge two images paste one on to another
+method use in merge two images
+\param src an IplImage as source image
+\param overlay IplImage as the image which gets overlayed on source image 
+\param location a CvPoint as giving location to overlay
+\param s a CvScalar
+\param D a CvScalar.
 */
 
 IplImage* MyTabOne ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)
@@ -600,6 +605,9 @@ IplImage* MyTabOne::findImg(int x,int y){
 
 /*!
 release the selected point from image
+\param a as IplIamge as selected image
+\param x as int of location
+\param y as int of location
 */
 void MyTabOne::releaseImg(IplImage *a,int x,int y){
 	IplImage *img1 = cvCloneImage(a);
@@ -645,6 +653,8 @@ void MyTabOne::showImage(){
 
 /*!
 to handle OnMouseMove event in dialogs
+\param nFlags as UINT
+\param point as CPoint represetns the x,y points of pane
 */
 
 
@@ -689,6 +699,8 @@ void MyTabOne::OnMouseMove(UINT nFlags, CPoint point)
 
 /*!
 to handle OnLButtonDown event in dialogs
+\param nFlags as UINT
+\param point as CPoint represetns the x,y points of pane
 */
 void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 {
@@ -720,6 +732,8 @@ void MyTabOne::OnLButtonDown(UINT nFlags, CPoint point)
 
 /*!
 to handle OnLButtonUp event in dialogs
+\param nFlags as UINT
+\param point as CPoint represetns the x,y points of pane
 */
 
 void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
@@ -752,6 +766,7 @@ void MyTabOne::OnLButtonUp(UINT nFlags, CPoint point)
 
 /*!
 getting X critical points
+\return int as x coordiante
 */
 int* getXCriticalPoints(){
 	return xCoordinate;
@@ -759,6 +774,7 @@ int* getXCriticalPoints(){
 
 /*!
 getting Y critical points
+\return int as y coordinate
 */
 
 int* getYCriticalPoints(){
@@ -810,7 +826,10 @@ BOOL MyTabOne::OnEraseBkgnd(CDC* pDC)
 }
 
 /*!
-adding color to button controls
+to change background color of each controls
+\param pDC as CDC
+\param nIDResource contrl ID of the item
+\param i as position of the backgrnd
 */
 
 bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
@@ -865,8 +884,11 @@ bool MyTabOne::SBitdraw(CDC *pDC, UINT nIDResource, int i)
 
 }
 
+
 /*!
-Changing the Background colour of the Button
+OndrawItem handler to change the color of buttons
+\param nIDCtl as contrl ID
+\param lpDrawItemStruct
 */
 
 void MyTabOne::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
