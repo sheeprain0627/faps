@@ -4,6 +4,9 @@
 #include "highgui.h"
 using namespace cv;
 
+/*
+* to detect facial components such as eye, nose and mouth
+*/
 class detectFaceComponets{
 
 public:
@@ -14,5 +17,5 @@ public:
 	void detectMouth( IplImage *img,CvRect *r);
 	int *getFeaturePoints_x();
 	int *getFeaturePoints_y();
-	CvPoint *getFeaturePoints();
+	CvPoint *getFeaturePoints(); /*!< float value sigma. */
 };
