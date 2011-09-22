@@ -8,6 +8,13 @@
 #include <math.h> 
 #include <iostream>
 
+/*!
+Matrix Multiplication
+\param a an float of double pointer
+\param b as float of dounle pointer
+\return matrix as float
+*/
+
 
 float **metrixCalculation::MatrixMultiplication(float **a, float **b){
 
@@ -34,8 +41,12 @@ float **metrixCalculation::MatrixMultiplication(float **a, float **b){
 		return c;
 }
 
-//*******************matirx multiplication****************//
-
+/*!
+Matrix inversion
+\param A an float of double pointer
+\param order as int
+\return matrix as float
+*/
 float **metrixCalculation::MatrixInversion(float **A, int order)
 {
 
@@ -75,7 +86,17 @@ float **metrixCalculation::MatrixInversion(float **A, int order)
 	return Y;
 }
 
-// calculate the cofactor of element (row,col)
+
+/*!
+calculate the cofactor of element (row,col)
+\param src an float of double pointer
+\param dest as float of dounle pointer
+\param row as int-no of rows
+\param col as int- no of columns
+\param order as int
+\return int
+*/
+
 int metrixCalculation::GetMinor(float **src, float **dest, int row, int col, int order)
 {
 	// indicate which col and row is being copied to dest
@@ -102,7 +123,13 @@ int metrixCalculation::GetMinor(float **src, float **dest, int row, int col, int
 	return 1;
 }
 
-// Calculate the determinant recursively.
+/*!
+ Calculate the determinant recursively.
+\param mat an float of double pointer
+\param order as int
+\return as double
+*/
+
 double metrixCalculation::CalcDeterminant( float **mat, int order)
 {
 	// order must be >= 0
@@ -136,7 +163,10 @@ double metrixCalculation::CalcDeterminant( float **mat, int order)
 }
 
 
-//float **metrixCalculation::WrapFuction(int trg_img_cordinate_x[13],int trg_img_cordinate_y[13],int db_img_cordinate_x[13],int db_img_cordinate_y[13] ){
+/*!
+Calculate the determinant recursively.
+\return float
+*/
 float **metrixCalculation::WrapFuction(){
 	int trg_img_cordinate_x[19]={65,80,80,102,132,147,149,165,116,101,132,88,119,117,144,33,199,117,117};
 	int trg_img_cordinate_y[19]={127,117,131,127,127,113,130,124,121,171,169,201,193,210,201,142,142,102,253};
@@ -228,8 +258,12 @@ float **metrixCalculation::WrapFuction(){
 }
 
 
-/*
+/*!
 Function takes OpenCV image as input and dumps its pixels to a file specified by filename in function arguments.
+\param img as IplImage of input
+\param filename as char pointer
+\param mat as CvMat
+\return int
 */
 int metrixCalculation::WritePixelsToFile(IplImage *img,const char *filename,CvMat* mat)
 {
@@ -310,6 +344,12 @@ int metrixCalculation::WritePixelsToFile(IplImage *img,const char *filename,CvMa
 	fclose(file);
 	return 1;
 } 
+
+/*!
+calculate fundermental matrix
+\param src as ImplImage of input
+\param dst as IplIamge as destination
+*/
 
 void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 {
@@ -406,9 +446,5 @@ void metrixCalculation::CalFundermentalMatrix(IplImage *src,IplImage *dst)
 	cvWarpAffine( src, img_out, affine_mat );
 
 
-	//cvPerspectiveTransform( src, img_out, fundamental_matrix);
-	//cvWarpPerspective( src, img_out, fundamental_matrix,CV_INTER_LINEAR ,cvScalarAll( 0 )  );
-
-	//WritePixelsToFile(dst,"output1",fundamental_matrix);
-
+	
 }
