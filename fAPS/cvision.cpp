@@ -18,16 +18,15 @@ BEGIN_MESSAGE_MAP(CcvisionApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
-
-// CcvisionApp construction
+/*!
+CcvisionApp construction
+*/
 
 CcvisionApp::CcvisionApp()
 {
-	// support Restart Manager
+	
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
 
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 }
 
 
@@ -36,7 +35,10 @@ CcvisionApp::CcvisionApp()
 CcvisionApp theApp;
 
 
-// CcvisionApp initialization
+/*!
+CcvisionApp initialization
+\return false as boolean
+*/
 
 BOOL CcvisionApp::InitInstance()
 {
