@@ -268,10 +268,6 @@ void test(){
 			object.mapcoord[i].v-=1;
 
 		}
-
-		//object.mapcoord[i].u=atan((object.vertex[i].x/object.vertex[i].y)/PI+0.5);
-		//object.mapcoord[i].v=asin((object.vertex[i].x/PI)+0.5);
-
 	}
 }
 
@@ -280,6 +276,10 @@ void scaleTex(){
 
 }
 
+/*!
+Move the texture
+\param dir direction of the movement
+*/
 
 void move(char dir){
 	switch(dir){
@@ -345,6 +345,11 @@ void sdisplay(){
 
 }
 
+/*!
+Display the 3ds file
+*/
+
+
 void display(){	
 
 	glBindTexture(GL_TEXTURE_2D, object.id_texture);
@@ -356,19 +361,9 @@ void display(){
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-
 	// set the blending mode
-	//glEnable(GL_BLEND);
+	
 	glBlendFunc(GL_ONE,GL_ONE);
-
-	// set second texture
-	//(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//CString path2="res//pil.bmp";
-
-
-
 	glBindTexture(GL_TEXTURE_2D, object.id_texture2);
 
 	sdisplay();
@@ -415,6 +410,10 @@ void modify(float x, CString selctVal){
 }
 
 
+/*!
+Method that changes the texture mapping coordiante
+*/
+
 
 void changeVU(int x[],int y[],int cpoints[]){
 
@@ -431,6 +430,9 @@ void changeVU(int x[],int y[],int cpoints[]){
 
 }
 
+/*!
+Method that changes the texture mapping coordiante
+*/
 
 void changeVU1(float u1,float  v1){
 
@@ -473,6 +475,15 @@ void changeXYZ(int x[],int y[],int cpoints[]){
 	float newREyeVertexVal=(ori_object.vertex[cpoints[7]].x)*rightEyeRatio;
 	rightEyeChangeVal=newREyeVertexVal-ori_object.vertex[cpoints[7]].x;
 }
+
+
+/*!
+Method that read the image and store the data into model
+\param path file path of image
+\param tlevel tranparent level of the face testure
+\param blevel brightness level of the face testure
+\param clevel contrast level of the face testure
+*/
 
 
 int LoadBitmap(CString path,int tlevel,int blevel,float clevel) 
@@ -545,51 +556,13 @@ int LoadBitmap(CString path,int tlevel,int blevel,float clevel)
 		// We load an RGB value from the file
 		fread(&rgb, sizeof(rgb), 1, l_file); 				
 
-
-		/*if(((i>(230*240)+58+u && i<(230*240)+160+u)) && (i<(230*240)+58+32*240)) {
-
-		//if(text_dif[w+0]>8 || text_dif[w+0] <-8 ) 	
-		l_text[w+2] = 0.5*(rgb.rgbtRed + text_dif[w+0]); // Red component
-
-		//else if( text_dif[w+1]>8 || text_dif[w+1]<-8)
-		l_text[w+1] = 0.5*(rgb.rgbtGreen + text_dif[w+1]); // Green component
-
-		//else if( text_dif[w+2]>8 || text_dif[w+2]<-8)
-		l_text[w+0] = 0.5*(rgb.rgbtBlue + text_dif[w+2]); // Blue component
-
-		/*else {
-
-		l_text[w+2] = rgb.rgbtRed;
-		l_text[w+1] = rgb.rgbtGreen;
-		l_text[w+0] = rgb.rgbtBlue;
-		}*/
-
-		/*l_texture[j+0] = 0.88*(rgb.rgbtRed + text_dif[w+0]); // Red component
-		l_texture[j+1] = 0.88*(rgb.rgbtGreen + text_dif[w+1]); // Green component
-		l_texture[j+2] =  0.88*(rgb.rgbtBlue + text_dif[w+2]); // Blue component
-
-		/*l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
-		l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
-		l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component*/
-		/*l_texture[j+3] = tlevel; // Alpha value
-		j += 4; // Go to the next position
-
-		w +=3;
-		if(i==(230*240)+159+u)
-		u += 240;
-
-		}
-
-
-		else {*/
-
 		// And store it
 		l_texture[j+0] = clevel*(rgb.rgbtRed-blevel); // Red component
 		l_texture[j+1] = clevel*(rgb.rgbtGreen-blevel); // Green component
 		l_texture[j+2] = clevel*(rgb.rgbtBlue-blevel); // Blue component
 		l_texture[j+3] = tlevel; // Alpha value
 		j += 4; // Go to the next position
-		//}
+		
 	}
 
 
@@ -625,9 +598,7 @@ void LoadImage(CString path,int tlevel,int blevel,float clevel){
 	ori_object.id_texture=object.id_texture=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
 	glBindTexture(GL_TEXTURE_2D, object.id_texture);
-
-	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
-}//
+}
 
 
 //for binding face
@@ -637,10 +608,12 @@ void LoadImage2(CString path,int tlevel,int blevel,float clevel){
 	ori_object.id_texture2=LoadBitmap(path,tlevel,blevel,clevel); // The Function LoadBitmap() return the current texture ID
 
 	glBindTexture(GL_TEXTURE_2D, object.id_texture2);
+}
 
-	//glBindTexture(GL_TEXTURE_2D, LoadBitmap(path));
-}//
-
+/*!
+method that changes the contrast level of the face testure
+\param clevel contrast level of the face testure
+*/
 
 void changeContrast(float clevel){
 	object.id_texture=LoadBitmap(opath,255,0,1.0-clevel); // The Function LoadBitmap() return the current texture ID
@@ -653,10 +626,11 @@ void changeContrast(float clevel){
 
 }
 
-//deform the image according to the given face size
 
+/*!
+method that draw a box on selected vertex point
 
-
+*/
 
 void drawBox(){
 

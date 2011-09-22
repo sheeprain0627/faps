@@ -31,8 +31,7 @@ public:
 	afx_msg void OnCbnSelchangeCombo1();
 	CComboBox myCombo;
 	CSliderCtrl agebar;
-	CEdit contrat;
-	afx_msg void OnBnClickedUp();
+	CEdit contrat;	
 	afx_msg void OnBnClickedMoveup();
 
 	afx_msg void OnBnClickedMoveright();
