@@ -2,9 +2,7 @@
 #include "afxwin.h"
 #include <GL/GL.h>
 #include <GL/GLU.H>
-//#include "FaceModel.h"
 #include "Tdsloader.h"
-//#include "MAIN.H"
 
 /*
 * openGL controller for 3d

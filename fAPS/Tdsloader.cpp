@@ -1,3 +1,8 @@
+//!  3ds file readed class 
+/*!
+  Read the 3ds files and process it. It contains all the methods that are used to process the 3ds file and the face texture.
+*/
+
 #include "StdAfx.h"
 #include "Tdsloader.h"
 #include <stdio.h>
@@ -60,6 +65,13 @@ int filling=1; //0=OFF 1=ON
 obj_type object;
 obj_type ori_object;
 CString opath,tpath;
+
+
+/*!
+Load the 3ds file and create the model for rendering the 3D scene
+\param p_object object model of face
+\param p_filename file path of 3ds file
+*/
 
 char Load3DS (obj_type_ptr p_object, char *p_filename)
 {
@@ -163,13 +175,9 @@ char Load3DS (obj_type_ptr p_object, char *p_filename)
 			for (i=0; i<l_qty; i++)
 			{
 				fread (&p_object->polygon[i].a, sizeof (unsigned short), 1, l_file);
-				//printf("Polygon point a: %d\n",p_object->polygon[i].a);
 				fread (&p_object->polygon[i].b, sizeof (unsigned short), 1, l_file);
-				//printf("Polygon point b: %d\n",p_object->polygon[i].b);
 				fread (&p_object->polygon[i].c, sizeof (unsigned short), 1, l_file);
-				//printf("Polygon point c: %d\n",p_object->polygon[i].c);
 				fread (&l_face_flags, sizeof (unsigned short), 1, l_file);
-				//printf("Face flags: %x\n",l_face_flags);
 			}
 			break;
 
@@ -207,18 +215,9 @@ char Load3DS (obj_type_ptr p_object, char *p_filename)
 
 void init(){
 	glEnable(GL_TEXTURE_2D); // This Enable the Texture mapping
-
-
-	//this enable the trasparence on texture
-	//glEnable(GL_CULL_FACE);
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
+	
 	//read and load 3ds data to memeory
 	Load3DS (&object,"res//facemodel.3ds");
-
-	//object.id_texture=LoadBitmap("D:\\Works\\MFC works\\FAPS\\fAPS\\fAPS\\face1.bmp"); // The Function LoadBitmap() return the current texture ID
 
 	opath="res//facetemplete.bmp";
 	tpath="res//black.bmp";
@@ -226,25 +225,33 @@ void init(){
 	object.id_texture2=LoadBitmap(tpath,255,0,0);
 
 	ori_object=object;
-	//glBindTexture(GL_TEXTURE_2D, object.id_texture);
-
 }
 
 
-void changeMode(GLenum mode){
+/*!
+Change the view mode of 3d model
+\param mode mode of 3d model : point/line
+*/
 
+void changeMode(GLenum mode){
 	m_type=mode;
 
 }
+
+/*!
+reset the 3d model with default values
+*/
 
 void reset()
 {
 	object=ori_object;
 	glDisable (GL_TEXTURE_2D);
-	//changeContrast(1);
 }
 
 
+/*!
+set the texture on 3d model 
+*/
 
 void setTexture(CString path)
 {
@@ -252,28 +259,6 @@ void setTexture(CString path)
 }
 
 
-void makeLine(){
-
-	for(int i=1280;i<1303;i++){
-
-		object.vertex[i].y+=0.5;
-		//object.mapcoord[i].v*=1.15;
-
-	}
-
-}
-
-void markVertex(int vertex){
-	//glBegin(GL_POINTS);
-	//glPointSize(2);
-	//glColor3f (1.0, 1.0, 0.0); 	
-	//glColor4f(particles[z].colr, particles[z].colg, particles[z].colb, particles[z].life);
-
-	//glVertex3f(object.vertex[vertex].x,object.vertex[vertex].y, object.vertex[vertex].z);
-	//	glEnd();
-
-	object.mapcoord[vertex].u=0;object.mapcoord[vertex].v=0;
-}
 
 void test(){
 	const double PI = 4.0*atan(1.0);
@@ -291,8 +276,6 @@ void test(){
 }
 
 void scaleTex(){
-
-
 	glScalef(2,2,2);
 
 }
@@ -329,7 +312,6 @@ void move(char dir){
 }
 
 void sdisplay(){
-
 
 	int l_index;
 	glBegin(m_type); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
@@ -393,24 +375,9 @@ void display(){
 
 	glDepthFunc(GL_LESS);   // return to normal depth mode
 	glDisable(GL_BLEND);    // don't need blending any more
-
-
-
-	/*
-	glBegin(GL_POINTS);
-	glPointSize(20);
-	glTexCoord2f( object.mapcoord[ object.polygon[50].a ].u, object.mapcoord[ object.polygon[50].a ].v);
-	// Coordinates of the first vertex
-	glVertex3f( object.vertex[ object.polygon[50].a ].x,
-	object.vertex[ object.polygon[50].a ].y,
-	object.vertex[ object.polygon[50].a ].z); //Vertex definition
-	glEnd();
-
-	*/
-
-
 	glFlush(); // This force the execution of OpenGL commands
 }
+
 
 void Tdsloader::changecheek(float val,int age){
 	if(val>0){
@@ -445,9 +412,8 @@ void modify(float x, CString selctVal){
 
 	featureInstance.changeNose(&object,noseChangeVal);
 	featureInstance.changeMouth(&object,mouthChangeVal);
-
-
 }
+
 
 
 void changeVU(int x[],int y[],int cpoints[]){
@@ -718,12 +684,15 @@ void drawBox(){
 			object.vertex[ object.polygon[l_index].c ].z);
 	}
 	glEnd();  
-
-
 	glFlush();
 
 }
 
+/*!
+method that captures the current image and fill it in current data
+\param spath save file path name
+
+*/
 
 //captures the current image and fill it in current data
 void captureImage(char *spath) 
@@ -737,7 +706,16 @@ void captureImage(char *spath)
 	WriteBmp(spath,width,height,32,(int *)currentData);
 }
 
-//writes the data into a .bmp image and saves it
+/*!
+writes the data into a .bmp image and saves it
+\param name file name
+\param W width of the image
+\param H heght of the image
+\param Bpp 
+\param data image data
+*/
+
+
 void WriteBmp(char* name,int W,int H,int Bpp,int* data)	 
 {
 	BITMAPINFO Bmi={0};
@@ -772,9 +750,13 @@ void WriteBmp(char* name,int W,int H,int Bpp,int* data)
 	fclose(image);
 }
 
+
+/*
+* Reset the model parameters
+*/
+
 void resetModel(){
 	object=ori_object;
-	//glDisable (GL_TEXTURE_2D);
 	changeContrast(0);
 
 }
