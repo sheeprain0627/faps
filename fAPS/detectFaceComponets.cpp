@@ -23,11 +23,19 @@ int defaultXCoordinate[]={59 , 78,  79,  98, 137, 154, 157, 173, 118, 99, 143, 8
 int defaultYCoordinate[]={119,110, 130, 124, 124, 109, 130, 119, 115, 173, 172, 201, 189, 215,198, 137, 140, 88, 257    };
 
 
+/*!
+to detect components
+\return Cvpoint as pointsArry
+*/
 CvPoint *detectFaceComponets::getFeaturePoints(){
 	return pointsArry;
 }
 
-/*Mouth detect ion*/
+/*!
+to detect mouth
+\param img an IplImage argument of input image
+\param r an CvRect argument the ROI area of mouth.
+*/
 void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 {
 	CvSeq *mouth;
@@ -82,8 +90,11 @@ void detectFaceComponets::detectMouth( IplImage *img,CvRect *r)
 
 }
 
-
-/*Nose detection*/
+/*!
+to detect nose
+\param img an IplImage argument of input image
+\param r an CvRect argument the ROI area of mouth.
+*/
 void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 {
 	CvSeq *nose;
@@ -131,8 +142,12 @@ void detectFaceComponets::detectNose( IplImage *img,CvRect *r)
 
 }
 
+/*!
+to detect eye
+\param img an IplImage argument of input image
+\param r an CvRect argument the ROI area of mouth.
+*/
 
-/*Eyes detection*/
 void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 {
 	char *eyecascade;
@@ -210,7 +225,12 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 
 }
 
-//********************* detect the facial features*******************//
+/*!
+detect the facial features
+\param img an IplImage argument of input image
+\param temp an IplImamge argument to store temporary image.
+\Param img_no as int represents the image no.
+*/ 
 
 void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img,int img_no)
 {
@@ -306,6 +326,10 @@ void detectFaceComponets::detectFacialFeatures( IplImage *img,IplImage *temp_img
 
 }
 
+/*!
+load the facial images
+\param img an IplImage argument of input image
+*/
 
 void detectFaceComponets::loadFaceImages(IplImage *img)
 {

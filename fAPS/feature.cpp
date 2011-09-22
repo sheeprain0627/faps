@@ -5,12 +5,16 @@
 #include <conio.h>
 #include <io.h>
 
-
+/*!
+feature constructor
+*/
 feature::feature(void)
 {
 }
 
-
+/*!
+feature destructor
+*/
 feature::~feature(void)
 {
 }
@@ -19,7 +23,10 @@ feature::~feature(void)
 
 obj_type ori_pObject;
 
-
+/*!
+set 3D Object to model
+\param pObject an obj_type_ptr argument of model
+*/
 void feature::set3Dobject(obj_type_ptr pObject){
 
 	ori_pObject.vertices_qty=pObject->vertices_qty;
@@ -37,7 +44,11 @@ void feature::set3Dobject(obj_type_ptr pObject){
 // change nose cordinates
 
 
-//**************spring model deformation of ****************//
+/*!
+spring model deformation of nose
+\param pObject an obj_type_ptr argument of model
+\param aggesmntVal as float to deform the model with specified value
+*/
 void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
 
 	int highVal[12]={472,506,540,575,609,647,686,724,760,797,835,873};
@@ -81,7 +92,11 @@ void feature::changeNose(obj_type_ptr pObject, float aggesmntVal){
 }
 
 
-//****************change mouth coordinates*********************//
+/*!
+spring model deformation of mouth
+\param pObject an obj_type_ptr argument of model
+\param aggesmntVal as float to deform the model with specified value
+*/
 void feature::changeMouth(obj_type_ptr pObject,float aggesmntVal){
 	int highVal[12]={197,228,259,289,318,350}; // first lover lip points then upper lip points
 	int lowVal[12]=	{190,218,247,276,307,337};
@@ -110,7 +125,11 @@ void feature::changeMouth(obj_type_ptr pObject,float aggesmntVal){
 
 }
 
-// ****************change left eye coordinates ***********************//
+/*!
+spring model deformation of left eye
+\param pObject an obj_type_ptr argument of model
+\param aggesmntVal as float to deform the model with specified value
+*/
 void feature::changeLeftEye(obj_type_ptr pObject, float aggesmntVal){
 	int highVal[5]={860,900,946,987,1030}; // 
 	int lowVal[5]=	{863,902,950,997,1041};
@@ -130,7 +149,11 @@ void feature::changeLeftEye(obj_type_ptr pObject, float aggesmntVal){
 }
 
 
-//****************change right eye coordinates***********************//
+/*!
+spring model deformation of right eye
+\param pObject an obj_type_ptr argument of model
+\param aggesmntVal as float to deform the model with specified value
+*/
 void feature::changeRightEye(obj_type_ptr pObject, float aggesmntVal){
 	int highVal[5]={881,920,967,1012,1056}; // 
 	int lowVal[5]=	{879,918,965,1003,1046};
@@ -148,8 +171,12 @@ void feature::changeRightEye(obj_type_ptr pObject, float aggesmntVal){
 	}
 }
 
-//************************deformation of cheek in 3D model************//
 
+/*!
+deformation of cheek in 3D model
+\param pObject an obj_type_ptr argument of model
+\param aggesmntVal as float to deform the model with specified value
+*/
 void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 
 
@@ -323,7 +350,13 @@ void feature::changeCheek(obj_type_ptr pObject,  float aggesmntVal ){
 	pObject->vertex[values_6[0]].z=ori_pObject.vertex[values_6[0]].z - aggesmntVal*4/8 ;
 }
 
-//********************use to appply linear interpolation****************//
+
+/*!
+use to appply linear interpolation
+\param changingVertex an float of the vertex value
+\param nonChangingVertex as float of non changing factor 
+\param changeVal as float of chnging factor
+*/
 
 float feature::calculateGradiant(float changingVertex, float nonChangingVertex, float changeVal){
 	//float gradiant;
