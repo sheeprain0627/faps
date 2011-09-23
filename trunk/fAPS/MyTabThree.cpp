@@ -1,5 +1,6 @@
-// MyTabThree.cpp : implementation file
-//
+/*
+*MyTabThree.cpp : implementation file
+*/
 
 #include "stdafx.h"
 #include "MyTabThree.h"
@@ -24,16 +25,26 @@ detectFaceComponets facedetect;
 
 IMPLEMENT_DYNAMIC(MyTabThree, CDialog)
 
+/*!
+	 constructor of tab3
+*/
+
 	MyTabThree::MyTabThree(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabThree::IDD, pParent)
 {
 
 }
 
+/*!
+	 destructor of tab3
+*/
 MyTabThree::~MyTabThree()
 {
 }
 
+/*!
+	 control handlers
+*/
 void MyTabThree::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -56,7 +67,9 @@ END_MESSAGE_MAP()
 // MyTabThree message handlers
 
 
-
+/*!
+button 1 as getting sigma value used in testing purpose
+*/
 void MyTabThree::OnBnClickedButton1()
 {
 
@@ -70,13 +83,19 @@ void MyTabThree::OnBnClickedButton1()
 	age.texureEnhancePrototype(x,eage);
 }
 
+/*!
+used in testing purpose
+*/
 
 void MyTabThree::OnBnClickedPick()
 {
 	drawBox();
-	// TODO: Add your control notification handler code here
+	
 }
 
+/*!
+to load the texture on top of 3D model and face view the face simulation
+*/
 
 void MyTabThree::OnBnClickedLoadtexture()
 {
@@ -93,7 +112,9 @@ void MyTabThree::OnBnClickedLoadtexture()
 	}
 }
 
-
+/*!
+slide bar to trackle two images on top of another
+*/
 void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 {
 
@@ -116,7 +137,9 @@ void MyTabThree::OnNMCustomdrawAgebar(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+/*!
+used in testing purpose
+*/
 void MyTabThree::OnEnChangeEdit1()
 {
 
@@ -127,7 +150,9 @@ void MyTabThree::OnEnChangeEdit1()
 
 }
 
-
+/*!
+used in testing purpose to show the histogram of  the image
+*/
 void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel_name)
 {
 	IplImage* img, * canvas;
@@ -183,7 +208,9 @@ void MyTabThree::show_histogram(char* window_title, IplImage* src, char* channel
 	cvReleaseImage(&img);
 }
 
-
+/*!
+used in testing purpose to get prameters like standard deviation and mean of image intensity values
+*/
 double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplImage* dst1)
 {
 
@@ -288,7 +315,10 @@ double* MyTabThree::histeq(IplImage* src, IplImage* dst)//, IplImage* src1, IplI
 
 
 
-
+/*!
+used in testing purpose to check by giving inputs to get prameters
+\sa histeq(IplImage* src, IplImage* dst)
+*/
 void MyTabThree::OnBnClickedButton3()
 {
 
@@ -305,7 +335,9 @@ void MyTabThree::OnBnClickedButton3()
 
 }
 
-
+/*!
+use to apply aging prototype on the given image after getting age group as input.
+*/
 void MyTabThree::OnBnClickedApplyage()
 {
 	agebar.SetPos(20);
@@ -324,10 +356,12 @@ void MyTabThree::OnBnClickedApplyage()
 	else
 		MessageBox("Please enter the correct age group, Eg: 10, 20, . . , 80","Input Error . . .",MB_ICONEXCLAMATION |MB_OK);
 
-	// TODO: Add your control notification handler code here
+	
 }
 
-
+/*!
+to save the 3D model.
+*/
 void MyTabThree::OnBnClickedsaveface()
 {
 	CFileDialog saveDlg(FALSE, ".bmp", NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST, "Bitmap Files(*.bmp)|*.bmp||",this);
@@ -339,10 +373,12 @@ void MyTabThree::OnBnClickedsaveface()
 
 	captureImage(spath.GetBuffer(spath.GetLength()));
 	}
-	// TODO: Add your control notification handler code here
+	
 }
 
-
+/*!
+use intesting purpose.
+*/
 void MyTabThree::OnBnClickedButton4()
 {
 
@@ -422,7 +458,16 @@ void MyTabThree::OnBnClickedButton4()
 }
 
 
-// Compute histogram and CDF for an image with mask
+/*!
+Compute histogram and CDF for an image with mask
+\param _i as Mat in the input
+\param mask as Mat in deciding which area to transfer
+\param h as double pointer
+\param cdf as double pointer of the total pixels
+\sa histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask), OnBnClickedNew()
+	
+*/
+
 void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf) {
 	Mat _t = _i.reshape(1,1);
 
@@ -464,6 +509,16 @@ void MyTabThree::do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* c
 	minMaxLoc(_tmp,&minVal,&maxVal);
 	_tmp = _tmp / maxVal;
 }
+
+/*!
+Compute histogram
+\param src as Mat in the input
+\param src_mask as Mat in the input mask to decide the changable area
+\param dst as Mat in deciding destination
+\param dst_mask as Mat in the destination mask to decide the changable area
+\sa  OnBnClickedNew(), do1ChnHist(const Mat& _i, const Mat& mask, double* h, double* cdf) {
+	
+*/
 
 Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, const Mat& dst_mask) {
 #ifdef BTM_DEBUG
@@ -541,12 +596,14 @@ Mat MyTabThree::histMatchRGB(Mat& src, const Mat& src_mask, const Mat& dst, cons
 	return res;
 }
 
-
+/*!
+use methods to compute histogram in testing.	
+*/
 
 void MyTabThree::OnBnClickedNew()
 {
 
-	// TODO: Add your control notification handler code here
+	
 	Mat src=cvLoadImage("res\\FACEE2.bmp");
 
 
@@ -566,7 +623,9 @@ void MyTabThree::OnBnClickedNew()
 
 
 
-
+/*!
+to change background color
+*/
 
 
 
@@ -577,6 +636,12 @@ BOOL MyTabThree::OnEraseBkgnd(CDC* pDC)
 	return true;//CDialog::OnEraseBkgnd(pDC);
 }
 
+/*!
+to change background color of each controls
+\param pDC as CDC
+\param nIDResource contrl ID of the item
+\param i as position of the backgrnd
+*/
 
 bool MyTabThree::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
