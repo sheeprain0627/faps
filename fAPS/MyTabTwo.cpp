@@ -1,6 +1,6 @@
 //!  tab 2 controller class
 /*!
-  contrll the functionalities of tab2
+  control the functionalities of tab2
 */
 
 #include "stdafx.h"
@@ -11,6 +11,9 @@
 
 
 IMPLEMENT_DYNAMIC(MyTabTwo, CDialog)
+/*!
+	 constructor of tab2
+*/
 
 	MyTabTwo::MyTabTwo(CWnd* pParent /*=NULL*/)
 	: CDialog(MyTabTwo::IDD, pParent)
@@ -18,10 +21,17 @@ IMPLEMENT_DYNAMIC(MyTabTwo, CDialog)
 
 }
 
+/*!
+	 destructor of tab2
+*/
+
 MyTabTwo::~MyTabTwo()
 {
 }
 
+/*!
+	 control handlers
+*/
 void MyTabTwo::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -41,8 +51,8 @@ BEGIN_MESSAGE_MAP(MyTabTwo, CDialog)
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
-/*
-* Methodthat chage the 3d model mode to GL_POINTS
+/*!
+Methodthat chage the 3d model mode to GL_POINTS
 */
 
 void MyTabTwo::OnBnClickedRadio1()
@@ -61,7 +71,9 @@ void MyTabTwo::OnBnClickedRadio2()
 }
 
 
-
+/*!
+use in testing purpose.
+*/
 
 void MyTabTwo::OnBnClickedButton2()
 {
@@ -74,24 +86,24 @@ void MyTabTwo::OnBnClickedButton2()
 	myCombo.GetLBText(cmbindex,selectedString);
 }
 
-/*
-* Method that move the texture up in the 3d model
+/*!
+Method that move the texture up in the 3d model
 */
 void MyTabTwo::OnBnClickedMoveup()
 {
 	move('u');
 }
 
-/*
-* Method that move the texture right in the 3d model
+/*!
+Method that move the texture right in the 3d model
 */
 void MyTabTwo::OnBnClickedMoveright()
 {
 	move('r');
 }
 
-/*
-* Method that move the texture down in the 3d model
+/*!
+Method that move the texture down in the 3d model
 */
 
 void MyTabTwo::OnBnClickedMovedown()
@@ -99,8 +111,8 @@ void MyTabTwo::OnBnClickedMovedown()
 	move('d');
 }
 
-/*
-* Method that move the texture left in the 3d model
+/*!
+Method that move the texture left in the 3d model
 */
 
 void MyTabTwo::OnBnClickedButton4()
@@ -108,8 +120,8 @@ void MyTabTwo::OnBnClickedButton4()
 	move('l');
 }
 
-/*
-* Method that zoom the the 3d model
+/*!
+Method that zoom the the 3d model
 */
 
 void MyTabTwo::OnBnClickedZoom()
@@ -117,12 +129,22 @@ void MyTabTwo::OnBnClickedZoom()
 	scaleTex();
 }
 
+/*!
+to change background color
+*/
 
 BOOL MyTabTwo::OnEraseBkgnd(CDC* pDC)
 {
 	SBitdraw(pDC, IDB_TABBACKGRND, 1);
 	return true;
 }
+
+/*!
+to change background color of each controls
+\param pDC as CDC
+\param nIDResource contrl ID of the item
+\param i as position of the backgrnd
+*/
 
 bool MyTabTwo::SBitdraw(CDC *pDC, UINT nIDResource, int i) 
 {
