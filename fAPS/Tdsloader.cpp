@@ -30,11 +30,16 @@ ofstream textureDif("res\\texture_dif.txt");
 
 
 feature featureInstance;
+/*!
+	 constructor of Tdsloader
+*/
 Tdsloader::Tdsloader(void)
 {
 }
 
-
+/*!
+	 destructor of Tdsloader
+*/
 Tdsloader::~Tdsloader(void)
 {
 }
@@ -373,6 +378,11 @@ void display(){
 	glFlush(); // This force the execution of OpenGL commands
 }
 
+/*!
+	 changing cheek value
+	 \param val as float deciding how much to deform
+	 \param age as int of which age group
+*/
 
 void Tdsloader::changecheek(float val,int age){
 	if(val>0){
@@ -401,7 +411,11 @@ void Tdsloader::changecheek(float val,int age){
 
 }
 
-
+/*!
+	 to mdify the 3D model
+	 \param x as float deciding how much to deform
+	 \param selctVal as CString.
+*/
 void modify(float x, CString selctVal){
 	featureInstance.set3Dobject(&object);
 
@@ -412,6 +426,9 @@ void modify(float x, CString selctVal){
 
 /*!
 Method that changes the texture mapping coordiante
+\param x as int array of x coordinates
+\param y as int array of y coordiantes
+\param cpoints as int array to chnage
 */
 
 
@@ -432,6 +449,8 @@ void changeVU(int x[],int y[],int cpoints[]){
 
 /*!
 Method that changes the texture mapping coordiante
+\param u1 as float of  u coordinates
+\param v1 as float v coordinates
 */
 
 void changeVU1(float u1,float  v1){
