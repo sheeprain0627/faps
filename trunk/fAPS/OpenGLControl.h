@@ -4,8 +4,8 @@
 #include <GL/GLU.H>
 #include "Tdsloader.h"
 
-/*
-* openGL controller for 3d
+/*!
+openGL controller for 3d
 */
 
 class COpenGLControl :	public CWnd
