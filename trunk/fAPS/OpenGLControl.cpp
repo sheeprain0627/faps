@@ -24,6 +24,9 @@ COpenGLControl::COpenGLControl(void)
 
 }
 
+/*!
+	 destructor of Tdsloader
+*/
 
 COpenGLControl::~COpenGLControl(void)
 {
