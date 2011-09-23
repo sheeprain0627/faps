@@ -37,7 +37,9 @@ BEGIN_MESSAGE_MAP(COpenGLControl, CWnd)
 	ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
 
-
+/*!
+	 on paint mfc based method. 
+*/
 void COpenGLControl::OnPaint()
 {
 	ValidateRect(NULL);
@@ -126,7 +128,9 @@ void COpenGLControl::oglInitialize(void)
 }
 
 
-
+/*!
+	 OnDraw mfc based method. 
+*/
 void COpenGLControl::OnDraw(CDC *pDC)
 {
 	glLoadIdentity();
@@ -136,6 +140,9 @@ void COpenGLControl::OnDraw(CDC *pDC)
 	glRotatef(m_fRotY, 1.0f, 0.0f, 0.0f);
 }
 
+/*!
+	 OnTimer to refresh the 3D model within given time. 
+*/
 void COpenGLControl::OnTimer(UINT_PTR nIDEvent)
 {
 
@@ -180,7 +187,9 @@ void COpenGLControl::drewScreen(){
 
 }
 
-
+/*!
+	 Onsize openGL based method. 
+*/
 void COpenGLControl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
