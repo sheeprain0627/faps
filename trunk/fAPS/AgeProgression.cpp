@@ -28,7 +28,7 @@ const int NO_IMAGES=3;
 
 /*!
 create the age prototype
-\param q an float argument of sigma value
+\param p an float argument of sigma value
 \param age an int argument as age group.
 */
 
@@ -363,7 +363,7 @@ method use in merge two images
 \param src an IplImage as source image
 \param overlay IplImage as the image which gets overlayed on source image 
 \param location a CvPoint as giving location to overlay
-\param s a CvScalar
+\param S a CvScalar
 \param D a CvScalar.
 */
 void Ageprogression ::cvOverlayImage(IplImage* src, IplImage* overlay, CvPoint location, CvScalar S, CvScalar D)

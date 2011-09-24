@@ -99,8 +99,8 @@ MyTabOne::~MyTabOne()
 {
 }
 
-/*!
-	 control handlers
+/*!	 control handlers
+	 \param pDX CDataExchange argument.
 */
 
 void MyTabOne::DoDataExchange(CDataExchange* pDX)
@@ -317,7 +317,7 @@ method use in merge two images
 \param src an IplImage as source image
 \param overlay IplImage as the image which gets overlayed on source image 
 \param location a CvPoint as giving location to overlay
-\param s a CvScalar
+\param S a CvScalar
 \param D a CvScalar.
 */
 

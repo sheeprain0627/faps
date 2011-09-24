@@ -282,7 +282,8 @@ void COpenGLControl::OnMouseMove(UINT nFlags, CPoint point)
 /*!
 Handling the mouse wheel movement on OpenGL scene
 \param nFlags Indicates whether various virtual keys are down. This parameter can be any combination of the following values
-\param point Specifies the x- and y-coordinate of the cursor. These coordinates are always relative to the upper-left corner of the window.
+\param zDelta mouse control
+\param pt Specifies the x- and y-coordinate of the cursor. These coordinates are always relative to the upper-left corner of the window.
 */
 
 BOOL COpenGLControl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)

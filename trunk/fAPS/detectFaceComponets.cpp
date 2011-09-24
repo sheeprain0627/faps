@@ -227,8 +227,8 @@ void detectFaceComponets::detectEyes( IplImage *img,CvRect *r)
 
 /*!
 detect the facial features
-\param img an IplImage argument of input image
-\param temp an IplImamge argument to store temporary image.
+\param *img an IplImage argument of input image
+\param *temp_img an IplImamge argument to store temporary image.
 \Param img_no as int represents the image no.
 */ 
 
