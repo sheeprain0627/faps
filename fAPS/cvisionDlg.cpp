@@ -51,7 +51,7 @@ END_MESSAGE_MAP()
 
 /*!
 	 constructor of CcvisionDlg
-	 \param parent a CWnd arguement.
+	 \param pParent a CWnd arguement.
 */
 
 CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
@@ -64,6 +64,7 @@ CcvisionDlg::CcvisionDlg(CWnd* pParent /*=NULL*/)
 	 control handler of CcvisionDlg
 	 handles tab control
 	 handles slider control
+	  \param pDX a CWnd arguement.
 */
 void CcvisionDlg::DoDataExchange(CDataExchange* pDX)
 {
