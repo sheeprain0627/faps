@@ -121,6 +121,7 @@
     <None Include="res\back.bmp" />
     <None Include="res\Background.bmp" />
     <None Include="res\bitmap1.bmp" />
+    <None Include="res\bitmap14.bmp" />
     <None Include="res\bitmap2.bmp" />
     <None Include="res\Button_Bitmaps\Cacel.bmp" />
     <None Include="res\cvision.ico" />

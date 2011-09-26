@@ -98,6 +98,9 @@
     <None Include="res\facetemplete.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\bitmap14.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvision.h">
