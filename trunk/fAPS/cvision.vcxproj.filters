@@ -34,9 +34,6 @@
     <None Include="res\Static-Image.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\Default-Image.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\newImage.bmp">
       <Filter>Resource Files</Filter>
     </None>

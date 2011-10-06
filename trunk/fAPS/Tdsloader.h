@@ -85,5 +85,6 @@ void captureImage(char *spath);
 void WriteBmp(char* name,int W,int H,int Bpp,int* data);	 //writes the data into a .bmp image and saves it
 void resetModel();
 void test();
+void addLogo(char* path);
 
 extern int num_texture;
