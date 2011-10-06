@@ -690,13 +690,14 @@ method that captures the current image and fill it in current data
 //captures the current image and fill it in current data
 void captureImage(char *spath) 
 {
-	int width=300;
+	int width=240;
 	int height=400;
 	glReadBuffer(GL_BACK);
 	BYTE* currentData=(BYTE *)malloc(width*height*4);
 	glPixelStorei(GL_PACK_ALIGNMENT, 4); 
-	glReadPixels(0,0,width,height,GL_BGRA_EXT,GL_UNSIGNED_BYTE,currentData);
+	glReadPixels(55,0,width,height,GL_BGRA_EXT,GL_UNSIGNED_BYTE,currentData);
 	WriteBmp(spath,width,height,32,(int *)currentData);
+	addLogo(spath);
 }
 
 /*!
@@ -721,7 +722,7 @@ void WriteBmp(char* name,int W,int H,int Bpp,int* data)
 	Bmi.bmiHeader.biSizeImage = W*H*Bpp/8; 
 
 
-	FILE* image = fopen (name,"wb");
+	FILE* image = fopen ("res//temp.bmp","wb");
 	if(image==0)
 		return;
 	int h = abs(Bmi.bmiHeader.biHeight);
@@ -739,8 +740,37 @@ void WriteBmp(char* name,int W,int H,int Bpp,int* data)
 
 	fwrite(&bfh,sizeof(bfh),1,image);
 	fwrite(&Bmi.bmiHeader,sizeof(BITMAPINFOHEADER),1,image);
-	fwrite(data,sz,1,image);
-	fclose(image);
+	fwrite(data,sz,1,image);	
+	fclose(image);	
+}
+
+
+void addLogo(char* name){
+	IplImage* img1=cvLoadImage("res//temp.bmp");
+	IplImage* img2=cvLoadImage("res//logo.jpg");
+
+
+
+	IplImage *dest = cvCreateImage( cvSize((int)240 ,(int)70),img2->depth, img2->nChannels );
+
+//use cvResize to resize source to a destination image
+cvResize(img2, dest);
+
+
+	/* define rectangle for ROI */
+CvRect rect = cvRect(0, 330, img1->width, img1->height);
+ 
+/* sets Region of Interest */
+cvSetImageROI(img1, rect);
+ 
+/* Add both images
+   Note that now both images have 'same' width & height */
+cvAdd(img1, dest, img1, NULL);
+ 
+/* always reset the region of interest */
+cvResetImageROI(img1);
+cvSaveImage(name,img1);
+
 }
 
 
