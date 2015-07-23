@@ -1,0 +1,3 @@
+Automatic face age progression is process of modifying an image of a person in order to predict how he/she will look like in future. To develop a computer based automatic face age progression system we need to consider how the shape of human faces changes with parallel to aging and what are the factors that causes for changes in the faces. We can identify those changes as shape change of the human skull, changes of the texture of the face and addition of wrinkles.
+
+![https://lh4.googleusercontent.com/-mmq06VQvGBw/UUPc6xtdz2I/AAAAAAAAEMU/4tB6bhIZnAY/s800/faps.png](https://lh4.googleusercontent.com/-mmq06VQvGBw/UUPc6xtdz2I/AAAAAAAAEMU/4tB6bhIZnAY/s800/faps.png)
